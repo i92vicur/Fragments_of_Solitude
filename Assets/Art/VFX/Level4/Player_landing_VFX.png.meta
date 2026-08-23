@@ -1,0 +1,276 @@
+fileFormatVersion: 2
+guid: 6c667fb7e0508484f9cc0879fd502df2
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 9178366887580488572
+    second: Player_landing_VFX_0
+  - first:
+      213: 372013538467008000
+    second: Player_landing_VFX_1
+  - first:
+      213: 8898931487618363972
+    second: Player_landing_VFX_2
+  - first:
+      213: -5634738576156592088
+    second: Player_landing_VFX_3
+  - first:
+      213: -2924953563670403958
+    second: Player_landing_VFX_4
+  - first:
+      213: 290232335802791544
+    second: Player_landing_VFX_5
+  - first:
+      213: 3706845952939635304
+    second: Player_landing_VFX_6
+  - first:
+      213: -556711684372477826
+    second: Player_landing_VFX_7
+  - first:
+      213: -4390353412822319746
+    second: Player_landing_VFX_8
+  - first:
+      213: -6020541330321802900
+    second: Player_landing_VFX_9
+  - first:
+      213: -14659380665504814
+    second: Player_landing_VFX_10
+  - first:
+      213: 1917828749886057745
+    second: Player_landing_VFX_11
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Player_landing_VFX_0
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 29
+        width: 114
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7351702e0c106f70800000000000000
+      internalID: 9178366887580488572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_landing_VFX_1
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 25
+        width: 124
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00e46fb9758a92500800000000000000
+      internalID: 372013538467008000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_landing_VFX_2
+      rect:
+        serializedVersion: 2
+        x: 515
+        y: 24
+        width: 125
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 442f7081a0b5f7b70800000000000000
+      internalID: 8898931487618363972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_landing_VFX_7
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 38
+        width: 56
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e784ba23ca92648f0800000000000000
+      internalID: -556711684372477826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Player_landing_VFX_8
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 32
+        width: 101
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7d3d4605d45213c0800000000000000
+      internalID: -4390353412822319746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: feee6e698aa935e48aa57f2a871bd7f2
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Player_landing_VFX_0: 9178366887580488572
+      Player_landing_VFX_1: 372013538467008000
+      Player_landing_VFX_10: -14659380665504814
+      Player_landing_VFX_11: 1917828749886057745
+      Player_landing_VFX_12: -1670041445
+      Player_landing_VFX_2: 8898931487618363972
+      Player_landing_VFX_3: -5634738576156592088
+      Player_landing_VFX_4: -2924953563670403958
+      Player_landing_VFX_5: 290232335802791544
+      Player_landing_VFX_6: 3706845952939635304
+      Player_landing_VFX_7: -556711684372477826
+      Player_landing_VFX_8: -4390353412822319746
+      Player_landing_VFX_9: -6020541330321802900
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
