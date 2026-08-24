@@ -147,11 +147,10 @@ public class ArenaBorder : MonoBehaviour
             bounds = new Bounds((Vector3)fallbackCenter, (Vector3)fallbackSize);
         }
 
-        // Build 4 corners (clockwise)
-        float minX = bounds.min.x;
-        float maxX = bounds.max.x;
-        float minY = bounds.min.y;
-        float maxY = bounds.max.y;
+        float minX = GetLeftArenaBorderX();
+        float maxX = GetRightArenaBorderX();
+        float minY = GetBottomArenaBorderY();
+        float maxY = GetTopArenaBorderY();
 
         corners[0] = new Vector3(minX, minY, 0f);
         corners[1] = new Vector3(minX, maxY, 0f);
@@ -176,36 +175,115 @@ public class ArenaBorder : MonoBehaviour
     private void OnDrawGizmos()
     {
         // Scene-view gizmo: draw the same rectangle so it's visible while editing.
-        Bounds bounds;
-        if (arenaBoundsRoot != null)
-        {
-            var colliders = arenaBoundsRoot.GetComponentsInChildren<Collider2D>();
-            if (colliders != null && colliders.Length > 0)
-            {
-                bounds = colliders[0].bounds;
-                for (int i = 1; i < colliders.Length; i++)
-                    bounds.Encapsulate(colliders[i].bounds);
-            }
-            else
-            {
-                bounds = new Bounds((Vector3)fallbackCenter, (Vector3)fallbackSize);
-            }
-        }
-        else
-        {
-            bounds = new Bounds((Vector3)fallbackCenter, (Vector3)fallbackSize);
-        }
+        float minX = GetLeftArenaBorderX();
+        float maxX = GetRightArenaBorderX();
+        float minY = GetBottomArenaBorderY();
+        float maxY = GetTopArenaBorderY();
 
         Gizmos.color = borderColor;
-        var bl = new Vector3(bounds.min.x, bounds.min.y, 0f);
-        var tl = new Vector3(bounds.min.x, bounds.max.y, 0f);
-        var tr = new Vector3(bounds.max.x, bounds.max.y, 0f);
-        var br = new Vector3(bounds.max.x, bounds.min.y, 0f);
+        var bl = new Vector3(minX, minY, 0f);
+        var tl = new Vector3(minX, maxY, 0f);
+        var tr = new Vector3(maxX, maxY, 0f);
+        var br = new Vector3(maxX, minY, 0f);
 
         Gizmos.DrawLine(bl, tl);
         Gizmos.DrawLine(tl, tr);
         Gizmos.DrawLine(tr, br);
         Gizmos.DrawLine(br, bl);
+    }
+
+    public float GetTopArenaBorderY()
+    {
+        return GetBoundaryY(true);
+    }
+
+    public float GetBottomArenaBorderY()
+    {
+        return GetBoundaryY(false);
+    }
+
+    public float GetLeftArenaBorderX()
+    {
+        return GetBoundaryX(true);
+    }
+
+    public float GetRightArenaBorderX()
+    {
+        return GetBoundaryX(false);
+    }
+
+    private float GetBoundaryY(bool top)
+    {
+        if (arenaBoundsRoot == null)
+            return fallbackCenter.y + (top ? fallbackSize.y * 0.5f : -fallbackSize.y * 0.5f);
+
+        var colliders = arenaBoundsRoot.GetComponentsInChildren<Collider2D>();
+        if (colliders == null || colliders.Length == 0)
+            return fallbackCenter.y + (top ? fallbackSize.y * 0.5f : -fallbackSize.y * 0.5f);
+
+        float best = top ? float.MinValue : float.MaxValue;
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            var col = colliders[i];
+            if (col == null)
+                continue;
+
+            float candidate = top ? col.bounds.min.y : col.bounds.max.y;
+            if (top)
+            {
+                if (candidate > best)
+                    best = candidate;
+            }
+            else
+            {
+                if (candidate < best)
+                    best = candidate;
+            }
+        }
+
+        if (top && best != float.MinValue)
+            return best;
+        if (!top && best != float.MaxValue)
+            return best;
+
+        return fallbackCenter.y + (top ? fallbackSize.y * 0.5f : -fallbackSize.y * 0.5f);
+    }
+
+    private float GetBoundaryX(bool left)
+    {
+        if (arenaBoundsRoot == null)
+            return fallbackCenter.x + (left ? -fallbackSize.x * 0.5f : fallbackSize.x * 0.5f);
+
+        var colliders = arenaBoundsRoot.GetComponentsInChildren<Collider2D>();
+        if (colliders == null || colliders.Length == 0)
+            return fallbackCenter.x + (left ? -fallbackSize.x * 0.5f : fallbackSize.x * 0.5f);
+
+        float best = left ? float.MaxValue : float.MinValue;
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            var col = colliders[i];
+            if (col == null)
+                continue;
+
+            float candidate = left ? col.bounds.max.x : col.bounds.min.x;
+            if (left)
+            {
+                if (candidate < best)
+                    best = candidate;
+            }
+            else
+            {
+                if (candidate > best)
+                    best = candidate;
+            }
+        }
+
+        if (left && best != float.MaxValue)
+            return best;
+        if (!left && best != float.MinValue)
+            return best;
+
+        return fallbackCenter.x + (left ? -fallbackSize.x * 0.5f : fallbackSize.x * 0.5f);
     }
 
     // Public helper to set the arena root and rebuild on demand
