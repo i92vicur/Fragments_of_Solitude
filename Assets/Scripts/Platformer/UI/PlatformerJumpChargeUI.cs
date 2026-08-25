@@ -1,3 +1,15 @@
+/*
+PlatformerJumpChargeUI.cs
+
+Purpose: Display the current jump charge as a runtime-created uGUI fill bar.
+
+Design decisions:
+- The bar reads NormalizedJumpCharge from PlatformerJumpController and is visible only while a grounded
+    charge is active, keeping presentation derived from the controller's state.
+- Canvas and Image setup is self-contained for prototype scenes; this component does not decide jump force
+    or consume input.
+*/
+
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;

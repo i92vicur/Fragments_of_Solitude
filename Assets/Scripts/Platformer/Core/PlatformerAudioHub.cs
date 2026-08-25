@@ -1,3 +1,15 @@
+/*
+PlatformerAudioHub.cs
+
+Purpose: Provide one persistent audio entry point for platformer jump, landing, dash, death and respawn cues.
+
+Design decisions:
+- A singleton survives scene reloads with DontDestroyOnLoad; duplicate instances destroy themselves.
+- Clips are played as one-shots through an automatically created AudioSource, and missing clips are safe no-ops.
+- Death marks a pending respawn cue, which plays only after PlatformerLevel3 finishes loading so the sound aligns
+    with the restarted player rather than the death frame.
+*/
+
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

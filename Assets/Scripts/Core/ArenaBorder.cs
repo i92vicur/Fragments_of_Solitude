@@ -43,6 +43,7 @@ public class ArenaBorder : MonoBehaviour
     [SerializeField] private Vector2 fallbackSize = new Vector2(20f, 12f);
 
     private LineRenderer lineRenderer;
+    private EdgeCollider2D boundarySource;
     // Shared material to avoid runtime allocations/leaks when creating many materials in editor/play mode
     private static Material s_lineMaterial = null;
     private readonly Vector3[] corners = new Vector3[4];
@@ -147,6 +148,17 @@ public class ArenaBorder : MonoBehaviour
             bounds = new Bounds((Vector3)fallbackCenter, (Vector3)fallbackSize);
         }
 
+        if (boundarySource != null)
+        {
+            Vector2[] points = boundarySource.points;
+            lineRenderer.positionCount = points.Length;
+            lineRenderer.loop = false;
+            for (int i = 0; i < points.Length; i++)
+                lineRenderer.SetPosition(i, boundarySource.transform.TransformPoint(points[i]));
+            lineRenderer.enabled = drawInGame;
+            return;
+        }
+
         float minX = GetLeftArenaBorderX();
         float maxX = GetRightArenaBorderX();
         float minY = GetBottomArenaBorderY();
@@ -174,6 +186,15 @@ public class ArenaBorder : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        if (boundarySource != null)
+        {
+            Vector2[] points = boundarySource.points;
+            Gizmos.color = borderColor;
+            for (int i = 1; i < points.Length; i++)
+                Gizmos.DrawLine(boundarySource.transform.TransformPoint(points[i - 1]), boundarySource.transform.TransformPoint(points[i]));
+            return;
+        }
+
         // Scene-view gizmo: draw the same rectangle so it's visible while editing.
         float minX = GetLeftArenaBorderX();
         float maxX = GetRightArenaBorderX();
@@ -210,6 +231,12 @@ public class ArenaBorder : MonoBehaviour
     public float GetRightArenaBorderX()
     {
         return GetBoundaryX(false);
+    }
+
+    public void SetBoundarySource(EdgeCollider2D source)
+    {
+        boundarySource = source;
+        RebuildBorder();
     }
 
     private float GetBoundaryY(bool top)

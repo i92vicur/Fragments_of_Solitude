@@ -1,3 +1,10 @@
+/*
+PlatformerAnimationSetup.cs
+
+Editor utility: create or repair the platformer Animator Controller and animation clips for the configured
+platformer player assets. It is setup-time tooling and writes imported animation assets, not runtime logic.
+*/
+
 #if UNITY_EDITOR
 using System.Collections.Generic;
 using System.Linq;

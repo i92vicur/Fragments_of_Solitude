@@ -1,3 +1,16 @@
+/*
+PuzzleBoard.cs
+
+Purpose: Run the sliding-tile puzzle on a configurable rectangular grid with one empty cell.
+
+Design decisions:
+- Tile positions are stored in a one-dimensional array; a move is legal only when the selected tile is
+    orthogonally adjacent to the empty cell.
+- Shuffle uses repeated legal moves rather than arbitrary permutations, guaranteeing solvability.
+- Visual movement is animated by a coroutine, while completion is determined from the logical array and
+    exposed through PuzzleCompleted for the HUD.
+*/
+
 using System.Collections;
 using System.Collections.Generic;
 using System;

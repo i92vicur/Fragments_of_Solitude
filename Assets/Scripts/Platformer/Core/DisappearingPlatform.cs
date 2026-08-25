@@ -1,3 +1,16 @@
+/*
+DisappearingPlatform.cs
+
+Purpose: Cycle a platform between solid, warning/countdown and hidden states after a trigger.
+
+Design decisions:
+- The collider and renderer are controlled together so a hidden platform cannot still block movement.
+- With triggerOnLanding enabled, only a descending player contact from above starts the countdown; otherwise
+    any accepted contact can trigger it. Trigger() remains available for external systems.
+- The warning phase changes the sprite color before hiding, then waits before restoring the platform. The
+    state machine is reset when the component is enabled.
+*/
+
 using UnityEngine;
 
 [DisallowMultipleComponent]

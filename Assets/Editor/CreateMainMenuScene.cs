@@ -1,3 +1,10 @@
+/*
+CreateMainMenuScene.cs
+
+Editor utility: scaffold the MainMenu scene, including camera, Canvas, EventSystem and navigation buttons.
+The generated UI is prototype wiring intended to be refined manually afterward.
+*/
+
 using UnityEditor;
 using UnityEditor.Events;
 using UnityEditor.SceneManagement;

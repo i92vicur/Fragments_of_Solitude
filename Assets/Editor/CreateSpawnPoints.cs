@@ -1,3 +1,10 @@
+/*
+CreateSpawnPoints.cs
+
+Editor utility: create or replace the PlayerStart and BossSpawnPoint objects in Main and wire the boss point
+into EnemySpawner. It edits and saves the scene selected by the tool's setup flow.
+*/
+
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;

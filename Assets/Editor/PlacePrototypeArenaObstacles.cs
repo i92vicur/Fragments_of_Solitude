@@ -1,3 +1,10 @@
+/*
+PlacePrototypeArenaObstacles.cs
+
+Editor utility: replace the Arena_Obstacles group with a fixed prototype arrangement of Small, Medium and
+Large obstacle prefab instances, assign the Environment layer, and save the target scene.
+*/
+
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;

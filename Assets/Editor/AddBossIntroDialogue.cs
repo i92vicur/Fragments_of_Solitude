@@ -1,3 +1,10 @@
+/*
+AddBossIntroDialogue.cs
+
+Editor utility: modify the boss prefab by adding the EasyDS player-detection/dialogue trigger used for the
+pre-fight introduction. It preserves the existing combat collider and saves the prefab asset.
+*/
+
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;

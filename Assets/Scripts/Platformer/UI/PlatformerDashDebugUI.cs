@@ -1,5 +1,17 @@
 using UnityEngine;
 using UnityEngine.UI;
+/*
+PlatformerDashDebugUI.cs
+
+Purpose: Show temporary text indicating whether the player's single air dash is ready or already used.
+
+Design decisions:
+- The overlay is created at runtime and listens to PlatformerJumpController.DashAvailabilityChanged, so it
+    does not poll gameplay state for its main updates.
+- This is diagnostic UI for the prototype, not the final platformer HUD; it should be replaceable without
+    changing the jump controller contract.
+*/
+
 using TMPro;
 
 [DisallowMultipleComponent]

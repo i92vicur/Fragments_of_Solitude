@@ -1,3 +1,10 @@
+/*
+MakeEnvironmentIndestructible.cs
+
+Editor utility: scan scene/prefab environment objects and remove Health components so decorative geometry
+cannot be damaged. This is a destructive normalization tool; review the confirmation dialog before running.
+*/
+
 using System;
 using System.Collections.Generic;
 using UnityEditor;

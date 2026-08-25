@@ -1,3 +1,15 @@
+/*
+RegularEnemyAnimationController.cs
+
+Purpose: Drive regular enemy Animator state, horizontal facing and temporary hit feedback.
+
+Design decisions:
+- Rigidbody2D velocity determines whether the enemy is running; EnemyContactDamage determines attack.
+- Damage events start a hit timer that takes priority over attack and run, and SpriteRenderer.flipX mirrors
+    the horizontal movement without changing the transform.
+- The controller is presentation-only: it observes Health and never changes combat state.
+*/
+
 using UnityEngine;
 
 [DisallowMultipleComponent]

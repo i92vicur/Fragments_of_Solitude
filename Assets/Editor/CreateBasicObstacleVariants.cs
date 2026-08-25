@@ -1,3 +1,10 @@
+/*
+CreateBasicObstacleVariants.cs
+
+Editor utility: derive the Small, Medium and Large obstacle prefab variants from the base obstacle prefab,
+applying the configured scale differences and saving each asset for placement tools.
+*/
+
 using System.IO;
 using UnityEditor;
 using UnityEditor.SceneManagement;

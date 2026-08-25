@@ -1,3 +1,16 @@
+/*
+LongestPathPuzzleBoardView.cs
+
+Purpose: Render LongestPathPuzzleManager's graph as a generated uGUI board.
+
+Design decisions:
+- Nodes, roads, labels and controls are created under this RectTransform rather than relying on per-edge
+    prefabs, keeping the view synchronized with serialized graph data.
+- Dictionaries keyed by node and connection IDs let event handlers recolor the affected visual efficiently.
+- RebuildVisualBoard is the authoritative refresh path; manager events update route highlights and completion
+    state without duplicating graph rules in the UI.
+*/
+
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;

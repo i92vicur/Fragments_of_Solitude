@@ -1,3 +1,10 @@
+/*
+CreateFloorVisuals.cs
+
+Editor utility: place the prototype floor visuals in the arena so the playable region is visually separated
+from the surrounding world. It edits the selected scene and saves the generated objects.
+*/
+
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;

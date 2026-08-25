@@ -291,14 +291,7 @@ public class EasyDS : MonoBehaviour
         if (manager == null)
             return false;
 
-        if (manager.interactKey != KeyCode.None && Input.GetKeyDown(manager.interactKey))
-            return true;
-
-        return Input.GetKeyDown(KeyCode.E)
-            || Input.GetKeyDown(KeyCode.F)
-            || Input.GetKeyDown(KeyCode.Space)
-            || Input.GetKeyDown(KeyCode.Return)
-            || Input.GetKeyDown(KeyCode.KeypadEnter);
+        return manager.interactKey != KeyCode.None && Input.GetKeyDown(manager.interactKey);
     }
 
     private static void ToggleController(Behaviour controller, bool enabled)

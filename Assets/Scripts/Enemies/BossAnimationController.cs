@@ -1,3 +1,14 @@
+/*
+BossAnimationController.cs
+
+Purpose: Select the boss Animator state from movement, contact-attack and recent damage state.
+
+Design decisions:
+- Health.OnHealthChanged starts a short hurt window; hurt takes priority over attack and run until it expires.
+- EnemyContactDamage supplies the attack state, while this component only translates gameplay state into
+    animation names and does not apply damage or movement.
+*/
+
 using UnityEngine;
 
 [DisallowMultipleComponent]

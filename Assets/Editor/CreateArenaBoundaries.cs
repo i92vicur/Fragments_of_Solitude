@@ -1,3 +1,10 @@
+/*
+CreateArenaBoundaries.cs
+
+Editor utility: replace or create the Arena_Bounds root with four invisible Environment BoxCollider2D walls
+around the prototype arena. The target scene is Main.unity when it exists, otherwise the active scene.
+*/
+
 using System.IO;
 using UnityEditor;
 using UnityEditor.SceneManagement;

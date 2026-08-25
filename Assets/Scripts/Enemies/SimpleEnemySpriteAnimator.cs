@@ -1,3 +1,15 @@
+/*
+SimpleEnemySpriteAnimator.cs
+
+Purpose: Animate enemies by swapping SpriteRenderer frames without requiring an Animator Controller.
+
+Design decisions:
+- Separate run, attack and hit arrays are selected from Rigidbody2D velocity, EnemyContactDamage and Health.
+- Hit has priority over attack, and each active frame sequence loops at framesPerSecond with immediate state
+    changes rather than blended transitions.
+- Empty frame arrays are tolerated, allowing the component to be used incrementally during prototyping.
+*/
+
 using UnityEngine;
 
 [DisallowMultipleComponent]

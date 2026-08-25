@@ -1,3 +1,10 @@
+/*
+CreateFloorGenerator.cs
+
+Editor utility: create or reuse FloorGenerator, attach GeneratedFloor and link its map bounds to
+Arena_Bounds. It prepares the component but leaves tile assignment and generation to the Inspector.
+*/
+
 using UnityEditor;
 using UnityEngine;
 

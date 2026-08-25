@@ -1,3 +1,16 @@
+/*
+BalancePlatform.cs
+
+Purpose: Rotate a kinematic platform according to the horizontal position of the player standing on it.
+
+Design decisions:
+- Position is locked while rotation remains free, so the platform cannot drift when it tilts.
+- The target angle uses the player's local X offset divided by the BoxCollider2D width, making the response
+    independent of world position and usable with scaled platforms.
+- Collision callbacks track the standing player and a short grace period prevents contact flicker from
+    causing abrupt target changes. Rotation is clamped unless full rotation while occupied is enabled.
+*/
+
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -35,7 +48,6 @@ public class BalancePlatform : MonoBehaviour
     private Collider2D playerCollider;
     private Rigidbody2D playerBody;
     private float standingGraceTimer;
-    private float angularVelocity;
 
     private void Awake()
     {
@@ -80,30 +92,25 @@ public class BalancePlatform : MonoBehaviour
         if (standingPlayer != null)
         {
             float normalizedOffset = ComputePlayerOffsetNormalized(standingPlayer);
-            float angularAcceleration = -normalizedOffset * rotationResponseSpeed;
-            angularVelocity += angularAcceleration * Time.fixedDeltaTime;
-            angularVelocity = Mathf.Clamp(angularVelocity, -maximumAngularSpeed, maximumAngularSpeed);
-
-            nextAngle = currentAngle + (angularVelocity * Time.fixedDeltaTime);
+            float desiredAngularSpeed = -normalizedOffset * maximumAngularSpeed;
+            float candidateAngle = currentAngle + (desiredAngularSpeed * Time.fixedDeltaTime);
 
             if (!allowFullRotationWhileOccupied)
             {
-                float clampedAngle = Mathf.Clamp(NormalizeAngle(nextAngle), -maximumRotationAngle, maximumRotationAngle);
-                if (!Mathf.Approximately(clampedAngle, NormalizeAngle(nextAngle)))
-                    angularVelocity = 0f;
-
-                nextAngle = clampedAngle;
+                nextAngle = Mathf.Clamp(candidateAngle, -maximumRotationAngle, maximumRotationAngle);
+            }
+            else
+            {
+                nextAngle = candidateAngle;
             }
         }
         else if (returnToHorizontalWhenEmpty)
         {
-            angularVelocity = Mathf.MoveTowards(angularVelocity, 0f, emptyReturnSpeed * Time.fixedDeltaTime);
             nextAngle = Mathf.MoveTowardsAngle(currentAngle, 0f, emptyReturnSpeed * Time.fixedDeltaTime);
         }
         else
         {
-            angularVelocity = Mathf.MoveTowards(angularVelocity, 0f, emptyReturnSpeed * Time.fixedDeltaTime);
-            nextAngle = currentAngle + (angularVelocity * Time.fixedDeltaTime);
+            nextAngle = currentAngle;
         }
 
         rb.MoveRotation(nextAngle);

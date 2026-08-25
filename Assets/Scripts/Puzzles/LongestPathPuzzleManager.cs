@@ -1,3 +1,17 @@
+/*
+LongestPathPuzzleManager.cs
+
+Purpose: Own the graph and route state for the longest-path puzzle.
+
+Design decisions:
+- Nodes and connections are serialized lists so the puzzle can be authored in the Inspector and rendered
+    by a separate board view. Connections may be directional or bidirectional and track use state.
+- A move is valid only when its connection touches the current node; invalid attempts leave route state
+    unchanged, while valid travel updates the current node and accumulated distance.
+- Reaching the end emits completion information, including whether the route is valid and optimal. UI listens
+    to events instead of duplicating graph rules.
+*/
+
 using System;
 using System.Collections.Generic;
 using System.Linq;

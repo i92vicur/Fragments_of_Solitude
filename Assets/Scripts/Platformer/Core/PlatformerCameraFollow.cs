@@ -1,3 +1,14 @@
+/*
+PlatformerCameraFollow.cs
+
+Purpose: Follow the platformer player vertically while keeping the camera's horizontal position fixed.
+
+Design decisions:
+- A vertical dead zone prevents small jumps and landings from constantly moving the camera.
+- SmoothDamp moves toward the target outside that zone; the starting Y can be used as a lower bound.
+- The target is snapped during startup, then followed in LateUpdate after the physics step to reduce jitter.
+*/
+
 using UnityEngine;
 
 [DisallowMultipleComponent]

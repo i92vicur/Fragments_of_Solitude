@@ -1,7 +1,22 @@
+/*
+PlatformerPauseMenu.cs
+
+Purpose: Provide the platformer's pause toggle and runtime-created Resume/Main Menu controls.
+
+Design decisions:
+- PauseManager remains the owner of time-scale and pause reasons; this UI requests the PlatformerMenu reason
+    and mirrors the resulting state instead of changing time directly.
+- The menu ensures an EventSystem exists so generated buttons work in a minimal scene, and delegates scene
+    navigation to SceneLoader when returning to the main menu.
+*/
+
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 [DisallowMultipleComponent]
 public class PlatformerPauseMenu : MonoBehaviour
@@ -59,7 +74,7 @@ public class PlatformerPauseMenu : MonoBehaviour
         panelRect.sizeDelta = new Vector2(550f, 430f);
 
         Image background = panel.AddComponent<Image>();
-        background.color = new Color(0.15f, 0.15f, 0.15f, 0.94f);
+        background.color = new Color(0f, 0f, 0f, 0.82f);
 
         CreateText("Title", panel.transform, "PAUSE MENU", new Vector2(0f, 120f), 34, FontStyle.Bold);
         CreateButton("Continue", panel.transform, "RESUME", new Vector2(0f, -5f), Continue);
@@ -114,6 +129,17 @@ public class PlatformerPauseMenu : MonoBehaviour
         eventSystemObject.AddComponent<StandaloneInputModule>();
     }
 
+    private static Font GetPauseMenuFont()
+    {
+#if UNITY_EDITOR
+        Font font = AssetDatabase.LoadAssetAtPath<Font>("Assets/Fonts/PressStart2P-Regular.ttf");
+        if (font != null)
+            return font;
+#endif
+
+        return Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+    }
+
     private static void CreateText(string name, Transform parent, string value, Vector2 position, int size, FontStyle style)
     {
         GameObject textObject = new GameObject(name);
@@ -126,7 +152,7 @@ public class PlatformerPauseMenu : MonoBehaviour
         rect.sizeDelta = new Vector2(280f, 42f);
 
         Text text = textObject.AddComponent<Text>();
-        text.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+    text.font = GetPauseMenuFont();
         text.text = value;
         text.fontSize = size;
         text.fontStyle = style;
@@ -146,7 +172,7 @@ public class PlatformerPauseMenu : MonoBehaviour
         rect.sizeDelta = new Vector2(320f, 80f);
 
         Image image = buttonObject.AddComponent<Image>();
-        image.color = new Color(0.16f, 0.38f, 0.44f, 1f);
+        image.color = new Color(0.2f, 0.2f, 0.2f, 0.95f);
         Button button = buttonObject.AddComponent<Button>();
         button.targetGraphic = image;
         button.onClick.AddListener(action);

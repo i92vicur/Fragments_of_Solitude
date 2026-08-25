@@ -1,3 +1,10 @@
+/*
+CreateDialogueTestNPC.cs
+
+Editor utility: create a small NPC test object in the open scene with an EasyDS dialogue trigger and a
+trigger collider. It is intended for dialogue integration checks, not for production NPC authoring.
+*/
+
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;

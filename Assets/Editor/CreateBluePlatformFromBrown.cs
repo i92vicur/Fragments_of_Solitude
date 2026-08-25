@@ -1,3 +1,10 @@
+/*
+CreateBluePlatformFromBrown.cs
+
+Editor utility: create the blue placeholder platform sprite/prefab used by the platformer prototype from the
+existing brown platform asset, preserving the project asset workflow through AssetDatabase import.
+*/
+
 using System.IO;
 using UnityEditor;
 using UnityEditor.SceneManagement;

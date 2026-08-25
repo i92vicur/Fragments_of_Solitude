@@ -1,3 +1,10 @@
+/*
+AddSceneLoaderToMain.cs
+
+Editor utility: open the Main scene, add or reuse SceneLoader and wire the restart controller to it, then
+save the scene. It is an explicit scene-wiring tool and may modify existing serialized references.
+*/
+
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;

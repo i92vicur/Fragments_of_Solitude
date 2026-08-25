@@ -1,3 +1,17 @@
+/*
+PlatformerPlayerController.cs
+
+Purpose: Own the platformer player's grounded detection and expose a shared motion state to other systems.
+
+Design decisions:
+- Grounding is computed from casts based on the player's Collider2D and walkable surface normals; this is
+    the source of truth for jump, animation and platform interactions.
+- MotionState distinguishes grounded, charging, ascending, descending and restarting so consumers do not
+    duplicate velocity or grounded checks.
+- This controller owns state and common Rigidbody2D setup. Jump forces, air steering and dash input remain
+    in PlatformerJumpController, while fall restart is exposed through PlatformerFallRestart.
+*/
+
 using UnityEngine;
 
 [DisallowMultipleComponent]

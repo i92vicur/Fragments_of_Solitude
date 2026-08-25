@@ -1,3 +1,15 @@
+/*
+PuzzleHud.cs
+
+Purpose: Build and update the sliding-puzzle HUD, including moves, restart and completion controls.
+
+Design decisions:
+- The HUD can create its Canvas and controls at runtime, so the puzzle scene needs minimal manual wiring.
+- PuzzleBoard remains the source of truth; this class only reflects its move count and completion event.
+- Navigation delegates to SceneLoader when available, keeping scene names and time-scale restoration out of
+    the puzzle UI.
+*/
+
 using UnityEngine;
 using UnityEngine.UI;
 

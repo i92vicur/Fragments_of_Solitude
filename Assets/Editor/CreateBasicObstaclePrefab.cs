@@ -1,3 +1,10 @@
+/*
+CreateBasicObstaclePrefab.cs
+
+Editor utility: create the base placeholder obstacle sprite and prefab used by the prototype arena. Assets
+are written/imported through the Unity AssetDatabase so prefab references survive reloads.
+*/
+
 using System.IO;
 using UnityEditor;
 using UnityEditor.SceneManagement;

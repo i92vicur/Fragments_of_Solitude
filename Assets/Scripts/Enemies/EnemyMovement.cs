@@ -10,7 +10,7 @@ Design decisions:
 - Obstacle avoidance (lightweight, greedy approach):
   - Probes ahead along the direct path using Physics2D.CircleCast with detectionRadius and lookaheadDistance.
   - If an obstacle is detected, samples avoidanceAngles (cardinal + diagonal) in order, testing each candidate direction via CircleCast.
-  - Uses the first unblocked direction found; if none exist, stops (conservative fallback).
+    - Uses the first unblocked direction found; if none exist, tries a short perpendicular slide and then stops.
   - No pathfinding, no flow-field, no memory of past attempts.
 - Physics setup: Freezes Rigidbody2D rotation to prevent spinning due to collisions in top-down view.
 - Safety: If target is null, remains stationary without error spam. Missing obstacleLayerMask defaults to auto-detect Environment layer.
@@ -34,7 +34,7 @@ Usage:
 - EnemySpawner handles instantiation and SetTarget call.
 
 Notes:
-- Avoidance is greedy and local; does not guarantee smooth paths through narrow spaces.
+- Avoidance is greedy and local; it does not guarantee smooth paths through narrow spaces.
 - Large obstacles may still cause enemies to jam; adjust detectionRadius per enemy size if needed.
 - Avoidance is disabled if obstacleLayerMask is 0 at Awake (no Environment layer found).
 - Boss often needs larger detectionRadius (~0.5–0.7) due to larger collider size.

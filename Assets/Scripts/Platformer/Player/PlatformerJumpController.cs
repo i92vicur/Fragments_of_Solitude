@@ -1,3 +1,16 @@
+/*
+PlatformerJumpController.cs
+
+Purpose: Implement charge-to-jump input, horizontal air control, one dash per jump and landing bounce.
+
+Design decisions:
+- Space accumulates charge while grounded; releasing maps it to a vertical force between the configured
+    limits and can add horizontal launch from the last movement input.
+- PlatformerPlayerController supplies grounded, airborne and restarting state, keeping jump eligibility shared.
+- Air control changes horizontal velocity within a cap, dash availability resets on landing, and a minimum
+    impact threshold prevents tiny physics corrections from causing repeated micro-bounces.
+*/
+
 using UnityEngine;
 
 [DisallowMultipleComponent]

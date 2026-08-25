@@ -1,3 +1,11 @@
+/*
+PrototypePhysicsLayerSetup.cs
+
+Editor utility: add the prototype layers, configure the 2D collision matrix, and infer root layers and
+projectile target masks for matching prefabs and scene objects. It changes project settings and assets, so
+the confirmation dialog should be treated as a deliberate migration step.
+*/
+
 using System;
 using System.Collections.Generic;
 using UnityEditor;
