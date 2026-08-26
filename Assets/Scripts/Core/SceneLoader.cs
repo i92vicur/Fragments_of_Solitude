@@ -49,6 +49,7 @@ public class SceneLoader : MonoBehaviour
     [Header("Scene Names (must match Build Settings exactly)")]
     [SerializeField] private string gameplaySceneName = "Level3";
     [SerializeField] private string platformerSceneName = "Level4";
+    [SerializeField] private string phase2SceneName = "Level3_Phase2";
     [SerializeField] private string slidingPuzzle4x4SceneName = "SlidingPuzzle4x4";
     [SerializeField] private string longestPathPuzzleSceneName = "LongestPathPuzzle";
     [SerializeField] private string mainMenuSceneName = "MainMenu";
@@ -64,6 +65,34 @@ public class SceneLoader : MonoBehaviour
     public void LoadGameplay()
     {
         LoadScene(gameplaySceneName);
+    }
+
+    /// <summary>
+    /// Load the Phase 2 roguelite continuation scene.
+    /// Used by the Level 3 staircase trigger when the player reaches level 6.
+    /// </summary>
+    public void LoadPhase2()
+    {
+        LoadScene(phase2SceneName);
+    }
+
+    /// <summary>
+    /// Allows a scene object to set the phase-2 target without duplicating the scene name elsewhere.
+    /// </summary>
+    public void SetPhase2SceneName(string sceneName)
+    {
+        if (!string.IsNullOrWhiteSpace(sceneName))
+        {
+            phase2SceneName = sceneName;
+        }
+    }
+
+    /// <summary>
+    /// Backwards-compatible name used by the staircase trigger.
+    /// </summary>
+    public void SetSceneNameForPhase2(string sceneName)
+    {
+        SetPhase2SceneName(sceneName);
     }
 
     /// <summary>

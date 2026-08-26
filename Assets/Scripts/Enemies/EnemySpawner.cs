@@ -93,6 +93,8 @@ public class EnemySpawner : MonoBehaviour
     private Transform bossSpawnPoint;
     [SerializeField, Tooltip("Player level at or above which the boss spawns.")]
     private int bossLevelThreshold = 10;
+    [SerializeField, Tooltip("Temporary Phase 1 gate: when enabled, reaching level 6 bypasses the boss trigger so the staircase transition can take over. This remains reversible for later boss restoration.")]
+    private bool phase1Level6BossBypass = true;
     [SerializeField, Tooltip("If true, regular spawning pauses while the boss is alive.")]
     private bool pauseSpawningDuringBoss = true;
 
@@ -256,6 +258,13 @@ if (Time.time >= nextSpawnTime)
     {
 // Only consider spawning a boss once per session
 if (bossSpawned) return;
+
+// Temporary Phase 1 gate: level 6 activates the staircase flow instead of triggering the phase-1 boss.
+if (phase1Level6BossBypass && newLevel >= 6)
+{
+    Debug.Log("EnemySpawner: Phase 1 level 6 boss bypass enabled; boss spawn suppressed so staircase transition can handle progression.");
+    return;
+}
 
 if (newLevel < bossLevelThreshold) return;
 
