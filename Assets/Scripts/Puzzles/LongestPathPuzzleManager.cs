@@ -47,6 +47,8 @@ public sealed class LongestPathPuzzleManager : MonoBehaviour
     [SerializeField] private float knownOptimalDistance;
     [SerializeField] private bool logOptimalDistanceOnInitialize = true;
 
+    private readonly List<string> usedConnectionHistory = new List<string>();
+
     public event Action<PuzzleNode> CurrentNodeChanged;
     public event Action<PuzzleConnection> ConnectionUsed;
     public event Action PuzzleReset;
@@ -88,6 +90,7 @@ public sealed class LongestPathPuzzleManager : MonoBehaviour
         foreach (PuzzleConnection connection in connections)
             connection.ResetUsage();
 
+        usedConnectionHistory.Clear();
         currentNodeId = startNodeId;
         totalDistance = 0f;
         puzzleFinished = false;
@@ -99,6 +102,35 @@ public sealed class LongestPathPuzzleManager : MonoBehaviour
     public void ResetRoute()
     {
         ResetPuzzle();
+    }
+
+    public bool UndoLastMove()
+    {
+        if (usedConnectionHistory.Count == 0)
+            return false;
+
+        string lastConnectionId = usedConnectionHistory[usedConnectionHistory.Count - 1];
+        PuzzleConnection lastConnection = GetConnection(lastConnectionId);
+
+        if (lastConnection == null || !lastConnection.HasBeenUsed)
+        {
+            usedConnectionHistory.RemoveAt(usedConnectionHistory.Count - 1);
+            return false;
+        }
+
+        string previousNodeId = lastConnection.GetOtherNodeId(currentNodeId);
+        if (string.IsNullOrEmpty(previousNodeId))
+            return false;
+
+        lastConnection.ResetUsage();
+        usedConnectionHistory.RemoveAt(usedConnectionHistory.Count - 1);
+        currentNodeId = previousNodeId;
+        totalDistance = Mathf.Max(0f, totalDistance - lastConnection.Length);
+        puzzleFinished = false;
+
+        RaiseCurrentNodeChanged();
+        PuzzleStateChanged?.Invoke(LongestPathPuzzleResult.InProgress);
+        return true;
     }
 
     public void SetKnownOptimalDistance(float optimalDistance)
@@ -185,6 +217,7 @@ public sealed class LongestPathPuzzleManager : MonoBehaviour
         }
 
         connection.MarkUsed();
+        usedConnectionHistory.Add(connectionId);
         currentNodeId = nextNodeId;
         totalDistance += connection.Length;
         ConnectionUsed?.Invoke(connection);
@@ -230,16 +263,16 @@ public sealed class LongestPathPuzzleManager : MonoBehaviour
 
         nodes = new List<PuzzleNode>
         {
-            new PuzzleNode("A", new Vector2(4.7f, 2.8f)),
-            new PuzzleNode("N1", new Vector2(2.8f, 3.2f)),
-            new PuzzleNode("N2", new Vector2(1.1f, 1.9f)),
-            new PuzzleNode("N3", new Vector2(-0.9f, 3.0f)),
-            new PuzzleNode("N4", new Vector2(-2.7f, 1.5f)),
-            new PuzzleNode("N5", new Vector2(-4.5f, 2.7f)),
-            new PuzzleNode("N6", new Vector2(-2.1f, -0.5f)),
-            new PuzzleNode("N7", new Vector2(-0.1f, -1.3f)),
-            new PuzzleNode("N8", new Vector2(1.8f, -0.2f)),
-            new PuzzleNode("B", new Vector2(-4.8f, -2.4f))
+            new PuzzleNode("A", new Vector2(-5.3f, 3.8f)),
+            new PuzzleNode("N1", new Vector2(-3.3f, 2.8f)),
+            new PuzzleNode("N2", new Vector2(-1.2f, 1.8f)),
+            new PuzzleNode("N3", new Vector2(1.0f, 3.6f)),
+            new PuzzleNode("N4", new Vector2(3.2f, 1.8f)),
+            new PuzzleNode("N5", new Vector2(5.2f, 3.7f)),
+            new PuzzleNode("N6", new Vector2(4.4f, 0.1f)),
+            new PuzzleNode("N7", new Vector2(2.7f, -1.9f)),
+            new PuzzleNode("N8", new Vector2(0.5f, -0.8f)),
+            new PuzzleNode("B", new Vector2(6.2f, -3.1f))
         };
 
         connections = new List<PuzzleConnection>

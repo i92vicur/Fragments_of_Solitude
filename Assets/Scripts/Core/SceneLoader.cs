@@ -50,6 +50,7 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] private string gameplaySceneName = "Level3";
     [SerializeField] private string platformerSceneName = "Level4";
     [SerializeField] private string phase2SceneName = "Level3_Phase2";
+    [SerializeField] private string puzzleMenuSceneName = "PuzzleMenu";
     [SerializeField] private string slidingPuzzle4x4SceneName = "SlidingPuzzle4x4";
     [SerializeField] private string longestPathPuzzleSceneName = "LongestPathPuzzle";
     [SerializeField] private string mainMenuSceneName = "MainMenu";
@@ -102,6 +103,15 @@ public class SceneLoader : MonoBehaviour
     public void LoadPlatformer()
     {
         LoadScene(platformerSceneName);
+    }
+
+    /// <summary>
+    /// Load the puzzle-selector scene.
+    /// Called by: Main menu or puzzle exits when the player should choose another minigame.
+    /// </summary>
+    public void LoadPuzzleMenu()
+    {
+        LoadScene(puzzleMenuSceneName);
     }
 
     /// <summary>

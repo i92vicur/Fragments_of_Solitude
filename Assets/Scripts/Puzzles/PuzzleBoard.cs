@@ -142,13 +142,44 @@ public class PuzzleBoard : MonoBehaviour
         boardVisualRoot.anchoredPosition = boardOffset;
     }
 
+    private GameObject GetTileTemplate()
+    {
+        if (tilePrefab != null)
+            return tilePrefab;
+
+        GameObject fallbackTile = new GameObject("PuzzleTileFallback", typeof(RectTransform), typeof(Image), typeof(Button), typeof(PuzzleTile));
+        RectTransform tileRect = fallbackTile.GetComponent<RectTransform>();
+        tileRect.sizeDelta = tileSize;
+
+        Image tileImage = fallbackTile.GetComponent<Image>();
+        tileImage.color = new Color(0.22f, 0.46f, 0.86f, 1f);
+
+        Button tileButton = fallbackTile.GetComponent<Button>();
+        tileButton.targetGraphic = tileImage;
+
+        GameObject labelGO = new GameObject("NumberLabel", typeof(RectTransform), typeof(Text));
+        labelGO.transform.SetParent(fallbackTile.transform, false);
+
+        RectTransform labelRect = labelGO.GetComponent<RectTransform>();
+        labelRect.anchorMin = Vector2.zero;
+        labelRect.anchorMax = Vector2.one;
+        labelRect.offsetMin = Vector2.zero;
+        labelRect.offsetMax = Vector2.zero;
+
+        Text label = labelGO.GetComponent<Text>();
+        label.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        label.fontSize = 48;
+        label.alignment = TextAnchor.MiddleCenter;
+        label.color = Color.white;
+        label.text = "1";
+
+        tilePrefab = fallbackTile;
+        return tilePrefab;
+    }
+
     private void BuildTilesFromLogicalState()
     {
-        if (tilePrefab == null)
-        {
-            Debug.LogError("[PuzzleBoard] Tile prefab not assigned.", this);
-            return;
-        }
+        GameObject tileTemplate = GetTileTemplate();
 
         if (boardVisualRoot == null)
         {
@@ -166,7 +197,7 @@ public class PuzzleBoard : MonoBehaviour
             if (tileNumber == 0)
                 continue;
 
-            GameObject tileObject = Instantiate(tilePrefab, boardVisualRoot);
+            GameObject tileObject = Instantiate(tileTemplate, boardVisualRoot);
             tileObject.name = $"Tile_{tileNumber}";
 
             PuzzleTile tile = tileObject.GetComponent<PuzzleTile>();

@@ -113796,6 +113796,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameplaySceneName: Main
   platformerSceneName: PlatformerLevel3
+  phase2SceneName: Level3_Phase2
   slidingPuzzle4x4SceneName: SlidingPuzzle4x4
   longestPathPuzzleSceneName: LongestPathPuzzle
   mainMenuSceneName: MainMenu
@@ -297209,6 +297210,58 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1251145910
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1251145912}
+  - component: {fileID: 1251145911}
+  m_Layer: 0
+  m_Name: VFXHub
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1251145911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1251145910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91ac811eae53c5442ad94e100742dd50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileImpactPrefab: {fileID: 5419193710535830944, guid: cd2358442d86b2b45816b5345b3a5c44, type: 3}
+  enemyDeathPrefab: {fileID: 831274270747871257, guid: 813c33a81351def458e772347bc77449, type: 3}
+  playerHitPrefab: {fileID: 5419193710535830944, guid: 6ff7306cd31b166468c98ba6443ff257, type: 3}
+  levelUpPrefab: {fileID: 0}
+  bossSpawnPrefab: {fileID: 0}
+  bossHitPrefab: {fileID: 0}
+  bossDeathPrefab: {fileID: 0}
+  defaultLifetime: 0.8
+--- !u!4 &1251145912
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1251145910}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.20391, y: 4.5701427, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1251378934
 GameObject:
   m_ObjectHideFlags: 0
@@ -394103,6 +394156,7 @@ MonoBehaviour:
   bossPrefab: {fileID: 7695215557342299999, guid: 31164e5dd7a35334fbff79ec38fbffd3, type: 3}
   bossSpawnPoint: {fileID: 1766197853}
   bossLevelThreshold: 1
+  phase1Level6BossBypass: 1
   pauseSpawningDuringBoss: 1
 --- !u!4 &1678070857
 Transform:
@@ -446432,6 +446486,62 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1907266452
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1907266454}
+  - component: {fileID: 1907266453}
+  m_Layer: 0
+  m_Name: AudioHub
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1907266453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1907266452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 443d7f4b519e12b41b738e953e5ba287, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  playerShootClip: {fileID: 8300000, guid: e3708ba01dad51347bd9a6d3b5e5761a, type: 3}
+  enemyHitClip: {fileID: 8300000, guid: f4e45b82d658b354489b01392ee12561, type: 3}
+  enemyDieClip: {fileID: 8300000, guid: 83f8a246a0224b9469116e3f91aa4308, type: 3}
+  playerHitClip: {fileID: 8300000, guid: e1a75776f005439469f89a17a986c567, type: 3}
+  levelUpClip: {fileID: 8300000, guid: bdf55795d34309f44a9449635839e371, type: 3}
+  bossSpawnClip: {fileID: 8300000, guid: 7d156b8a5b340cd46bcf0a76557dd2dd, type: 3}
+  impactClip: {fileID: 0}
+  bossHitClip: {fileID: 0}
+  bossDieClip: {fileID: 0}
+  victoryClip: {fileID: 0}
+  volume: 1
+--- !u!4 &1907266454
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1907266452}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.20391, y: 4.5701427, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1907277757
 GameObject:
   m_ObjectHideFlags: 0
@@ -500373,3 +500483,5 @@ SceneRoots:
   - {fileID: 1678070857}
   - {fileID: 2139906785}
   - {fileID: 1248487173}
+  - {fileID: 1907266454}
+  - {fileID: 1251145912}

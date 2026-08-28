@@ -23,9 +23,9 @@ public sealed class LongestPathPuzzleBoardView : MonoBehaviour
     [SerializeField] private LongestPathPuzzleManager puzzleManager;
 
     [Header("Layout")]
-    [SerializeField] private float positionScale = 110f;
-    [SerializeField] private float roadThickness = 16f;
-    [SerializeField] private float nodeSize = 34f;
+    [SerializeField] private float positionScale = 120f;
+    [SerializeField] private float roadThickness = 30f;
+    [SerializeField] private float nodeSize = 42f;
     [SerializeField] private bool showConnectionLengthLabels = true;
     [SerializeField] private bool showIntermediateNodeLabels = true;
     [SerializeField] private bool showResetRouteButton = true;
@@ -47,6 +47,8 @@ public sealed class LongestPathPuzzleBoardView : MonoBehaviour
     private GameObject completionPanel;
     private Text completionTitleText;
     private Text completionResultText;
+    private Button repeatPuzzleButton;
+    private Text repeatPuzzleButtonLabel;
     private Text resetButtonLabel;
     private Text backToMenuButtonLabel;
     private readonly Dictionary<string, Image> roadImagesByConnectionId = new Dictionary<string, Image>();
@@ -157,6 +159,29 @@ public sealed class LongestPathPuzzleBoardView : MonoBehaviour
         Image backdropImage = backdrop.GetComponent<Image>();
         backdropImage.sprite = GetWhiteSprite();
         backdropImage.color = boardBackgroundColor;
+
+        Color zoneA = new Color(0.20f, 0.26f, 0.28f, 0.35f);
+        Color zoneB = new Color(0.24f, 0.20f, 0.27f, 0.30f);
+        Color zoneC = new Color(0.18f, 0.22f, 0.25f, 0.28f);
+
+        CreateMapZone("ZoneA", new Vector2(-260f, 180f), new Vector2(360f, 220f), zoneA);
+        CreateMapZone("ZoneB", new Vector2(120f, -90f), new Vector2(500f, 250f), zoneB);
+        CreateMapZone("ZoneC", new Vector2(-110f, -220f), new Vector2(420f, 200f), zoneC);
+    }
+
+    private void CreateMapZone(string name, Vector2 anchoredPosition, Vector2 size, Color color)
+    {
+        GameObject zone = CreateUiObject(name, generatedRoot, true);
+        RectTransform zoneRect = zone.GetComponent<RectTransform>();
+        zoneRect.anchorMin = new Vector2(0.5f, 0.5f);
+        zoneRect.anchorMax = new Vector2(0.5f, 0.5f);
+        zoneRect.pivot = new Vector2(0.5f, 0.5f);
+        zoneRect.anchoredPosition = anchoredPosition;
+        zoneRect.sizeDelta = size;
+
+        Image zoneImage = zone.GetComponent<Image>();
+        zoneImage.sprite = GetWhiteSprite();
+        zoneImage.color = color;
     }
 
     private void CreateHudText()
@@ -298,6 +323,39 @@ public sealed class LongestPathPuzzleBoardView : MonoBehaviour
         completionResultText.raycastTarget = false;
         completionResultText.text = "Valid route";
 
+        GameObject repeatButtonObject = CreateUiObject("RepeatPuzzleButton", completionPanel.transform, true);
+        RectTransform repeatButtonRect = repeatButtonObject.GetComponent<RectTransform>();
+        repeatButtonRect.anchorMin = new Vector2(0.5f, 0f);
+        repeatButtonRect.anchorMax = new Vector2(0.5f, 0f);
+        repeatButtonRect.pivot = new Vector2(0.5f, 0f);
+        repeatButtonRect.anchoredPosition = new Vector2(-90f, 12f);
+        repeatButtonRect.sizeDelta = new Vector2(150f, 32f);
+
+        Image repeatButtonImage = repeatButtonObject.GetComponent<Image>();
+        repeatButtonImage.sprite = GetWhiteSprite();
+        repeatButtonImage.color = new Color(0.24f, 0.24f, 0.35f, 1f);
+
+        repeatPuzzleButton = repeatButtonObject.AddComponent<Button>();
+        repeatPuzzleButton.transition = Selectable.Transition.ColorTint;
+        repeatPuzzleButton.targetGraphic = repeatButtonImage;
+        repeatPuzzleButton.onClick.AddListener(HandleRepeatPuzzleClicked);
+
+        GameObject repeatLabelObject = CreateUiObject("RepeatPuzzleLabel", repeatButtonObject.transform, false);
+        RectTransform repeatLabelRect = repeatLabelObject.GetComponent<RectTransform>();
+        repeatLabelRect.anchorMin = Vector2.zero;
+        repeatLabelRect.anchorMax = Vector2.one;
+        repeatLabelRect.offsetMin = Vector2.zero;
+        repeatLabelRect.offsetMax = Vector2.zero;
+
+        repeatPuzzleButtonLabel = repeatLabelObject.AddComponent<Text>();
+        repeatPuzzleButtonLabel.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        repeatPuzzleButtonLabel.fontSize = 18;
+        repeatPuzzleButtonLabel.fontStyle = FontStyle.Bold;
+        repeatPuzzleButtonLabel.alignment = TextAnchor.MiddleCenter;
+        repeatPuzzleButtonLabel.color = Color.white;
+        repeatPuzzleButtonLabel.raycastTarget = false;
+        repeatPuzzleButtonLabel.text = "Repeat Puzzle";
+
         completionPanel.SetActive(false);
     }
 
@@ -315,6 +373,20 @@ public sealed class LongestPathPuzzleBoardView : MonoBehaviour
         float length = delta.magnitude;
         float angle = Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg;
 
+        GameObject roadShadow = CreateUiObject($"RoadShadow_{connection.ConnectionId}", generatedRoot, false);
+        RectTransform roadShadowRect = roadShadow.GetComponent<RectTransform>();
+        roadShadowRect.anchorMin = new Vector2(0.5f, 0.5f);
+        roadShadowRect.anchorMax = new Vector2(0.5f, 0.5f);
+        roadShadowRect.pivot = new Vector2(0.5f, 0.5f);
+        roadShadowRect.anchoredPosition = midpoint + Vector2.down * 10f;
+        roadShadowRect.sizeDelta = new Vector2(length + 14f, roadThickness + 12f);
+        roadShadowRect.localRotation = Quaternion.Euler(0f, 0f, angle);
+
+        Image roadShadowImage = roadShadow.AddComponent<Image>();
+        roadShadowImage.sprite = GetWhiteSprite();
+        roadShadowImage.color = new Color(0.0f, 0.0f, 0.0f, 0.20f);
+        roadShadowImage.raycastTarget = false;
+
         GameObject road = CreateUiObject($"Road_{connection.ConnectionId}", generatedRoot, false);
         RectTransform roadRect = road.GetComponent<RectTransform>();
         roadRect.anchorMin = new Vector2(0.5f, 0.5f);
@@ -328,6 +400,7 @@ public sealed class LongestPathPuzzleBoardView : MonoBehaviour
         roadImage.sprite = GetWhiteSprite();
         roadImage.color = roadColor;
         roadImage.raycastTarget = true;
+        roadImage.type = Image.Type.Sliced;
 
         Button roadButton = road.AddComponent<Button>();
         roadButton.transition = Selectable.Transition.None;
@@ -339,7 +412,9 @@ public sealed class LongestPathPuzzleBoardView : MonoBehaviour
         if (!showConnectionLengthLabels)
             return;
 
-        Vector2 labelOffset = new Vector2(-delta.y, delta.x).normalized * 18f;
+        Vector2 normal = new Vector2(-delta.y, delta.x).normalized;
+        float labelDistance = Mathf.Clamp(length * 0.16f, 18f, 42f);
+        Vector2 labelOffset = normal * labelDistance;
 
         GameObject label = CreateUiObject($"RoadLength_{connection.ConnectionId}", generatedRoot, false);
         RectTransform labelRect = label.GetComponent<RectTransform>();
@@ -347,7 +422,7 @@ public sealed class LongestPathPuzzleBoardView : MonoBehaviour
         labelRect.anchorMax = new Vector2(0.5f, 0.5f);
         labelRect.pivot = new Vector2(0.5f, 0.5f);
         labelRect.anchoredPosition = midpoint + labelOffset;
-        labelRect.sizeDelta = new Vector2(60f, 24f);
+        labelRect.sizeDelta = new Vector2(62f, 28f);
         labelRect.localRotation = Quaternion.identity;
 
         Text labelText = label.AddComponent<Text>();
@@ -373,10 +448,24 @@ public sealed class LongestPathPuzzleBoardView : MonoBehaviour
         nodeRect.sizeDelta = Vector2.one * (isStartNode || isEndNode ? nodeSize * 1.35f : nodeSize);
         nodeRect.anchoredPosition = ToLocalPosition(node.WorldPosition);
 
+        GameObject nodeShadow = CreateUiObject($"NodeShadow_{node.NodeId}", nodeObject.transform, false);
+        RectTransform nodeShadowRect = nodeShadow.GetComponent<RectTransform>();
+        nodeShadowRect.anchorMin = new Vector2(0.5f, 0.5f);
+        nodeShadowRect.anchorMax = new Vector2(0.5f, 0.5f);
+        nodeShadowRect.pivot = new Vector2(0.5f, 0.5f);
+        nodeShadowRect.anchoredPosition = new Vector2(0f, -4f);
+        nodeShadowRect.sizeDelta = Vector2.one * (isStartNode || isEndNode ? nodeSize * 1.6f : nodeSize * 1.45f);
+
+        Image nodeShadowImage = nodeShadow.AddComponent<Image>();
+        nodeShadowImage.sprite = GetWhiteSprite();
+        nodeShadowImage.color = new Color(0f, 0f, 0f, 0.22f);
+        nodeShadowImage.raycastTarget = false;
+
         Image nodeImage = nodeObject.AddComponent<Image>();
         nodeImage.sprite = GetWhiteSprite();
         nodeImage.color = isStartNode ? startColor : isEndNode ? endColor : nodeColor;
         nodeImage.raycastTarget = true;
+        nodeImage.type = Image.Type.Simple;
 
         Button nodeButton = nodeObject.AddComponent<Button>();
         nodeButton.transition = Selectable.Transition.None;
@@ -399,9 +488,9 @@ public sealed class LongestPathPuzzleBoardView : MonoBehaviour
         Text nodeLabel = textObject.AddComponent<Text>();
         nodeLabel.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
         nodeLabel.fontStyle = FontStyle.Bold;
-        nodeLabel.fontSize = isStartNode || isEndNode ? 28 : 18;
+        nodeLabel.fontSize = isStartNode || isEndNode ? 24 : 16;
         nodeLabel.alignment = TextAnchor.MiddleCenter;
-        nodeLabel.color = isStartNode || isEndNode ? Color.white : new Color(0.16f, 0.16f, 0.18f, 1f);
+        nodeLabel.color = isStartNode || isEndNode ? Color.white : new Color(0.14f, 0.14f, 0.16f, 1f);
         nodeLabel.raycastTarget = false;
         nodeLabel.text = node.NodeId;
     }
@@ -459,6 +548,12 @@ public sealed class LongestPathPuzzleBoardView : MonoBehaviour
         if (puzzleManager == null)
             return;
 
+        if (nodeId == puzzleManager.CurrentNodeId)
+        {
+            puzzleManager.UndoLastMove();
+            return;
+        }
+
         puzzleManager.TryMoveToNode(nodeId);
     }
 
@@ -499,28 +594,46 @@ public sealed class LongestPathPuzzleBoardView : MonoBehaviour
         puzzleManager.ResetRoute();
     }
 
+    private void HandleRepeatPuzzleClicked()
+    {
+        HandleResetRouteClicked();
+        if (completionPanel != null)
+            completionPanel.SetActive(false);
+    }
+
     private void HandleRouteCompleted(LongestPathPuzzleCompletionState completionState, float finalDistance)
     {
-        if (completionPanel != null)
-            completionPanel.SetActive(true);
+        if (completionPanel == null)
+            return;
+
+        completionPanel.SetActive(true);
 
         if (completionTitleText != null)
-            completionTitleText.text = "Route complete!";
+            completionTitleText.text = completionState == LongestPathPuzzleCompletionState.OptimalRoute
+                ? "Route complete!"
+                : "Route ends at B";
 
         if (completionResultText != null)
-            completionResultText.text = completionState == LongestPathPuzzleCompletionState.OptimalRoute
-                ? "Optimal route!"
-                : "Valid route";
+        {
+            if (completionState == LongestPathPuzzleCompletionState.OptimalRoute)
+            {
+                completionResultText.text = $"Optimal route!\nDistance: {Mathf.RoundToInt(finalDistance)}\nBest: {Mathf.RoundToInt(puzzleManager.KnownOptimalDistance)}";
+            }
+            else
+            {
+                completionResultText.text = $"Not optimal.\nDistance: {Mathf.RoundToInt(finalDistance)}\nBest: {Mathf.RoundToInt(puzzleManager.KnownOptimalDistance)}";
+            }
+        }
 
         if (statusText != null)
-            statusText.text = $"Distance: {Mathf.RoundToInt(finalDistance)}\nStart: {puzzleManager.StartNodeId}\nGoal: {puzzleManager.EndNodeId}";
+            statusText.text = $"Distance: {Mathf.RoundToInt(finalDistance)}\nStart: {puzzleManager.StartNodeId}\nGoal: {puzzleManager.EndNodeId}\nOptimal: {Mathf.RoundToInt(puzzleManager.KnownOptimalDistance)}";
     }
 
     private void HandleBackToMenuClicked()
     {
         SceneLoader loader = FindAnyObjectByType<SceneLoader>();
         if (loader != null)
-            loader.LoadMainMenu();
+            loader.LoadPuzzleMenu();
     }
 
     private void RefreshVisualState()
@@ -570,6 +683,9 @@ public sealed class LongestPathPuzzleBoardView : MonoBehaviour
         if (backToMenuButtonLabel != null)
             backToMenuButtonLabel.text = "Back to Menu";
 
+        if (repeatPuzzleButtonLabel != null)
+            repeatPuzzleButtonLabel.text = "Repeat Puzzle";
+
         if (completionPanel != null && !puzzleManager.IsPuzzleFinished)
             completionPanel.SetActive(false);
 
@@ -581,7 +697,7 @@ public sealed class LongestPathPuzzleBoardView : MonoBehaviour
         if (statusText == null || puzzleManager == null)
             return;
 
-        statusText.text = $"Distance: {Mathf.RoundToInt(puzzleManager.TotalDistance)}\nStart: {puzzleManager.StartNodeId}\nGoal: {puzzleManager.EndNodeId}";
+        statusText.text = $"Distance: {Mathf.RoundToInt(puzzleManager.TotalDistance)}\nStart: {puzzleManager.StartNodeId}\nGoal: {puzzleManager.EndNodeId}\nOptimal: {Mathf.RoundToInt(puzzleManager.KnownOptimalDistance)}";
     }
 
     private Sprite GetWhiteSprite()

@@ -22,6 +22,7 @@ Future levels:
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 [DisallowMultipleComponent]
 public class MainMenuController : MonoBehaviour
@@ -38,11 +39,59 @@ public class MainMenuController : MonoBehaviour
     [SerializeField, Tooltip("Fallback scene name used if SceneLoader is not present.")]
     private string fallbackLongestPathPuzzleSceneName = "LongestPathPuzzle";
 
+    [SerializeField, Tooltip("Fallback scene name used if SceneLoader is not present.")]
+    private string fallbackPuzzleMenuSceneName = "PuzzleMenu";
+
     private void Start()
     {
         if (sceneLoader == null)
             sceneLoader = FindAnyObjectByType<SceneLoader>();
-        // Not an error if missing — PlayLevel3 has a direct fallback.
+
+        EnsurePuzzleMenuButton();
+    }
+
+    private void EnsurePuzzleMenuButton()
+    {
+        if (FindAnyObjectByType<Canvas>() == null)
+            return;
+
+        Canvas canvas = FindAnyObjectByType<Canvas>();
+        if (canvas.transform.Find("PuzzleMenuButton") != null)
+            return;
+
+        GameObject buttonObject = new GameObject("PuzzleMenuButton", typeof(RectTransform), typeof(Image), typeof(Button));
+        buttonObject.transform.SetParent(canvas.transform, false);
+
+        RectTransform rect = buttonObject.GetComponent<RectTransform>();
+        rect.anchorMin = new Vector2(0.5f, 0.5f);
+        rect.anchorMax = new Vector2(0.5f, 0.5f);
+        rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.sizeDelta = new Vector2(315f, 67f);
+        rect.anchoredPosition = new Vector2(0f, -120f);
+
+        Image image = buttonObject.GetComponent<Image>();
+        image.color = new Color(0.05f, 0.05f, 0.05f, 1f);
+
+        Button button = buttonObject.GetComponent<Button>();
+        button.targetGraphic = image;
+        button.onClick.AddListener(LoadPuzzleMenu);
+
+        GameObject labelObject = new GameObject("Label", typeof(RectTransform), typeof(Text));
+        labelObject.transform.SetParent(buttonObject.transform, false);
+
+        RectTransform labelRect = labelObject.GetComponent<RectTransform>();
+        labelRect.anchorMin = Vector2.zero;
+        labelRect.anchorMax = Vector2.one;
+        labelRect.offsetMin = Vector2.zero;
+        labelRect.offsetMax = Vector2.zero;
+
+        Text label = labelObject.GetComponent<Text>();
+        label.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        label.fontSize = 24;
+        label.text = "Puzzles";
+        label.alignment = TextAnchor.MiddleCenter;
+        label.color = Color.white;
+        label.raycastTarget = false;
     }
 
     /// <summary>
@@ -94,6 +143,22 @@ public class MainMenuController : MonoBehaviour
         {
             Time.timeScale = 1f;
             SceneManager.LoadScene(fallbackSlidingPuzzleSceneName, LoadSceneMode.Single);
+        }
+    }
+
+    /// <summary>
+    /// Load the puzzle selector menu from the main menu.
+    /// </summary>
+    public void LoadPuzzleMenu()
+    {
+        if (sceneLoader != null)
+        {
+            sceneLoader.LoadPuzzleMenu();
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            SceneManager.LoadScene(fallbackPuzzleMenuSceneName, LoadSceneMode.Single);
         }
     }
 

@@ -88,12 +88,12 @@ public class PuzzleHud : MonoBehaviour
     {
         if (sceneLoader != null)
         {
-            sceneLoader.LoadLongestPathPuzzle();
+            sceneLoader.LoadPuzzleMenu();
             return;
         }
 
         Time.timeScale = 1f;
-        UnityEngine.SceneManagement.SceneManager.LoadScene("LongestPathPuzzle", UnityEngine.SceneManagement.LoadSceneMode.Single);
+        UnityEngine.SceneManagement.SceneManager.LoadScene("PuzzleMenu", UnityEngine.SceneManagement.LoadSceneMode.Single);
     }
 
     private void RefreshHud()
