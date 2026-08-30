@@ -44,8 +44,9 @@ public class PuzzleMenuController : MonoBehaviour
         rootRect.offsetMax = Vector2.zero;
 
         CreateTitle(rootGO.transform);
-        CreateButton(rootGO.transform, "SlidingPuzzleButton", "Sliding Puzzle 4x4", new Vector2(0f, 40f), LoadSlidingPuzzleScene);
-        CreateButton(rootGO.transform, "LongestPathButton", "Longest Path Puzzle", new Vector2(0f, -60f), LoadLongestPathScene);
+        CreateButton(rootGO.transform, "SlidingPuzzleButton", "Sliding Puzzle 4x4", new Vector2(0f, 90f), LoadSlidingPuzzleScene);
+        CreateButton(rootGO.transform, "LongestPathButton", "Longest Path Puzzle", new Vector2(0f, 10f), LoadLongestPathScene);
+        CreateButton(rootGO.transform, "ConstraintPuzzleButton", "Constraint Puzzle", new Vector2(0f, -70f), LoadConstraintPuzzleScene);
         CreateButton(rootGO.transform, "BackToMainMenuButton", "Back to Main Menu", new Vector2(0f, -160f), LoadMainMenuScene);
     }
 
@@ -130,6 +131,18 @@ public class PuzzleMenuController : MonoBehaviour
 
         Time.timeScale = 1f;
         SceneManager.LoadScene("LongestPathPuzzle", LoadSceneMode.Single);
+    }
+
+    private void LoadConstraintPuzzleScene()
+    {
+        if (sceneLoader != null)
+        {
+            sceneLoader.LoadConstraintPuzzle();
+            return;
+        }
+
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("ConstraintPuzzle", LoadSceneMode.Single);
     }
 
     private void LoadMainMenuScene()

@@ -53,6 +53,7 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] private string puzzleMenuSceneName = "PuzzleMenu";
     [SerializeField] private string slidingPuzzle4x4SceneName = "SlidingPuzzle4x4";
     [SerializeField] private string longestPathPuzzleSceneName = "LongestPathPuzzle";
+    [SerializeField] private string constraintPuzzleSceneName = "ConstraintPuzzle_New";
     [SerializeField] private string mainMenuSceneName = "MainMenu";
 
     // -------------------------------------------------------------------------
@@ -130,6 +131,14 @@ public class SceneLoader : MonoBehaviour
     public void LoadLongestPathPuzzle()
     {
       LoadScene(longestPathPuzzleSceneName);
+    }
+
+    /// <summary>
+    /// Load the constraint-placement puzzle scene.
+    /// </summary>
+    public void LoadConstraintPuzzle()
+    {
+        LoadScene(constraintPuzzleSceneName);
     }
 
     /// <summary>
