@@ -6054,20 +6054,22 @@ MonoBehaviour:
   - {fileID: -1667995487, guid: 1318e5e161f5b98458aa6ed304a013bd, type: 3}
   - {fileID: 580222493, guid: 1318e5e161f5b98458aa6ed304a013bd, type: 3}
   - {fileID: -1667995487, guid: 1318e5e161f5b98458aa6ed304a013bd, type: 3}
+  - {fileID: -1667995487, guid: 1318e5e161f5b98458aa6ed304a013bd, type: 3}
+  - {fileID: -1667995487, guid: 1318e5e161f5b98458aa6ed304a013bd, type: 3}
+  - {fileID: -1667995487, guid: 1318e5e161f5b98458aa6ed304a013bd, type: 3}
+  - {fileID: -1667995487, guid: 1318e5e161f5b98458aa6ed304a013bd, type: 3}
+  - {fileID: -1667995487, guid: 1318e5e161f5b98458aa6ed304a013bd, type: 3}
+  - {fileID: -1667995487, guid: 1318e5e161f5b98458aa6ed304a013bd, type: 3}
+  - {fileID: -1667995487, guid: 1318e5e161f5b98458aa6ed304a013bd, type: 3}
+  - {fileID: -1667995487, guid: 1318e5e161f5b98458aa6ed304a013bd, type: 3}
   - {fileID: 230896156, guid: 1318e5e161f5b98458aa6ed304a013bd, type: 3}
-  - {fileID: -2128184902, guid: 1318e5e161f5b98458aa6ed304a013bd, type: 3}
-  - {fileID: 1456665792, guid: 1318e5e161f5b98458aa6ed304a013bd, type: 3}
-  - {fileID: -1681093795, guid: 1318e5e161f5b98458aa6ed304a013bd, type: 3}
   - {fileID: -1667995487, guid: 1318e5e161f5b98458aa6ed304a013bd, type: 3}
   - {fileID: -1667995487, guid: 1318e5e161f5b98458aa6ed304a013bd, type: 3}
   - {fileID: -1667995487, guid: 1318e5e161f5b98458aa6ed304a013bd, type: 3}
   - {fileID: -1667995487, guid: 1318e5e161f5b98458aa6ed304a013bd, type: 3}
-  - {fileID: 363887683, guid: 1318e5e161f5b98458aa6ed304a013bd, type: 3}
   - {fileID: -1667995487, guid: 1318e5e161f5b98458aa6ed304a013bd, type: 3}
   - {fileID: -1667995487, guid: 1318e5e161f5b98458aa6ed304a013bd, type: 3}
   - {fileID: 580222493, guid: 1318e5e161f5b98458aa6ed304a013bd, type: 3}
-  - {fileID: -1667995487, guid: 1318e5e161f5b98458aa6ed304a013bd, type: 3}
-  - {fileID: -1667995487, guid: 1318e5e161f5b98458aa6ed304a013bd, type: 3}
   - {fileID: -1667995487, guid: 1318e5e161f5b98458aa6ed304a013bd, type: 3}
   - {fileID: -1667995487, guid: 1318e5e161f5b98458aa6ed304a013bd, type: 3}
   - {fileID: -1667995487, guid: 1318e5e161f5b98458aa6ed304a013bd, type: 3}
@@ -7591,8 +7593,10 @@ MonoBehaviour:
   gameplaySceneName: Main
   platformerSceneName: PlatformerLevel3
   phase2SceneName: Level3_Phase2
+  puzzleMenuSceneName: PuzzleMenu
   slidingPuzzle4x4SceneName: SlidingPuzzle4x4
   longestPathPuzzleSceneName: LongestPathPuzzle
+  constraintPuzzleSceneName: ConstraintPuzzle_New
   mainMenuSceneName: MainMenu
 --- !u!4 &1827542742
 Transform:

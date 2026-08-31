@@ -9,13 +9,14 @@ Attached to: CheckButton
 
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(Button))]
 public sealed class ConstraintPuzzleCheckHandler : MonoBehaviour
 {
     [SerializeField] private ConstraintPuzzleIntegration integration;
-    [SerializeField] private Text feedbackText;
+    [SerializeField] private TextMeshProUGUI feedbackText;
     
     private Button checkButton;
     private bool alreadySolved;

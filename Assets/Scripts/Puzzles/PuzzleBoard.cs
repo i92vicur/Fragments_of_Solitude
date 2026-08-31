@@ -167,8 +167,8 @@ public class PuzzleBoard : MonoBehaviour
         labelRect.offsetMax = Vector2.zero;
 
         Text label = labelGO.GetComponent<Text>();
-        label.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-        label.fontSize = 48;
+        label.font = Resources.Load<Font>("Fonts/PressStart2P-Regular");
+        label.fontSize = 38;
         label.alignment = TextAnchor.MiddleCenter;
         label.color = Color.white;
         label.text = "1";

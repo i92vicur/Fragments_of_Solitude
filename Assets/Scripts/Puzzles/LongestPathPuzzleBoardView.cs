@@ -154,7 +154,7 @@ public sealed class LongestPathPuzzleBoardView : MonoBehaviour
         backdropRect.anchorMin = new Vector2(0.5f, 0.5f);
         backdropRect.anchorMax = new Vector2(0.5f, 0.5f);
         backdropRect.anchoredPosition = Vector2.zero;
-        backdropRect.sizeDelta = new Vector2(1100f, 720f);
+        backdropRect.sizeDelta = new Vector2(1500f, 750f);
         backdropRect.pivot = new Vector2(0.5f, 0.5f);
         Image backdropImage = backdrop.GetComponent<Image>();
         backdropImage.sprite = GetWhiteSprite();
@@ -191,17 +191,16 @@ public sealed class LongestPathPuzzleBoardView : MonoBehaviour
         statusRect.anchorMin = new Vector2(0f, 1f);
         statusRect.anchorMax = new Vector2(0f, 1f);
         statusRect.pivot = new Vector2(0f, 1f);
-        statusRect.anchoredPosition = new Vector2(24f, -18f);
-        statusRect.sizeDelta = new Vector2(300f, 88f);
+        statusRect.anchoredPosition = new Vector2(-154f, -38f);
+        statusRect.sizeDelta = new Vector2(300f, 128f);
 
         statusText = statusObject.AddComponent<Text>();
-        statusText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-        statusText.fontSize = 20;
-        statusText.fontStyle = FontStyle.Bold;
+        statusText.font = Resources.Load<Font>("Fonts/PressStart2P-Regular");
+        statusText.fontSize = 17;
         statusText.alignment = TextAnchor.UpperLeft;
         statusText.color = Color.white;
         statusText.raycastTarget = false;
-        statusText.text = "Distance: 0\nStart: A\nGoal: B";
+        statusText.text = "Distance: 0\n\nStart: A\n\nGoal: B\n";
     }
 
     private void CreateResetButton()
@@ -211,7 +210,7 @@ public sealed class LongestPathPuzzleBoardView : MonoBehaviour
         buttonRect.anchorMin = new Vector2(1f, 1f);
         buttonRect.anchorMax = new Vector2(1f, 1f);
         buttonRect.pivot = new Vector2(1f, 1f);
-        buttonRect.anchoredPosition = new Vector2(-24f, -18f);
+        buttonRect.anchoredPosition = new Vector2(-1100f, -628f);
         buttonRect.sizeDelta = new Vector2(170f, 38f);
 
         Image buttonImage = buttonObject.GetComponent<Image>();
@@ -231,9 +230,8 @@ public sealed class LongestPathPuzzleBoardView : MonoBehaviour
         labelRect.offsetMax = Vector2.zero;
 
         resetButtonLabel = labelObject.AddComponent<Text>();
-        resetButtonLabel.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-        resetButtonLabel.fontSize = 18;
-        resetButtonLabel.fontStyle = FontStyle.Bold;
+        resetButtonLabel.font = Resources.Load<Font>("Fonts/PressStart2P-Regular");
+        resetButtonLabel.fontSize = 16;
         resetButtonLabel.alignment = TextAnchor.MiddleCenter;
         resetButtonLabel.color = Color.white;
         resetButtonLabel.raycastTarget = false;
@@ -247,7 +245,7 @@ public sealed class LongestPathPuzzleBoardView : MonoBehaviour
         buttonRect.anchorMin = new Vector2(1f, 1f);
         buttonRect.anchorMax = new Vector2(1f, 1f);
         buttonRect.pivot = new Vector2(1f, 1f);
-        buttonRect.anchoredPosition = new Vector2(-24f, -66f);
+        buttonRect.anchoredPosition = new Vector2(-1100f, -680f);
         buttonRect.sizeDelta = new Vector2(170f, 38f);
 
         Image buttonImage = buttonObject.GetComponent<Image>();
@@ -267,9 +265,8 @@ public sealed class LongestPathPuzzleBoardView : MonoBehaviour
         labelRect.offsetMax = Vector2.zero;
 
         backToMenuButtonLabel = labelObject.AddComponent<Text>();
-        backToMenuButtonLabel.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-        backToMenuButtonLabel.fontSize = 18;
-        backToMenuButtonLabel.fontStyle = FontStyle.Bold;
+        backToMenuButtonLabel.font = Resources.Load<Font>("Fonts/PressStart2P-Regular");
+        backToMenuButtonLabel.fontSize = 16;
         backToMenuButtonLabel.alignment = TextAnchor.MiddleCenter;
         backToMenuButtonLabel.color = Color.white;
         backToMenuButtonLabel.raycastTarget = false;
@@ -299,9 +296,9 @@ public sealed class LongestPathPuzzleBoardView : MonoBehaviour
         titleRect.sizeDelta = new Vector2(0f, 30f);
 
         completionTitleText = titleObject.AddComponent<Text>();
-        completionTitleText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-        completionTitleText.fontSize = 22;
-        completionTitleText.fontStyle = FontStyle.Bold;
+        completionTitleText.font = Resources.Load<Font>("Fonts/PressStart2P-Regular");
+        completionTitleText.fontSize = 19;
+        //completionTitleText.fontStyle = FontStyle.Bold;
         completionTitleText.alignment = TextAnchor.MiddleCenter;
         completionTitleText.color = Color.white;
         completionTitleText.raycastTarget = false;
@@ -315,9 +312,9 @@ public sealed class LongestPathPuzzleBoardView : MonoBehaviour
         resultRect.offsetMax = new Vector2(-20f, -44f);
 
         completionResultText = resultObject.AddComponent<Text>();
-        completionResultText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-        completionResultText.fontSize = 20;
-        completionResultText.fontStyle = FontStyle.Bold;
+        completionResultText.font = Resources.Load<Font>("Fonts/PressStart2P-Regular");
+        completionResultText.fontSize = 17;
+        //completionResultText.fontStyle = FontStyle.Bold;
         completionResultText.alignment = TextAnchor.MiddleCenter;
         completionResultText.color = new Color(0.92f, 0.93f, 0.96f, 1f);
         completionResultText.raycastTarget = false;
@@ -348,9 +345,9 @@ public sealed class LongestPathPuzzleBoardView : MonoBehaviour
         repeatLabelRect.offsetMax = Vector2.zero;
 
         repeatPuzzleButtonLabel = repeatLabelObject.AddComponent<Text>();
-        repeatPuzzleButtonLabel.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-        repeatPuzzleButtonLabel.fontSize = 18;
-        repeatPuzzleButtonLabel.fontStyle = FontStyle.Bold;
+        repeatPuzzleButtonLabel.font = Resources.Load<Font>("Fonts/PressStart2P-Regular");
+        repeatPuzzleButtonLabel.fontSize = 16;
+        //repeatPuzzleButtonLabel.fontStyle = FontStyle.Bold;
         repeatPuzzleButtonLabel.alignment = TextAnchor.MiddleCenter;
         repeatPuzzleButtonLabel.color = Color.white;
         repeatPuzzleButtonLabel.raycastTarget = false;
@@ -426,9 +423,8 @@ public sealed class LongestPathPuzzleBoardView : MonoBehaviour
         labelRect.localRotation = Quaternion.identity;
 
         Text labelText = label.AddComponent<Text>();
-        labelText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-        labelText.fontSize = 18;
-        labelText.fontStyle = FontStyle.Bold;
+        labelText.font = Resources.Load<Font>("Fonts/PressStart2P-Regular");
+        labelText.fontSize = 16;
         labelText.alignment = TextAnchor.MiddleCenter;
         labelText.color = labelColor;
         labelText.raycastTarget = false;
@@ -486,8 +482,7 @@ public sealed class LongestPathPuzzleBoardView : MonoBehaviour
         textRect.pivot = new Vector2(0.5f, 0.5f);
 
         Text nodeLabel = textObject.AddComponent<Text>();
-        nodeLabel.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-        nodeLabel.fontStyle = FontStyle.Bold;
+        nodeLabel.font = Resources.Load<Font>("Fonts/PressStart2P-Regular");
         nodeLabel.fontSize = isStartNode || isEndNode ? 24 : 16;
         nodeLabel.alignment = TextAnchor.MiddleCenter;
         nodeLabel.color = isStartNode || isEndNode ? Color.white : new Color(0.14f, 0.14f, 0.16f, 1f);

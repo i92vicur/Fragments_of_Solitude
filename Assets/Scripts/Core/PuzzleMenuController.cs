@@ -63,8 +63,8 @@ public class PuzzleMenuController : MonoBehaviour
         titleRect.sizeDelta = new Vector2(600f, 80f);
 
         Text titleText = titleGO.GetComponent<Text>();
-        titleText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-        titleText.fontSize = 44;
+        titleText.font = Resources.Load<Font>("Fonts/PressStart2P-Regular");
+        titleText.fontSize = 34;
         titleText.fontStyle = FontStyle.Bold;
         titleText.alignment = TextAnchor.MiddleCenter;
         titleText.color = Color.white;
@@ -100,8 +100,8 @@ public class PuzzleMenuController : MonoBehaviour
         labelRect.offsetMax = Vector2.zero;
 
         Text label = labelGO.GetComponent<Text>();
-        label.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
-        label.fontSize = 24;
+        label.font = Resources.Load<Font>("Fonts/PressStart2P-Regular");
+        label.fontSize = 18;
         label.fontStyle = FontStyle.Bold;
         label.alignment = TextAnchor.MiddleCenter;
         label.color = Color.white;
