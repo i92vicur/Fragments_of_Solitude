@@ -384,6 +384,8 @@ GameObject:
   - component: {fileID: 1103}
   - component: {fileID: 1104}
   - component: {fileID: 1105}
+  - component: {fileID: 1110}
+  - component: {fileID: 1111}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -556,6 +558,45 @@ MonoBehaviour:
   dashEnabled: 1
   dashKey: 304
   dashHorizontalSpeed: 12
+--- !u!95 &1110
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1100}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d0f1b2c3d4e5f60718293a4b5c6d7e8f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage:
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2a7c9814e46f4a3b86d19c0257e312a, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  facingDeadZone: 0.01
+  dashAnimationDuration: 0.6666667
+  deathFrontClip: {fileID: 7400000, guid: 0691c20b55991c9458a298165e59ad73, type: 2}
+  deathLeftClip: {fileID: 7400000, guid: 622b81cc2094cfc4a914976264857932, type: 2}
+  deathRightClip: {fileID: 7400000, guid: 0860eb42fc945f6439a2c585a2fa6b2b, type: 2}
 --- !u!1 &1200
 GameObject:
   m_ObjectHideFlags: 0
@@ -1542,6 +1583,52 @@ MonoBehaviour:
   cameraTransform: {fileID: 1001}
   cameraDeathMargin: 1
   sceneLoader: {fileID: 1012}
+  deathAnimationDuration: 0.75
+--- !u!1 &2000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2001}
+  - component: {fileID: 2002}
+  m_Layer: 0
+  m_Name: PlatformerPauseMenu
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2001
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2000}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b3e1f5d9c2a4680b4e6f8a1c3d5e709, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  pauseKey: 112
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1558,3 +1645,4 @@ SceneRoots:
   - {fileID: 1701}
   - {fileID: 1801}
   - {fileID: 1901}
+  - {fileID: 2001}

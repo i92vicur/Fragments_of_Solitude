@@ -1,7 +1,7 @@
 /*
 RebuildLevel4Phase2Scene.cs
 
-Editor utility to rebuild Level4_Phase2 completely from code.
+Editor utility to rebuild Level4Phase2 completely from code.
 This avoids YAML corruption issues from manual editing.
 
 Usage:
@@ -16,7 +16,7 @@ using UnityEngine.SceneManagement;
 
 public static class RebuildLevel4Phase2Scene
 {
-    private const string ScenePath = "Assets/Scenes/Level4/Level4_Phase2.unity";
+    private const string ScenePath = "Assets/Scenes/Level4/Level4Phase2.unity";
 
     [MenuItem("Prototype/Rebuild Level4 Phase2 Scene")]
     public static void Rebuild()
@@ -38,7 +38,7 @@ public static class RebuildLevel4Phase2Scene
         cameraGO.AddComponent<AudioListener>();
 
         // Add Phase2CameraScroller
-        var cameraScroller = cameraGO.AddComponent<Phase2CameraScroller>();
+        cameraGO.AddComponent<Phase2CameraScroller>();
         SceneManager.MoveGameObjectToScene(cameraGO, scene);
 
         // Create Player
@@ -60,12 +60,12 @@ public static class RebuildLevel4Phase2Scene
         playerRb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
 
         var movement = playerGO.AddComponent<Phase2MovementController>();
-        SceneManager.MoveGameObjectToScene(playerGO, scene);
+        Animator playerAnimator = playerGO.AddComponent<Animator>();
+        playerAnimator.runtimeAnimatorController = AssetDatabase.LoadAssetAtPath<RuntimeAnimatorController>(
+            "Assets/Art/Characters/Level4/Player/Animations/Player.controller");
 
-        // Set camera target to player
-        SerializedObject cameraScrollerSO = new SerializedObject(cameraScroller);
-        cameraScrollerSO.FindProperty("target").objectReferenceValue = playerGO.transform;
-        cameraScrollerSO.ApplyModifiedProperties();
+        // Phase2CharacterAnimationController and its death clips must be attached manually after rebuilding.
+        SceneManager.MoveGameObjectToScene(playerGO, scene);
 
         // Create SceneLoader
         GameObject sceneLoaderGO = new GameObject("SceneLoader");
@@ -73,7 +73,7 @@ public static class RebuildLevel4Phase2Scene
         var slSO = new SerializedObject(sceneLoader);
         slSO.FindProperty("gameplaySceneName").stringValue = "Level4";
         slSO.FindProperty("platformerSceneName").stringValue = "Level4";
-        slSO.FindProperty("phase2SceneName").stringValue = "Level4_Phase2";
+        slSO.FindProperty("phase2SceneName").stringValue = "Level4Phase2";
         slSO.FindProperty("mainMenuSceneName").stringValue = "MainMenu";
         slSO.ApplyModifiedProperties();
         SceneManager.MoveGameObjectToScene(sceneLoaderGO, scene);
@@ -86,6 +86,10 @@ public static class RebuildLevel4Phase2Scene
         restartSO.ApplyModifiedProperties();
         SceneManager.MoveGameObjectToScene(restartGO, scene);
 
+        GameObject pauseMenuGO = new GameObject("PlatformerPauseMenu");
+        pauseMenuGO.AddComponent<PlatformerPauseMenu>();
+        SceneManager.MoveGameObjectToScene(pauseMenuGO, scene);
+
         // Create DeathController
         GameObject deathGO = new GameObject("DeathController");
         var deathController = deathGO.AddComponent<Phase2DeathController>();
@@ -93,7 +97,7 @@ public static class RebuildLevel4Phase2Scene
         deathSO.FindProperty("player").objectReferenceValue = playerGO.transform;
         deathSO.FindProperty("cameraTransform").objectReferenceValue = cameraGO.transform;
         deathSO.FindProperty("sceneLoader").objectReferenceValue = sceneLoader;
-        deathSO.FindProperty("killMargin").floatValue = 1f;
+        deathSO.FindProperty("cameraDeathMargin").floatValue = 1f;
         deathSO.ApplyModifiedProperties();
         SceneManager.MoveGameObjectToScene(deathGO, scene);
 

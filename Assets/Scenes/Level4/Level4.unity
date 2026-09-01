@@ -223,8 +223,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4b4d0c0f6e7f4c1aa912da1c2ef1c8d9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   target: {fileID: 1101}
   followSmoothing: 0.12
   verticalDeadZone: 0.5
@@ -3349,6 +3349,7 @@ GameObject:
   - component: {fileID: 945735407}
   - component: {fileID: 945735409}
   - component: {fileID: 945735410}
+  - component: {fileID: 945735411}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -3518,6 +3519,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.5127237, y: 6.79}
   m_EdgeRadius: 0
+--- !u!114 &945735411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 945735406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5f2a7c9814e46f4a3b86d19c0257e31, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  phase2SceneName: Level4Phase2
 --- !u!1 &991574418
 GameObject:
   m_ObjectHideFlags: 0

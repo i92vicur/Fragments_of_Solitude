@@ -12,6 +12,7 @@ Design decisions:
 */
 
 using UnityEngine;
+using System.Collections;
 
 [DisallowMultipleComponent]
 public class Phase2DeathController : MonoBehaviour
@@ -27,6 +28,9 @@ public class Phase2DeathController : MonoBehaviour
 
     [SerializeField, Tooltip("SceneLoader used to reload the current scene on death.")]
     private SceneLoader sceneLoader;
+
+    [SerializeField, Tooltip("Realtime delay that allows the death animation to finish before reloading.")]
+    private float deathAnimationDuration = 0.75f;
 
     private Camera gameplayCamera;
     private bool isRestarting;
@@ -72,10 +76,17 @@ public class Phase2DeathController : MonoBehaviour
             return;
 
         isRestarting = true;
-        Time.timeScale = 1f;
+        Time.timeScale = 0f;
 
         // Play death sound if PlatformerAudioHub is available
         PlatformerAudioHub.Instance?.PlayDeath();
+
+        StartCoroutine(ReloadAfterDeathAnimation());
+    }
+
+    private IEnumerator ReloadAfterDeathAnimation()
+    {
+        yield return new WaitForSecondsRealtime(Mathf.Max(0f, deathAnimationDuration));
 
         // Reload the scene via SceneLoader
         if (sceneLoader == null)

@@ -247,6 +247,8 @@ public class Phase2MovementController : MonoBehaviour
     /// </summary>
     public bool IsFalling => rb != null && rb.linearVelocity.y < 0f;
 
+    public bool IsGrounded => isGrounded;
+
     public bool IsDashAvailable => dashEnabled && dashAvailable;
 
     /// <summary>
