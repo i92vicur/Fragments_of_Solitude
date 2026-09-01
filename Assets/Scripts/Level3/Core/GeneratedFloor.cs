@@ -143,7 +143,7 @@ public class GeneratedFloor : MonoBehaviour
             for (int y = startY; y <= endY; y++)
             {
                 Vector3 tilePosition = new Vector3((x + 0.5f) * tileWidth, (y + 0.5f) * tileHeight + floorVerticalOffset, 0f);
-                if (useCompleteMapGeometry && (!IsInsideCompleteMap(tilePosition) || IsInsideMapStructure(tilePosition)))
+                if (useCompleteMapGeometry && !IsInsideCompleteMap(tilePosition))
                     continue;
 
                 GameObject tileObject = new GameObject("FloorTile");

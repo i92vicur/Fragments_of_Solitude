@@ -1,0 +1,256 @@
+/*
+Phase2MovementController.cs
+
+Purpose: Handle platformer Phase 2 movement independently from Phase 1's jump-based controller.
+Phase 2 has no jump, continuous fall, and horizontal movement only.
+
+Design decisions:
+- Completely independent from PlatformerJumpController; no shared state.
+- Horizontal movement is frame-independent via FixedUpdate with smooth acceleration/deceleration.
+- Gravity is handled by the Rigidbody2D gravityScale; this controller applies optional fall speed clamp.
+- Input is simple: horizontal axis (A/D or arrow keys) maps to horizontal velocity.
+- Acceleration and deceleration give the control responsive but non-floaty feel.
+- No jump input; fall is automatic and continuous.
+- Dash availability is prepared but not active initially; will be enabled later.
+- Collision detection relies on Rigidbody2D and platform colliders; no special landing logic.
+*/
+
+using UnityEngine;
+
+[DisallowMultipleComponent]
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Collider2D))]
+public class Phase2MovementController : MonoBehaviour
+{
+    private const float GroundProbeDistance = 0.08f;
+
+    [Header("Horizontal Movement")]
+    [SerializeField, Tooltip("Maximum horizontal speed when moving left/right.")]
+    private float horizontalSpeed = 6f;
+
+    [SerializeField, Tooltip("Acceleration rate toward target horizontal speed (units/sec²).")]
+    private float horizontalAcceleration = 30f;
+
+    [SerializeField, Tooltip("Deceleration rate when no input is detected (units/sec²).")]
+    private float horizontalDeceleration = 25f;
+
+    [Header("Fall Configuration")]
+    [SerializeField, Tooltip("Gravity scale for this Rigidbody2D. Higher = faster fall.")]
+    private float gravityScale = 3f;
+
+    [SerializeField, Tooltip("If enabled, limits max downward velocity.")]
+    private bool clampFallSpeed = true;
+
+    [SerializeField, Tooltip("Maximum downward velocity. Set to 0 to disable.")]
+    private float maxFallSpeed = 9f;
+
+    [SerializeField, Tooltip("Minimum distance kept between the player center and the camera's bottom edge.")]
+    private float bottomScreenMargin = 1f;
+
+    [Header("Dash")]
+    [SerializeField, Tooltip("If true, allows one horizontal dash until the player lands.")]
+    private bool dashEnabled = false;
+
+    [SerializeField, Tooltip("Key used to trigger the horizontal dash.")]
+    private KeyCode dashKey = KeyCode.LeftShift;
+
+    [SerializeField, Tooltip("Instant horizontal speed applied when dash starts.")]
+    private float dashHorizontalSpeed = 12f;
+
+    private readonly RaycastHit2D[] groundHits = new RaycastHit2D[4];
+    private ContactFilter2D groundFilter;
+    private Rigidbody2D rb;
+    private Collider2D bodyCollider;
+    private Camera gameplayCamera;
+    private bool dashUsedThisFrame;
+    private bool dashAvailable = true;
+    private bool dashQueued;
+    private bool isGrounded;
+    private int lastHorizontalDirection = 1;
+    private float currentHorizontalVelocity;
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        bodyCollider = GetComponent<Collider2D>();
+
+        // Configure Rigidbody2D for Phase 2
+        if (rb != null)
+        {
+            rb.gravityScale = Mathf.Max(0f, gravityScale);
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+            rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+        }
+
+        horizontalSpeed = Mathf.Max(0f, horizontalSpeed);
+        horizontalAcceleration = Mathf.Max(0f, horizontalAcceleration);
+        horizontalDeceleration = Mathf.Max(0f, horizontalDeceleration);
+        maxFallSpeed = Mathf.Max(0f, maxFallSpeed);
+        bottomScreenMargin = Mathf.Max(0f, bottomScreenMargin);
+        dashHorizontalSpeed = Mathf.Max(0f, dashHorizontalSpeed);
+        currentHorizontalVelocity = 0f;
+        gameplayCamera = Camera.main;
+
+        groundFilter = new ContactFilter2D();
+        groundFilter.NoFilter();
+        groundFilter.useTriggers = false;
+        isGrounded = CheckGrounded();
+    }
+
+    private void OnValidate()
+    {
+        horizontalSpeed = Mathf.Max(0f, horizontalSpeed);
+        horizontalAcceleration = Mathf.Max(0f, horizontalAcceleration);
+        horizontalDeceleration = Mathf.Max(0f, horizontalDeceleration);
+        gravityScale = Mathf.Max(0f, gravityScale);
+        maxFallSpeed = Mathf.Max(0f, maxFallSpeed);
+        bottomScreenMargin = Mathf.Max(0f, bottomScreenMargin);
+        dashHorizontalSpeed = Mathf.Max(0f, dashHorizontalSpeed);
+    }
+
+    private void Update()
+    {
+        int horizontalDirection = ReadHorizontalDirection();
+        if (horizontalDirection != 0)
+            lastHorizontalDirection = horizontalDirection;
+
+        if (dashEnabled && dashAvailable && Input.GetKeyDown(dashKey))
+            dashQueued = true;
+    }
+
+    private void FixedUpdate()
+    {
+        if (rb == null)
+            return;
+
+        bool wasGrounded = isGrounded;
+        isGrounded = CheckGrounded();
+        if (isGrounded && !wasGrounded)
+            dashAvailable = true;
+
+        // Read horizontal input
+        float horizontalInput = Input.GetAxis("Horizontal");
+
+        // Calculate target horizontal velocity
+        float targetHorizontalVelocity = horizontalInput * horizontalSpeed;
+
+        // Smooth acceleration/deceleration toward target velocity
+        if (Mathf.Abs(targetHorizontalVelocity - currentHorizontalVelocity) > 0.01f)
+        {
+            if (Mathf.Abs(horizontalInput) > 0.01f)
+            {
+                // Input detected: accelerate toward target speed
+                currentHorizontalVelocity = Mathf.MoveTowards(
+                    currentHorizontalVelocity,
+                    targetHorizontalVelocity,
+                    horizontalAcceleration * Time.fixedDeltaTime
+                );
+            }
+            else
+            {
+                // No input: decelerate toward zero
+                currentHorizontalVelocity = Mathf.MoveTowards(
+                    currentHorizontalVelocity,
+                    0f,
+                    horizontalDeceleration * Time.fixedDeltaTime
+                );
+            }
+        }
+        else
+        {
+            currentHorizontalVelocity = targetHorizontalVelocity;
+        }
+
+        // Apply horizontal velocity; gravity is handled by Rigidbody2D
+        Vector2 velocity = rb.linearVelocity;
+        velocity.x = currentHorizontalVelocity;
+        
+        // Clamp fall speed if enabled
+        if (clampFallSpeed && maxFallSpeed > 0f && velocity.y < -maxFallSpeed)
+        {
+            velocity.y = -maxFallSpeed;
+        }
+
+        if (gameplayCamera != null && gameplayCamera.orthographic)
+        {
+            float bottomEdge = gameplayCamera.transform.position.y - gameplayCamera.orthographicSize;
+            float playerMinimumY = bottomEdge + bottomScreenMargin;
+            float lowestAllowedVelocity = (playerMinimumY - rb.position.y) / Time.fixedDeltaTime;
+            velocity.y = Mathf.Max(velocity.y, lowestAllowedVelocity);
+        }
+
+        if (dashQueued)
+        {
+            dashQueued = false;
+            int dashDirection = ReadHorizontalDirection();
+            if (dashDirection == 0)
+                dashDirection = Mathf.Abs(velocity.x) > 0.01f ? (velocity.x > 0f ? 1 : -1) : lastHorizontalDirection;
+
+            velocity.x = dashDirection * dashHorizontalSpeed;
+            currentHorizontalVelocity = velocity.x;
+            dashAvailable = false;
+            dashUsedThisFrame = true;
+        }
+
+        rb.linearVelocity = velocity;
+
+        // Reset dash flag
+        dashUsedThisFrame = false;
+    }
+
+    private bool CheckGrounded()
+    {
+        if (bodyCollider == null)
+            return false;
+
+        int hitCount = bodyCollider.Cast(Vector2.down, groundFilter, groundHits, GroundProbeDistance);
+        for (int i = 0; i < hitCount; i++)
+        {
+            if (groundHits[i].normal.y > 0.5f)
+                return true;
+        }
+
+        return false;
+    }
+
+    private static int ReadHorizontalDirection()
+    {
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        if (Mathf.Abs(horizontalInput) <= 0.01f)
+            return 0;
+
+        return horizontalInput > 0f ? 1 : -1;
+    }
+
+    // === Public API ===
+
+    /// <summary>
+    /// Get the current horizontal velocity.
+    /// Useful for animation or external systems.
+    /// </summary>
+    public float GetHorizontalVelocity()
+    {
+        return rb != null ? rb.linearVelocity.x : 0f;
+    }
+
+    /// <summary>
+    /// Get the current vertical velocity.
+    /// Useful for death detection or state machines.
+    /// </summary>
+    public float GetVerticalVelocity()
+    {
+        return rb != null ? rb.linearVelocity.y : 0f;
+    }
+
+    /// <summary>
+    /// True if the player is falling (downward velocity).
+    /// </summary>
+    public bool IsFalling => rb != null && rb.linearVelocity.y < 0f;
+
+    public bool IsDashAvailable => dashEnabled && dashAvailable;
+
+    /// <summary>
+    /// Reserved for future dash implementation.
+    /// </summary>
+    public bool WasDashAttemptedThisFrame => dashUsedThisFrame;
+}
