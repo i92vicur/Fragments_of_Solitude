@@ -37,8 +37,11 @@ public static class RebuildLevel4Phase2Scene
         cameraGO.transform.position = new Vector3(0, 62, -10);
         cameraGO.AddComponent<AudioListener>();
 
-        // Add Phase2CameraScroller
-        cameraGO.AddComponent<Phase2CameraScroller>();
+        // Add Phase2CameraScroller (camera holds still until the player falls below the starting platform)
+        var cameraScroller = cameraGO.AddComponent<Phase2CameraScroller>();
+        var cameraScrollerSO = new SerializedObject(cameraScroller);
+        cameraScrollerSO.FindProperty("holdUntilPlayerBelowY").floatValue = 58.5f;
+        cameraScrollerSO.ApplyModifiedProperties();
         SceneManager.MoveGameObjectToScene(cameraGO, scene);
 
         // Create Player
@@ -102,7 +105,7 @@ public static class RebuildLevel4Phase2Scene
         SceneManager.MoveGameObjectToScene(deathGO, scene);
 
         // Helper to create platform
-        void CreatePlatform(string name, Vector3 pos, Vector3 scale, Color color)
+        GameObject CreatePlatform(string name, Vector3 pos, Vector3 scale, Color color)
         {
             GameObject platformGO = new GameObject(name);
             platformGO.transform.position = pos;
@@ -115,16 +118,34 @@ public static class RebuildLevel4Phase2Scene
             collider.size = Vector2.one;
 
             SceneManager.MoveGameObjectToScene(platformGO, scene);
+            return platformGO;
         }
 
         // Create platforms
+        CreatePlatform("Platform_Start", new Vector3(0, 59, 0), new Vector3(6, 1, 1), new Color(0.6f, 0.6f, 0.6f));
         CreatePlatform("Ground", new Vector3(0, -15, 0), new Vector3(20, 1, 1), new Color(0.42f, 0.42f, 0.42f));
         CreatePlatform("Platform_A", new Vector3(-4, 48, 0), new Vector3(3, 0.8f, 1), new Color(0.32f, 0.5f, 0.32f));
         CreatePlatform("Platform_B", new Vector3(4, 36, 0), new Vector3(3, 0.8f, 1), new Color(0.32f, 0.5f, 0.32f));
         CreatePlatform("Platform_C", new Vector3(-4, 24, 0), new Vector3(3, 0.8f, 1), new Color(0.32f, 0.5f, 0.32f));
         CreatePlatform("Platform_D", new Vector3(0, 12, 0), new Vector3(4, 0.8f, 1), new Color(0.8f, 0.8f, 0.2f));
         CreatePlatform("Platform_E", new Vector3(4, 0, 0), new Vector3(3, 0.8f, 1), new Color(0.32f, 0.5f, 0.32f));
-        CreatePlatform("Platform_Meta", new Vector3(0, -12, 0), new Vector3(8, 1, 1), new Color(0.2f, 0.8f, 0.2f));
+        GameObject metaGO = CreatePlatform("Platform_Meta", new Vector3(0, -12, 0), new Vector3(8, 1, 1), new Color(0.2f, 0.8f, 0.2f));
+
+        // Create GoalController (ends the level when the player reaches Platform_Meta)
+        GameObject goalGO = new GameObject("GoalController");
+        var goalController = goalGO.AddComponent<Phase2GoalController>();
+        var goalSO = new SerializedObject(goalController);
+        goalSO.FindProperty("goalCollider").objectReferenceValue = metaGO.GetComponent<BoxCollider2D>();
+        goalSO.FindProperty("cameraScroller").objectReferenceValue = cameraScroller;
+        goalSO.FindProperty("deathController").objectReferenceValue = deathController;
+        SceneManager.MoveGameObjectToScene(goalGO, scene);
+
+        // Create Phase2VictoryMenu (Restart / Main Menu panel shown by GoalController)
+        GameObject victoryMenuGO = new GameObject("Phase2VictoryMenu");
+        var victoryMenu = victoryMenuGO.AddComponent<Phase2VictoryMenu>();
+        goalSO.FindProperty("victoryMenu").objectReferenceValue = victoryMenu;
+        goalSO.ApplyModifiedProperties();
+        SceneManager.MoveGameObjectToScene(victoryMenuGO, scene);
 
         // Save scene
         EditorSceneManager.SaveScene(scene, ScenePath);

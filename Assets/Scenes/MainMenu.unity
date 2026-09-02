@@ -1002,7 +1002,7 @@ MonoBehaviour:
   previewImage: {fileID: 0}
   previewRect: {fileID: 0}
   frames: []
-  frameRate: 12
+  frameRate: 10
   isHovering: 0
   frameIndex: 0
   frameTimer: 0
@@ -1572,7 +1572,7 @@ MonoBehaviour:
   previewImage: {fileID: 0}
   previewRect: {fileID: 0}
   frames: []
-  frameRate: 12
+  frameRate: 10
   isHovering: 0
   frameIndex: 0
   frameTimer: 0
@@ -1667,6 +1667,7 @@ GameObject:
   - component: {fileID: 3244257252}
   - component: {fileID: 3244257251}
   - component: {fileID: 3244257250}
+  - component: {fileID: 3244257253}
   m_Layer: 0
   m_Name: Level1Button
   m_TagString: Untagged
@@ -1788,6 +1789,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3244257248}
   m_CullTransparentMesh: 1
+--- !u!114 &3244257253
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3244257248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8fcba6a212087c4e9879f261d5458ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  previewImage: {fileID: 0}
+  previewRect: {fileID: 0}
+  frames: []
+  frameRate: 7
+  isHovering: 0
+  frameIndex: 0
+  frameTimer: 0
 --- !u!1 &3244257259
 GameObject:
   m_ObjectHideFlags: 0

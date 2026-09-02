@@ -43,6 +43,17 @@ public static class PlatformerAnimationSetup
         { "Right", "Assets/Art/Characters/Level4/Player/Animations/Dash/Dash_right_Down.png" }
     };
 
+    // Phase 2 has no forward-facing run; only Left/Right are needed.
+    private static readonly string[] RunDirections = new[] { "Left", "Right" };
+
+    // Run sprites are not in the project yet. These paths are pending: drop matching sheets here
+    // and the Run_Left/Right states will pick them up automatically.
+    private static readonly Dictionary<string, string> RunSourcePaths = new Dictionary<string, string>
+    {
+        { "Left", "Assets/Art/Characters/Level4/Player/Animations/Run/run_left_down.png" },
+        { "Right", "Assets/Art/Characters/Level4/Player/Animations/Run/run_right_down.png" }
+    };
+
     static PlatformerAnimationSetup()
     {
         EditorApplication.delayCall += EnsureSetup;
@@ -92,6 +103,11 @@ public static class PlatformerAnimationSetup
             clips["Idle_" + direction] = EnsureClip("Idle_" + direction + ".anim", IdleSourcePaths[direction], true);
             clips["Jump_" + direction] = EnsureClip("Jump_" + direction + ".anim", JumpSourcePaths[direction], true);
             clips["Dash_" + direction] = EnsureClip("Dash_" + direction + ".anim", DashSourcePaths[direction], false);
+        }
+
+        foreach (string direction in RunDirections)
+        {
+            clips["Run_" + direction] = EnsureClip("Run_" + direction + ".anim", RunSourcePaths[direction], true);
         }
 
         ConfigureController(controller, clips);
@@ -192,6 +208,14 @@ public static class PlatformerAnimationSetup
                 if (defaultState == null && stateName == "Idle_Front")
                     defaultState = state;
             }
+        }
+
+        foreach (string direction in RunDirections)
+        {
+            string stateName = "Run_" + direction;
+            AnimatorState state = stateMachine.AddState(stateName);
+            state.motion = clips[stateName];
+            state.writeDefaultValues = true;
         }
 
         stateMachine.defaultState = defaultState;

@@ -44,10 +44,10 @@ public class PuzzleMenuController : MonoBehaviour
         rootRect.offsetMax = Vector2.zero;
 
         CreateTitle(rootGO.transform);
-        CreateButton(rootGO.transform, "SlidingPuzzleButton", "Sliding Puzzle 4x4", new Vector2(0f, 90f), LoadSlidingPuzzleScene);
-        CreateButton(rootGO.transform, "LongestPathButton", "Longest Path Puzzle", new Vector2(0f, 10f), LoadLongestPathScene);
-        CreateButton(rootGO.transform, "ConstraintPuzzleButton", "Constraint Puzzle", new Vector2(0f, -70f), LoadConstraintPuzzleScene);
-        CreateButton(rootGO.transform, "BackToMainMenuButton", "Back to Main Menu", new Vector2(0f, -160f), LoadMainMenuScene);
+        CreateButton(rootGO.transform, "SlidingPuzzleButton", "Sliding Puzzle 4x4", new Vector2(0f, 60f), LoadSlidingPuzzleScene);
+        CreateButton(rootGO.transform, "LongestPathButton", "Longest Path Puzzle", new Vector2(0f, -10f), LoadLongestPathScene);
+        CreateButton(rootGO.transform, "ConstraintPuzzleButton", "Constraint Puzzle", new Vector2(0f, -80f), LoadConstraintPuzzleScene);
+        CreateButton(rootGO.transform, "BackToMainMenuButton", "Back to Main Menu", new Vector2(0f, -150f), LoadMainMenuScene);
     }
 
     private void CreateTitle(Transform parent)
@@ -59,7 +59,7 @@ public class PuzzleMenuController : MonoBehaviour
         titleRect.anchorMin = new Vector2(0.5f, 1f);
         titleRect.anchorMax = new Vector2(0.5f, 1f);
         titleRect.pivot = new Vector2(0.5f, 1f);
-        titleRect.anchoredPosition = new Vector2(0f, -120f);
+        titleRect.anchoredPosition = new Vector2(0f, -30f);
         titleRect.sizeDelta = new Vector2(600f, 80f);
 
         Text titleText = titleGO.GetComponent<Text>();
@@ -80,7 +80,7 @@ public class PuzzleMenuController : MonoBehaviour
         rect.anchorMin = new Vector2(0.5f, 0.5f);
         rect.anchorMax = new Vector2(0.5f, 0.5f);
         rect.pivot = new Vector2(0.5f, 0.5f);
-        rect.sizeDelta = new Vector2(420f, 72f);
+        rect.sizeDelta = new Vector2(300f, 50f);
         rect.anchoredPosition = anchoredPosition;
 
         Image image = buttonGO.GetComponent<Image>();
@@ -101,8 +101,8 @@ public class PuzzleMenuController : MonoBehaviour
 
         Text label = labelGO.GetComponent<Text>();
         label.font = Resources.Load<Font>("Fonts/PressStart2P-Regular");
-        label.fontSize = 18;
-        label.fontStyle = FontStyle.Bold;
+        label.fontSize = 15;
+        label.fontStyle = FontStyle.Normal;
         label.alignment = TextAnchor.MiddleCenter;
         label.color = Color.white;
         label.text = labelText;

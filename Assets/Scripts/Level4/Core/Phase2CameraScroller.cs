@@ -25,6 +25,13 @@ public class Phase2CameraScroller : MonoBehaviour
     [SerializeField, Tooltip("If true, prevent camera from rising above its starting Y position.")]
     private bool clampToStartY = true;
 
+    [Header("Initial Hold")]
+    [SerializeField, Tooltip("Player transform used to detect when the descent should begin. Auto-found by tag if left empty.")]
+    private Transform player;
+
+    [SerializeField, Tooltip("Camera descent stays paused until the player's Y position drops below this value (e.g. bottom of a starting platform). Leave at a very low value to start descending immediately (default behavior).")]
+    private float holdUntilPlayerBelowY = float.NegativeInfinity;
+
     private Camera cam;
     private Vector3 velocity = Vector3.zero;
     private float fixedX;
@@ -32,6 +39,8 @@ public class Phase2CameraScroller : MonoBehaviour
     private float startY;
     private float targetCameraY;
     private float elapsedTime;
+    private bool descentActive;
+    private bool descentStopped;
 
     private void Awake()
     {
@@ -42,10 +51,36 @@ public class Phase2CameraScroller : MonoBehaviour
         startY = transform.position.y;
         targetCameraY = startY;
         elapsedTime = 0f;
+
+        if (player == null)
+        {
+            GameObject playerGO = GameObject.FindWithTag("Player");
+            if (playerGO != null)
+                player = playerGO.transform;
+        }
+
+        descentActive = player == null || float.IsNegativeInfinity(holdUntilPlayerBelowY);
     }
 
     private void LateUpdate()
     {
+        if (descentStopped)
+            return;
+
+        if (!descentActive)
+        {
+            if (player.position.y < holdUntilPlayerBelowY)
+            {
+                descentActive = true;
+                elapsedTime = 0f;
+                startY = transform.position.y;
+            }
+            else
+            {
+                return;
+            }
+        }
+
         elapsedTime += Time.deltaTime;
         targetCameraY = startY - (elapsedTime * minimumDescentSpeed);
         if (clampToStartY)
@@ -56,6 +91,15 @@ public class Phase2CameraScroller : MonoBehaviour
         // Apply smooth damping to avoid jerky camera movement
         Vector3 desiredPosition = new Vector3(fixedX, targetCameraY, fixedZ);
         transform.position = Vector3.SmoothDamp(transform.position, desiredPosition, ref velocity, smoothing);
+    }
+
+    /// <summary>
+    /// Permanently halts the descent (e.g. when the player reaches the goal platform).
+    /// </summary>
+    public void StopDescent()
+    {
+        descentStopped = true;
+        velocity = Vector3.zero;
     }
 
     /// <summary>

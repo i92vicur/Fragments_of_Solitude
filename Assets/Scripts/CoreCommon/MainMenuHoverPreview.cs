@@ -77,6 +77,10 @@ public class MainMenuHoverPreview : MonoBehaviour, IPointerEnterHandler, IPointe
 
     private string GetSpriteAssetPathForButton()
     {
+        if (gameObject.name.Contains("Level1", StringComparison.OrdinalIgnoreCase) || 
+            gameObject.name.Contains("PuzzleMenu", StringComparison.OrdinalIgnoreCase))
+            return "Assets/Art/Characters/Level1/Menu_animation.png";
+
         if (gameObject.name.Contains("Level3", StringComparison.OrdinalIgnoreCase))
             return "Assets/Art/Characters/Level3/Player/Animations/Run/Run_while_shooting_Left.png";
 
