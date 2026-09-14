@@ -92,6 +92,11 @@ public class Phase2GoalController : MonoBehaviour
         if (deathController != null)
             deathController.enabled = false;
 
+        if (GameProgressManager.Instance != null)
+        {
+            GameProgressManager.Instance.MarkLevel4Completed();
+        }
+
         victoryMenu?.Show();
     }
 }

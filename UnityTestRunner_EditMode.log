@@ -1,9 +1,9 @@
 [Licensing::Module] Trying to connect to existing licensing client channel...
 Built from '6000.0/staging' branch; Version is '6000.0.55f1 (c5f59906196d) revision 12973465'; Using compiler version '193933523'; Build Type 'Release'
-[Licensing::IpcConnector] Successfully connected to: "LicenseClient-rocio" at "2026-09-03T20:52:23.2180414Z"
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-rocio" at "2026-09-04T13:35:10.427543Z"
 OS: 'Windows 11  (10.0.26200) 64bit Professional' Language: 'es' Physical Memory: 15773 MB
 BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1
-Date: 2026-09-03T20:52:23Z
+Date: 2026-09-04T13:35:10Z
 
 COMMAND LINE ARGUMENTS:
 C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Unity.exe
@@ -21,155 +21,105 @@ C:\Users\rocio\Fragments of Solitude\TestResults_EditMode.xml
 C:\Users\rocio\Fragments of Solitude\UnityTestRunner_EditMode.log
 Successfully changed project path to: C:\Users\rocio\Fragments of Solitude
 C:/Users/rocio/Fragments of Solitude
-[UnityMemory] Configuration Parameters - Can be set up in boot.config
-    "memorysetup-bucket-allocator-granularity=16"
-    "memorysetup-bucket-allocator-bucket-count=8"
-    "memorysetup-bucket-allocator-block-size=33554432"
-    "memorysetup-bucket-allocator-block-count=8"
-    "memorysetup-main-allocator-block-size=16777216"
-    "memorysetup-thread-allocator-block-size=16777216"
-    "memorysetup-gfx-main-allocator-block-size=16777216"
-    "memorysetup-gfx-thread-allocator-block-size=16777216"
-    "memorysetup-cache-allocator-block-size=4194304"
-    "memorysetup-typetree-allocator-block-size=2097152"
-    "memorysetup-profiler-bucket-allocator-granularity=16"
-    "memorysetup-profiler-bucket-allocator-bucket-count=8"
-    "memorysetup-profiler-bucket-allocator-block-size=33554432"
-    "memorysetup-profiler-bucket-allocator-block-count=8"
-    "memorysetup-profiler-allocator-block-size=16777216"
-    "memorysetup-profiler-editor-allocator-block-size=1048576"
-    "memorysetup-temp-allocator-size-main=16777216"
-    "memorysetup-job-temp-allocator-block-size=2097152"
-    "memorysetup-job-temp-allocator-block-size-background=1048576"
-    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
-    "memorysetup-allocator-temp-initial-block-size-main=262144"
-    "memorysetup-allocator-temp-initial-block-size-worker=262144"
-    "memorysetup-temp-allocator-size-background-worker=32768"
-    "memorysetup-temp-allocator-size-job-worker=262144"
-    "memorysetup-temp-allocator-size-preload-manager=33554432"
-    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
-    "memorysetup-temp-allocator-size-audio-worker=65536"
-    "memorysetup-temp-allocator-size-cloud-worker=32768"
-    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
-    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
-    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
-    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
-    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
-    "memorysetup-temp-allocator-size-gfx=262144"
-Player connection [11544]  Target information:
+It looks like another Unity instance is running with this project open.
 
-Player connection [11544]  * "[IP] 10.92.165.214 [Port] 55504 [Flags] 2 [Guid] 3213188079 [EditorId] 3213188079 [Version] 1048832 [Id] WindowsEditor(7,aSuSito_) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+Multiple Unity instances cannot open the same project.
 
-Player connection [11544] Host joined multi-casting on [225.0.0.222:54997]...
-Player connection [11544] Host joined alternative multi-casting on [225.0.0.222:34997]...
-Input System module state changed to: Initialized.
-[Physics::Module] Initialized fallback backend.
-[Physics::Module] Id: 0xdecafbad
+Project: C:/Users/rocio/Fragments of Solitude
+Fatal Error! It looks like another Unity instance is running with this project open.
+
+Multiple Unity instances cannot open the same project.
+
+Project: C:/Users/rocio/Fragments of Solitude
+Crash!!!
+SymInit: Symbol-SearchPath: 'C:/Program Files/Unity/Hub/Editor/6000.0.55f1/Editor/Data/Mono;.;C:\Users\rocio\Fragments of Solitude;C:\Users\rocio\Fragments of Solitude\Library\BurstCache\JIT;C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor;C:\WINDOWS;C:\WINDOWS\system32;', symOptions: 534, UserName: 'rocio'
+OS-Version: 10.0.0
+C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Unity.exe:Unity.exe (00007FF6C4DD0000), size: 299008 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 6000.0.55.62873
+C:\WINDOWS\SYSTEM32\ntdll.dll:ntdll.dll (00007FFCD6240000), size: 2514944 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.8972
+C:\WINDOWS\System32\KERNEL32.DLL:KERNEL32.DLL (00007FFCD4EE0000), size: 823296 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.9168
+C:\WINDOWS\System32\KERNELBASE.dll:KERNELBASE.dll (00007FFCD3950000), size: 4190208 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.9168
+C:\WINDOWS\System32\USER32.dll:USER32.dll (00007FFCD4230000), size: 1859584 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.8972
+C:\WINDOWS\System32\win32u.dll:win32u.dll (00007FFCD35E0000), size: 159744 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.9168
+C:\WINDOWS\System32\GDI32.dll:GDI32.dll (00007FFCD4B20000), size: 176128 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.8328
+C:\WINDOWS\System32\gdi32full.dll:gdi32full.dll (00007FFCD3610000), size: 1216512 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.9168
+C:\WINDOWS\System32\msvcp_win.dll:msvcp_win.dll (00007FFCD3D60000), size: 667648 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.8875
+C:\WINDOWS\System32\ucrtbase.dll:ucrtbase.dll (00007FFCD3E10000), size: 1359872 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.8875
+C:\WINDOWS\System32\IMM32.DLL:IMM32.DLL (00007FFCD4FB0000), size: 204800 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.8521
+C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Unity.dll:Unity.dll (00007FFB8A500000), size: 87064576 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 6000.0.55.62873
+C:\WINDOWS\System32\CRYPT32.dll:CRYPT32.dll (00007FFCD3450000), size: 1564672 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.8972
+C:\WINDOWS\System32\ADVAPI32.dll:ADVAPI32.dll (00007FFCD4FF0000), size: 770048 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.9168
+C:\WINDOWS\System32\msvcrt.dll:msvcrt.dll (00007FFCD6150000), size: 692224 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 7.0.26100.8875
+C:\WINDOWS\System32\sechost.dll:sechost.dll (00007FFCD4860000), size: 696320 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.9168
+C:\WINDOWS\System32\RPCRT4.dll:RPCRT4.dll (00007FFCD3F70000), size: 1146880 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.9168
+C:\WINDOWS\System32\ole32.dll:ole32.dll (00007FFCD4980000), size: 1675264 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.8972
+C:\WINDOWS\System32\combase.dll:combase.dll (00007FFCD4B50000), size: 3690496 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.9168
+C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\libfbxsdk.dll:libfbxsdk.dll (00007FFC01ED0000), size: 8019968 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 2020.3.7.0
+C:\WINDOWS\System32\SETUPAPI.dll:SETUPAPI.dll (00007FFCD50C0000), size: 4747264 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.8972
+C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\s3tcompress.dll:s3tcompress.dll (00007FFCB1FC0000), size: 180224 (result: 0), SymType: '-deferred-', PDB: ''
+C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\etccompress.dll:etccompress.dll (00007FFC5DC90000), size: 5070848 (result: 0), SymType: '-deferred-', PDB: ''
+C:\WINDOWS\System32\SHELL32.dll:SHELL32.dll (00007FFCD5860000), size: 7897088 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.9168
+C:\WINDOWS\System32\SHLWAPI.dll:SHLWAPI.dll (00007FFCD47F0000), size: 417792 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.8972
+C:\WINDOWS\System32\WS2_32.dll:WS2_32.dll (00007FFCD4110000), size: 532480 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.8972
+C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\compress_bc7e.dll:compress_bc7e.dll (00007FFC99BB0000), size: 1433600 (result: 0), SymType: '-deferred-', PDB: ''
+C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\ispc_texcomp.dll:ispc_texcomp.dll (00007FFC9E060000), size: 1826816 (result: 0), SymType: '-deferred-', PDB: ''
+C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\FreeImage.dll:FreeImage.dll (0000000180000000), size: 5783552 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 3.18.0.0
+C:\WINDOWS\System32\OLEAUT32.dll:OLEAUT32.dll (00007FFCD5780000), size: 888832 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.8972
+C:\WINDOWS\System32\WINTRUST.dll:WINTRUST.dll (00007FFCD38C0000), size: 536576 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.8972
+C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\WinPixEventRuntime.dll:WinPixEventRuntime.dll (00007FFCCB980000), size: 53248 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 1.0.2201.24001
 [Licensing::Client] Code 10 while verifying Licensing Client signature (process Id: 9528, path: "C:/Program Files/Unity Hub/UnityLicensingClient_V1/Unity.Licensing.Client.exe")
 [Licensing::Module] LicensingClient has failed validation; ignoring
+C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\umbraoptimizer64.dll:umbraoptimizer64.dll (00007FFC71450000), size: 1187840 (result: 0), SymType: '-deferred-', PDB: ''
+C:\WINDOWS\SYSTEM32\bcrypt.dll:bcrypt.dll (00007FFCD3340000), size: 172032 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.9168
 [Licensing::Client] Error: HandshakeResponse reported an error:
 	ResponseCode: 505
 	ResponseStatus: Unsupported protocol version '1.17.1'.
 [Licensing::Module] Error: Failed to handshake to channel: "LicenseClient-rocio"
 [Licensing::IpcConnector] LicenseClient-rocio channel disconnected successfully.
-[Licensing::IpcConnector] Channel LicenseClient-rocio-6000.0.55 doesn't exist
-[Licensing::Module] Successfully launched the LicensingClient (PId: 25136)
-[Package Manager] Connected to IPC stream "Upm-29744" after 0.8 seconds.
-Library Redirect Path: Library/
-[Licensing::IpcConnector] Successfully connected to: "LicenseClient-rocio-6000.0.55" at "2026-09-03T20:52:24.1773165Z"
-[Licensing::Client] Code 10 while verifying Licensing Client signature (process Id: 25136, path: "C:/Program Files/Unity/Hub/Editor/6000.0.55f1/Editor/Data/Resources/Licensing/Client/Unity.Licensing.Client.exe")
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-rocio-6000.0.55" at "2026-09-04T13:35:10.5399479Z"
+C:\WINDOWS\SYSTEM32\d3d11.dll:d3d11.dll (00007FFCCEE40000), size: 2490368 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.8972
+C:\WINDOWS\SYSTEM32\d3d12.dll:d3d12.dll (00007FFC9C4C0000), size: 143360 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.8972
+C:\WINDOWS\SYSTEM32\dwmapi.dll:dwmapi.dll (00007FFCD0730000), size: 192512 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.8972
+C:\WINDOWS\SYSTEM32\dxgi.dll:dxgi.dll (00007FFCD0560000), size: 1286144 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.9168
+C:\WINDOWS\SYSTEM32\HID.DLL:HID.DLL (00007FFCD16D0000), size: 61440 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.1150
+C:\WINDOWS\SYSTEM32\IPHLPAPI.DLL:IPHLPAPI.DLL (00007FFCD1A70000), size: 208896 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.8972
+C:\WINDOWS\SYSTEM32\OPENGL32.dll:OPENGL32.dll (00007FFCAFB40000), size: 1097728 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.8972
+C:\WINDOWS\SYSTEM32\MSVCP140.dll:MSVCP140.dll (00007FFCBBE10000), size: 557056 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 14.50.35719.0
+C:\WINDOWS\SYSTEM32\VCRUNTIME140.dll:VCRUNTIME140.dll (00007FFCBBB30000), size: 122880 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 14.50.35719.0
+C:\WINDOWS\SYSTEM32\VCRUNTIME140_1.dll:VCRUNTIME140_1.dll (00007FFCBBE00000), size: 45056 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 14.50.35719.0
+C:\WINDOWS\SYSTEM32\WINHTTP.dll:WINHTTP.dll (00007FFCCBC20000), size: 1212416 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.9168
+C:\WINDOWS\SYSTEM32\WINMM.dll:WINMM.dll (00007FFCCB9B0000), size: 221184 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.8972
+C:\WINDOWS\SYSTEM32\GLU32.dll:GLU32.dll (00007FFC94380000), size: 184320 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.1150
+C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\SketchUpAPI.dll:SketchUpAPI.dll (00007FFBFED60000), size: 8990720 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 23.0.0.0
+C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\NativeProxyHelper.dll:NativeProxyHelper.dll (00007FFC5E980000), size: 1789952 (result: 0), SymType: '-deferred-', PDB: ''
+C:\WINDOWS\SYSTEM32\VERSION.dll:VERSION.dll (00007FFCCBF70000), size: 45056 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.1150
+C:\WINDOWS\SYSTEM32\WSOCK32.dll:WSOCK32.dll (00007FFCBC490000), size: 40960 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.1
+C:\WINDOWS\SYSTEM32\powrprof.dll:powrprof.dll (00007FFCD3220000), size: 385024 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.3912
+C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\SketchUpCommonPreferences.dll:SketchUpCommonPreferences.dll (00007FFCA2030000), size: 499712 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 23.0.0.0
+C:\WINDOWS\SYSTEM32\dxcore.dll:dxcore.dll (00007FFCD06A0000), size: 282624 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.8972
+C:\WINDOWS\SYSTEM32\Secur32.dll:Secur32.dll (00007FFCD02D0000), size: 53248 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.7705
+[Licensing::Client] Code 10 while verifying Licensing Client signature (process Id: 17020, path: "C:/Program Files/Unity/Hub/Editor/6000.0.55f1/Editor/Data/Resources/Licensing/Client/Unity.Licensing.Client.exe")
 [Licensing::Module] LicensingClient has failed validation; ignoring
+C:\WINDOWS\SYSTEM32\SSPICLI.DLL:SSPICLI.DLL (00007FFCD2320000), size: 299008 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.8972
+C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\OpenRL.dll:OpenRL.dll (000001AE71C90000), size: 12779520 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 1.5.0.2907
+C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\embree.dll:embree.dll (00007FFBB2C70000), size: 16711680 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 2.14.0.0
 [Licensing::Client] Handshaking with LicensingClient:
   Version:                 1.17.1+ae67fbc
-  Session Id:              7bb7134a45c74bc69bf8020a172bd182
-  Correlation Id:          e3143b320f53001a449769eefc6117a1
-  External correlation Id: 6907365615403527781
+  Session Id:              41222936912d41998dff01a6a6ac47a1
+  Correlation Id:          e7f9b0f7e7da5bb782c2538663c307b5
+  External correlation Id: 8677710382742870664
   Machine Id:              EvbTlGRR9UvmNvUEtU3MjyXqHi8=
-[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-rocio-6000.0.55" (connect: 0.85s, validation: 0.49s, handshake: 0.02s)
-[Licensing::IpcConnector] Successfully connected to: "LicenseClient-rocio-6000.0.55-notifications" at "2026-09-03T20:52:24.687237Z"
-[Licensing::Module] Connected to LicensingClient (PId: 25136, launch time: 0.01, total connection time: 1.36s)
+[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-rocio-6000.0.55" (connect: 0.00s, validation: 0.00s, handshake: 0.02s)
+C:\WINDOWS\SYSTEM32\cfgmgr32.DLL:cfgmgr32.DLL (00007FFCD2F20000), size: 335872 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.8972
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-rocio-6000.0.55-notifications" at "2026-09-04T13:35:10.5630973Z"
 [Licensing::Module] Error: Access token is unavailable; failed to update
+C:\WINDOWS\SYSTEM32\MSVCR100.dll:MSVCR100.dll (0000000060780000), size: 860160 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.40219.325
+C:\WINDOWS\SYSTEM32\MSVCP100.dll:MSVCP100.dll (0000000060860000), size: 622592 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.40219.325
+C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\tbb.dll:tbb.dll (00007FFCB1F70000), size: 303104 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 2020.3.2022.1111
+C:\WINDOWS\SYSTEM32\MSWSOCK.DLL:MSWSOCK.DLL (00007FFCD2600000), size: 442368 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.9168
+C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\OpenRL_pthread.dll:OpenRL_pthread.dll (000001AE728D0000), size: 61440 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 2.9.0.0
+C:\WINDOWS\SYSTEM32\UMPDC.dll:UMPDC.dll (00007FFCD3200000), size: 86016 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.8972
 [Licensing::Client] Successfully resolved entitlement details
-[Licensing::Module] License group:
-  Id: F4-W4BU-7SVG-DAWC-44UG-XXXX
-  Product: Unity Personal
-  Type: ULF
-  Expiration: Unlimited
-[Physics::Module] Selected backend.
-[Licensing::Module] License group:
-  Id: 1374587830530-UnityPersXXXX
-  Product: Unity Personal
-  Type: Assigned
-  Expiration: Unlimited
-[Physics::Module] Name: PhysX
-[Physics::Module] Id: 0xf2b8ea05
-[Physics::Module] SDK Version: 4.1.2
-[Physics::Module] Integration Version: 1.0.0
-[Physics::Module] Threading Mode: Multi-Threaded
-[Licensing::Client] Successfully updated license, isAsync: True, time: 0.03
-[Licensing::Module] Licensing Background thread has ended after 1.58s
-Refreshing native plugins compatible for Editor in 4.40 ms, found 0 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Initialize engine version: 6000.0.55f1 (c5f59906196d)
-[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/6000.0.55f1/Editor/Data/Resources/UnitySubsystems
-[Subsystems] Discovering subsystems at path C:/Users/rocio/Fragments of Solitude/Assets
-Forcing GfxDevice: Null
-GfxDevice: creating device client; kGfxThreadingModeNonThreaded
-NullGfxDevice:
-    Version:  NULL 1.0 [1.0]
-    Renderer: Null Device
-    Vendor:   Unity Technologies
-Shader Hidden/ProbeVolume/VoxelizeScene is not supported: GPU does not support conservative rasterization
-Initialize mono
-Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/6000.0.55f1/Editor/Data/Managed'
-Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/6000.0.55f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
-Mono config path = 'C:/Program Files/Unity/Hub/Editor/6000.0.55f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56744
-Using cacheserver namespaces - metadata:defaultmetadata, artifacts:defaultartifacts
-Using cacheserver namespaces - metadata:defaultmetadata, artifacts:defaultartifacts
-ImportWorker Server TCP listen port: 0
-AcceleratorClientConnectionCallback - disconnected - :0
-Begin MonoManager ReloadAssembly
-Registering precompiled unity dll's ...
-Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.0.55f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.018956 seconds.
-- Loaded All Assemblies, in  1.176 seconds
-Native extension for WindowsStandalone target not found
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  0.793 seconds
-Domain Reload Profiling: 1946ms
-	BeginReloadAssembly (454ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (0ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (1ms)
-	RebuildCommonClasses (109ms)
-	RebuildNativeTypeToScriptingClass (26ms)
-	initialDomainReloadingComplete (166ms)
-	LoadAllAssembliesAndSetupDomain (398ms)
-		LoadAssemblies (433ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (389ms)
-			TypeCache.Refresh (386ms)
-				TypeCache.ScanAssembly (359ms)
-			BuildScriptInfoCaches (0ms)
-			ResolveRequiredComponents (1ms)
-	FinalizeReload (794ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (710ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (54ms)
-			SetLoadedEditorAssemblies (8ms)
-			BeforeProcessingInitializeOnLoad (133ms)
-			ProcessInitializeOnLoadAttributes (355ms)
-			ProcessInitializeOnLoadMethodAttributes (159ms)
-			AfterProcessingInitializeOnLoad (0ms)
-			EditorAssembliesLoaded (0ms)
-		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (0ms)
-[Licensing::Client] Successfully resolved entitlement details
+C:\WINDOWS\SYSTEM32\MSASN1.dll:MSASN1.dll (00007FFCD2A90000), size: 77824 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.8875
 [Licensing::Module] License group:
   Id: F4-W4BU-7SVG-DAWC-44UG-XXXX
   Product: Unity Personal
@@ -180,306 +130,40 @@ Domain Reload Profiling: 1946ms
   Product: Unity Personal
   Type: Assigned
   Expiration: Unlimited
-Application.AssetDatabase Initial Refresh Start
-Package Manager log level set to [2]
-[Package Manager] Restoring resolved packages state from cache
-[Licensing::Client] Successfully resolved entitlement details
-[Package Manager] Registered 65 packages:
-  Packages from [https://packages.unity.com]:
-    com.unity.collab-proxy@2.13.5 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.collab-proxy@120d77864ebc)
-    com.unity.ide.rider@3.0.36 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.ide.rider@4d374c7eb6db)
-    com.unity.ide.visualstudio@2.0.23 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.ide.visualstudio@198cdf337d13)
-    com.unity.inputsystem@1.14.1 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.inputsystem@978211393e28)
-    com.unity.timeline@1.8.7 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.timeline@c58b4ee65782)
-    com.unity.visualscripting@1.9.7 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.visualscripting@6279e2b7c485)
-    com.unity.2d.animation@10.2.1 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.2d.animation@81ad133dbdf1)
-    com.unity.2d.pixel-perfect@5.0.3 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.2d.pixel-perfect@e3ae982b672d)
-    com.unity.2d.psdimporter@9.1.0 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.2d.psdimporter@e0ffc26deb40)
-    com.unity.2d.spriteshape@10.0.7 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.2d.spriteshape@9e35352ae135)
-    com.unity.2d.tilemap.extras@4.1.0 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.2d.tilemap.extras@13634da7dbe0)
-    com.unity.2d.aseprite@1.1.9 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.2d.aseprite@996e69f78764)
-    com.unity.collections@2.6.8 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.collections@84e8eb3fc12e)
-    com.unity.searcher@4.9.3 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.searcher@1e17ce91558d)
-    com.unity.mathematics@1.3.2 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.mathematics@8017b507cc74)
-    com.unity.2d.common@9.1.1 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.2d.common@bc041c6e0d0d)
-    com.unity.burst@1.8.29 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.burst@6bb9aca3ef38)
-    com.unity.nuget.mono-cecil@1.11.6 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.nuget.mono-cecil@ecb9724e46ff)
-    com.unity.test-framework.performance@3.1.0 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.test-framework.performance@92d1d09a72ed)
-  Built-in packages:
-    com.unity.feature.2d@2.0.1 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.feature.2d@dd1ea8910f12)
-    com.unity.multiplayer.center@1.0.0 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.multiplayer.center@f3fb577b3546)
-    com.unity.render-pipelines.universal@17.0.4 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.render-pipelines.universal@dd24be0d7cf1)
-    com.unity.test-framework@1.5.1 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.test-framework@dfdbd02f5918)
-    com.unity.ugui@2.0.0 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.ugui@529b01454a55)
-    com.unity.modules.accessibility@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.accessibility)
-    com.unity.modules.ai@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.ai)
-    com.unity.modules.androidjni@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.androidjni)
-    com.unity.modules.animation@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.animation)
-    com.unity.modules.assetbundle@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.assetbundle)
-    com.unity.modules.audio@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.audio)
-    com.unity.modules.cloth@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.cloth)
-    com.unity.modules.director@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.director)
-    com.unity.modules.imageconversion@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.imageconversion)
-    com.unity.modules.imgui@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.imgui)
-    com.unity.modules.jsonserialize@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.jsonserialize)
-    com.unity.modules.particlesystem@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.particlesystem)
-    com.unity.modules.physics@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.physics)
-    com.unity.modules.physics2d@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.physics2d)
-    com.unity.modules.screencapture@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.screencapture)
-    com.unity.modules.terrain@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.terrain)
-    com.unity.modules.terrainphysics@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.terrainphysics)
-    com.unity.modules.tilemap@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.tilemap)
-    com.unity.modules.ui@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.ui)
-    com.unity.modules.uielements@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.uielements)
-    com.unity.modules.umbra@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.umbra)
-    com.unity.modules.unityanalytics@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.unityanalytics)
-    com.unity.modules.unitywebrequest@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.unitywebrequest)
-    com.unity.modules.unitywebrequestassetbundle@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.unitywebrequestassetbundle)
-    com.unity.modules.unitywebrequestaudio@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.unitywebrequestaudio)
-    com.unity.modules.unitywebrequesttexture@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.unitywebrequesttexture)
-    com.unity.modules.unitywebrequestwww@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.unitywebrequestwww)
-    com.unity.modules.vehicles@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.vehicles)
-    com.unity.modules.video@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.video)
-    com.unity.modules.vr@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.vr)
-    com.unity.modules.wind@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.wind)
-    com.unity.modules.xr@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.xr)
-    com.unity.modules.subsystems@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.subsystems)
-    com.unity.modules.hierarchycore@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.hierarchycore)
-    com.unity.ext.nunit@2.0.5 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.ext.nunit@031a54704bff)
-    com.unity.render-pipelines.core@17.0.4 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.render-pipelines.core@571bc777a084)
-    com.unity.shadergraph@17.0.4 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.shadergraph@58c763b6444e)
-    com.unity.render-pipelines.universal-config@17.0.3 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.render-pipelines.universal-config@dd206bf35d04)
-    com.unity.2d.sprite@1.0.0 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.2d.sprite@a1146c20a947)
-    com.unity.2d.tilemap@1.0.0 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.2d.tilemap@3f6ff602680c)
-    com.unity.rendering.light-transport@1.0.1 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.rendering.light-transport@9bd588f963c0)
-[Subsystems] No new subsystems found in resolved package list.
-[Package Manager] Done registering packages in 0.06 seconds
-[ScriptCompilation] Requested script compilation because: Assetdatabase observed changes in script compilation related files
-Starting: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\bee_backend.exe --ipc --defer-dag-verification --dagfile="Library/Bee/1900b0aE.dag" --continue-on-failure --profile="Library/Bee/backend1.traceevents" ScriptAssemblies
-WorkingDir: C:/Users/rocio/Fragments of Solitude
-DisplayProgressbar: Compiling Scripts
-ExitCode: 0 Duration: 6s635ms
-[ 775/1003  0s] ILPP-Configuration Library/ilpp-configuration.nevergeneratedoutput
-[ 995/1003  3s] Csc Library/Bee/artifacts/1900b0aE.dag/Assembly-CSharp.dll (+2 others)
-Assets\Scripts\Level3\Player\PlayerExperience.cs(76,14): warning CS0219: The variable 'leveled' is assigned but its value is never used
+C:\WINDOWS\System32\bcryptprimitives.dll:bcryptprimitives.dll (00007FFCD3800000), size: 704512 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.9168
+C:\WINDOWS\SYSTEM32\kernel.appcore.dll:kernel.appcore.dll (00007FFCD2070000), size: 110592 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.8737
+[Licensing::Client] Successfully updated license, isAsync: True, time: 0.00
+[Licensing::Module] Licensing Background thread has ended after 0.14s
+C:\WINDOWS\system32\uxtheme.dll:uxtheme.dll (00007FFCD0430000), size: 688128 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.8972
+C:\WINDOWS\SYSTEM32\windows.storage.dll:windows.storage.dll (00007FFCD0E30000), size: 9023488 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.9168
+C:\WINDOWS\System32\SHCORE.dll:SHCORE.dll (00007FFCD4410000), size: 1019904 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.9168
+C:\WINDOWS\SYSTEM32\profapi.dll:profapi.dll (00007FFCD3370000), size: 167936 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.9168
+C:\WINDOWS\SYSTEM32\CRYPTSP.dll:CRYPTSP.dll (00007FFCD2A20000), size: 110592 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.8875
+C:\WINDOWS\system32\IconCodecService.dll:IconCodecService.dll (00007FFC9B100000), size: 45056 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.1
+C:\WINDOWS\system32\rsaenh.dll:rsaenh.dll (00007FFCD1FD0000), size: 233472 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.7705
+C:\WINDOWS\SYSTEM32\WindowsCodecs.dll:WindowsCodecs.dll (00007FFCCE4E0000), size: 2281472 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.9168
+C:\WINDOWS\SYSTEM32\CRYPTBASE.dll:CRYPTBASE.dll (00007FFCD2860000), size: 49152 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.8875
+C:\WINDOWS\System32\clbcatq.dll:clbcatq.dll (00007FFCD5550000), size: 712704 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 2001.12.10941.16384
+C:\WINDOWS\System32\imagehlp.dll:imagehlp.dll (00007FFCD5FF0000), size: 131072 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.4202
+C:\WINDOWS\System32\netprofm.dll:netprofm.dll (00007FFCCC9B0000), size: 446464 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.8972
+C:\WINDOWS\System32\npmproxy.dll:npmproxy.dll (00007FFCC85D0000), size: 102400 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.8328
+C:\WINDOWS\SYSTEM32\dbghelp.dll:dbghelp.dll (00007FFCC1B60000), size: 2367488 (result: 0), SymType: '-deferred-', PDB: '', fileVersion: 10.0.26100.8328
 
-Assets\Scripts\Level1\LongestPathPuzzleBoardView.cs(31,35): warning CS0414: The field 'LongestPathPuzzleBoardView.showResetRouteButton' is assigned but its value is never used
-[ 996/1003  0s] Csc Library/Bee/artifacts/1900b0aE.dag/Assembly-CSharp-Editor.dll (+2 others)
-Assets\Editor\BuildConstraintPuzzleUI.cs(91,15): warning CS0219: The variable 'cellWidth' is assigned but its value is never used
+========== OUTPUTTING STACK TRACE ==================
 
-Assets\Editor\BuildConstraintPuzzleUI.cs(92,15): warning CS0219: The variable 'cellHeight' is assigned but its value is never used
+0x00007FFCD3A1187A (KERNELBASE) RaiseException
+0x00007FFB8C093345 (Unity) EditorMonoConsole::LogToConsoleImplementation
+0x00007FFB8C09400A (Unity) EditorMonoConsole::LogToConsoleImplementation
+0x00007FFB8CD26DDD (Unity) DebugStringToFilePostprocessedStacktrace
+0x00007FFB8CD26178 (Unity) DebugStringToFile
+0x00007FFB8C191576 (Unity) HandleProjectAlreadyOpenInAnotherInstance
+0x00007FFB8C193388 (Unity) Application::InitializeProject
+0x00007FFB8C781655 (Unity) UnityMain
+0x00007FF6C4DD2FBA (Unity) __scrt_common_main_seh
+0x00007FFCD4F0CCB7 (KERNEL32) BaseThreadInitThunk
+0x00007FFCD62EAD6C (ntdll) RtlUserThreadStart
 
-Assets\Editor\BuildConstraintPuzzleUI.cs(155,15): warning CS0219: The variable 'cellWidth' is assigned but its value is never used
+========== END OF STACKTRACE ===========
 
-Assets\Editor\BuildConstraintPuzzleUI.cs(156,15): warning CS0219: The variable 'cellHeight' is assigned but its value is never used
-[ 997/1003  1s] ILPostProcess Library/Bee/artifacts/1900b0aE.dag/post-processed/Assembly-CSharp.dll (+pdb)
-Processing assembly Library/Bee/artifacts/1900b0aE.dag/Assembly-CSharp.dll, with 128 defines and 309 references
-
-processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
-
-running Unity.Jobs.CodeGen.JobsILPostProcessor
-
-running zzzUnity.Burst.CodeGen.BurstILPostProcessor
-[ 998/1003  0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp.pdb
-[ 999/1003  0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp.dll
-[1000/1003  0s] ILPostProcess Library/Bee/artifacts/1900b0aE.dag/post-processed/Assembly-CSharp-Editor.dll (+pdb)
-Processing assembly Library/Bee/artifacts/1900b0aE.dag/Assembly-CSharp-Editor.dll, with 126 defines and 330 references
-
-processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
-
-running Unity.Jobs.CodeGen.JobsILPostProcessor
-
-running zzzUnity.Burst.CodeGen.BurstILPostProcessor
-[1001/1003  0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp-Editor.pdb
-[1002/1003  0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp-Editor.dll
-*** Tundra build success (6.54 seconds), 9 items updated, 1003 evaluated
-Assets\Scripts\Level3\Player\PlayerExperience.cs(76,14): warning CS0219: The variable 'leveled' is assigned but its value is never used
-Assets\Scripts\Level1\LongestPathPuzzleBoardView.cs(31,35): warning CS0414: The field 'LongestPathPuzzleBoardView.showResetRouteButton' is assigned but its value is never used
-Assets\Editor\BuildConstraintPuzzleUI.cs(91,15): warning CS0219: The variable 'cellWidth' is assigned but its value is never used
-Assets\Editor\BuildConstraintPuzzleUI.cs(92,15): warning CS0219: The variable 'cellHeight' is assigned but its value is never used
-Assets\Editor\BuildConstraintPuzzleUI.cs(155,15): warning CS0219: The variable 'cellWidth' is assigned but its value is never used
-Assets\Editor\BuildConstraintPuzzleUI.cs(156,15): warning CS0219: The variable 'cellHeight' is assigned but its value is never used
-AssetDatabase: script compilation time: 7.851889s
-Begin MonoManager ReloadAssembly
-- Loaded All Assemblies, in  3.401 seconds
-Refreshing native plugins compatible for Editor in 12.53 ms, found 5 plugins.
-Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 13.17 ms, found 5 plugins.
-Mono: successfully reloaded assembly
-- Finished resetting the current domain, in  7.940 seconds
-Domain Reload Profiling: 11295ms
-	BeginReloadAssembly (660ms)
-		ExecutionOrderSort (0ms)
-		DisableScriptedObjects (36ms)
-		BackupInstance (0ms)
-		ReleaseScriptingObjects (0ms)
-		CreateAndSetChildDomain (171ms)
-	RebuildCommonClasses (75ms)
-	RebuildNativeTypeToScriptingClass (21ms)
-	initialDomainReloadingComplete (106ms)
-	LoadAllAssembliesAndSetupDomain (2492ms)
-		LoadAssemblies (2234ms)
-		RebuildTransferFunctionScriptingTraits (0ms)
-		AnalyzeDomain (584ms)
-			TypeCache.Refresh (418ms)
-				TypeCache.ScanAssembly (398ms)
-			BuildScriptInfoCaches (124ms)
-			ResolveRequiredComponents (32ms)
-	FinalizeReload (7941ms)
-		ReleaseScriptCaches (0ms)
-		RebuildScriptCaches (0ms)
-		SetupLoadedEditorAssemblies (7534ms)
-			LogAssemblyErrors (0ms)
-			InitializePlatformSupportModulesInManaged (46ms)
-			SetLoadedEditorAssemblies (8ms)
-			BeforeProcessingInitializeOnLoad (453ms)
-			ProcessInitializeOnLoadAttributes (6410ms)
-			ProcessInitializeOnLoadMethodAttributes (565ms)
-			AfterProcessingInitializeOnLoad (51ms)
-			EditorAssembliesLoaded (0ms)
-		ExecutionOrderSort2 (0ms)
-		AwakeInstancesAfterBackupRestoration (22ms)
-[MODES] ModeService[none].Initialize
-[MODES] ModeService[none].LoadModes
-[MODES] Loading mode Default (0) for mode-current-id-Fragments of Solitude
-No graphic device is available to initialize the view.
-UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
-UnityEngine.StackTraceUtility:ExtractStackTrace ()
-UnityEditor.GUIView:Internal_Init (int,int,bool)
-UnityEditor.GUIView:SetWindow (UnityEditor.ContainerWindow)
-UnityEditor.HostView:SetWindow (UnityEditor.ContainerWindow)
-UnityEditor.View:SetWindowRecurse (UnityEditor.ContainerWindow)
-UnityEditor.View:AddChild (UnityEditor.View,int)
-UnityEditor.SplitView:AddChild (UnityEditor.View,int)
-UnityEditor.View:AddChild (UnityEditor.View)
-UnityEditor.EditorWindow:CreateNewWindowForEditorWindow (UnityEditor.EditorWindow,bool,bool,bool)
-UnityEditor.EditorWindow:Show (bool)
-UnityEditor.EditorWindow:Show ()
-UnityEditor.EditorWindow:CreateWindow<Unity.PlasticSCM.Editor.UVCSWindow> (string,System.Type[])
-UnityEditor.EditorWindow:GetWindow<Unity.PlasticSCM.Editor.UVCSWindow> (string,bool,System.Type[])
-Unity.PlasticSCM.Editor.UI.ShowWindow:UVCS () (at ./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/UI/ShowWindow.cs:27)
-Unity.PlasticSCM.Editor.SwitchUVCSPlugin:On (Unity.PlasticSCM.Editor.UVCSPlugin) (at ./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/SwitchUVCSPlugin.cs:16)
-Unity.PlasticSCM.Editor.SwitchUVCSPlugin:OnIfNeeded (Unity.PlasticSCM.Editor.UVCSPlugin) (at ./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/SwitchUVCSPlugin.cs:25)
-Unity.PlasticSCM.Editor.Settings.UVCSProjectSettingsProvider:OnActivate () (at ./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/Settings/UVCSProjectSettingsProvider.cs:51)
-UnityEditor.VersionControl.VersionControlManager:Activate (string)
-
-[./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/UI/ShowWindow.cs line 27]
-
-No graphic device is available to show the window.
-UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
-UnityEngine.StackTraceUtility:ExtractStackTrace ()
-UnityEditor.ContainerWindow:Internal_Show (UnityEngine.Rect,int,UnityEngine.Vector2,UnityEngine.Vector2)
-UnityEditor.ContainerWindow:Show (UnityEditor.ShowMode,bool,bool,bool)
-UnityEditor.EditorWindow:CreateNewWindowForEditorWindow (UnityEditor.EditorWindow,bool,bool,bool)
-UnityEditor.EditorWindow:Show (bool)
-UnityEditor.EditorWindow:Show ()
-UnityEditor.EditorWindow:CreateWindow<Unity.PlasticSCM.Editor.UVCSWindow> (string,System.Type[])
-UnityEditor.EditorWindow:GetWindow<Unity.PlasticSCM.Editor.UVCSWindow> (string,bool,System.Type[])
-Unity.PlasticSCM.Editor.UI.ShowWindow:UVCS () (at ./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/UI/ShowWindow.cs:27)
-Unity.PlasticSCM.Editor.SwitchUVCSPlugin:On (Unity.PlasticSCM.Editor.UVCSPlugin) (at ./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/SwitchUVCSPlugin.cs:16)
-Unity.PlasticSCM.Editor.SwitchUVCSPlugin:OnIfNeeded (Unity.PlasticSCM.Editor.UVCSPlugin) (at ./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/SwitchUVCSPlugin.cs:25)
-Unity.PlasticSCM.Editor.Settings.UVCSProjectSettingsProvider:OnActivate () (at ./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/Settings/UVCSProjectSettingsProvider.cs:51)
-UnityEditor.VersionControl.VersionControlManager:Activate (string)
-
-[./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/UI/ShowWindow.cs line 27]
-
-No graphic device is available to initialize the view.
-UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
-UnityEngine.StackTraceUtility:ExtractStackTrace ()
-UnityEditor.GUIView:Internal_Init (int,int,bool)
-UnityEditor.GUIView:SetWindow (UnityEditor.ContainerWindow)
-UnityEditor.HostView:SetWindow (UnityEditor.ContainerWindow)
-UnityEditor.View:SetWindowRecurse (UnityEditor.ContainerWindow)
-UnityEditor.View:SetWindowRecurse (UnityEditor.ContainerWindow)
-UnityEditor.ContainerWindow:Show (UnityEditor.ShowMode,bool,bool,bool)
-UnityEditor.EditorWindow:CreateNewWindowForEditorWindow (UnityEditor.EditorWindow,bool,bool,bool)
-UnityEditor.EditorWindow:Show (bool)
-UnityEditor.EditorWindow:Show ()
-UnityEditor.EditorWindow:CreateWindow<Unity.PlasticSCM.Editor.UVCSWindow> (string,System.Type[])
-UnityEditor.EditorWindow:GetWindow<Unity.PlasticSCM.Editor.UVCSWindow> (string,bool,System.Type[])
-Unity.PlasticSCM.Editor.UI.ShowWindow:UVCS () (at ./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/UI/ShowWindow.cs:27)
-Unity.PlasticSCM.Editor.SwitchUVCSPlugin:On (Unity.PlasticSCM.Editor.UVCSPlugin) (at ./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/SwitchUVCSPlugin.cs:16)
-Unity.PlasticSCM.Editor.SwitchUVCSPlugin:OnIfNeeded (Unity.PlasticSCM.Editor.UVCSPlugin) (at ./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/SwitchUVCSPlugin.cs:25)
-Unity.PlasticSCM.Editor.Settings.UVCSProjectSettingsProvider:OnActivate () (at ./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/Settings/UVCSProjectSettingsProvider.cs:51)
-UnityEditor.VersionControl.VersionControlManager:Activate (string)
-
-[./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/UI/ShowWindow.cs line 27]
-
-Refreshing native plugins compatible for Editor in 16.03 ms, found 5 plugins.
-Preloading 0 native plugins for Editor in 0.00 ms.
-Asset Pipeline Refresh (id=3c791bf7d3690e74484e24a051c011a9): Total: 22.916 seconds - Initiated by InitialRefreshV2(ForceSynchronousImport)
-	Summary:
-		Imports: total=0 (actual=0, local cache=0, cache server=0)
-		Asset DB Process Time: managed=0 ms, native=9741 ms
-		Asset DB Callback time: managed=385 ms, native=1246 ms
-		Scripting: domain reloads=1, domain reload time=3402 ms, compile time=7855 ms, other=286 ms
-		Project Asset Count: scripts=1581, non-scripts=3403
-		Asset File Changes: new=0, changed=2, moved=0, deleted=0
-		Scan Filter Count: 0
-	InvokeCustomDependenciesCallbacks: 0.002ms
-	InvokePackagesCallback: 79.903ms
-	ApplyChangesToAssetFolders: 1.725ms
-	Scan: 720.376ms
-	OnSourceAssetsModified: 1.850ms
-	CategorizeAssetsWithTransientArtifact: 171.991ms
-	ProcessAssetsWithTransientArtifactChanges: 209.752ms
-	CategorizeAssets: 102.969ms
-	ImportOutOfDateAssets: 7991.579ms (132.639ms without children)
-		CompileScripts: 7854.589ms
-		ReloadNativeAssets: 0.045ms
-		UnloadImportedAssets: 1.946ms
-		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 1.709ms
-		InitializingProgressBar: 0.000ms
-		PostProcessAllAssetNotificationsAddChangedAssets: 0.001ms
-		OnDemandSchedulerStart: 0.650ms
-	PostProcessAllAssets: 1531.933ms
-	Hotreload: 27.133ms
-	GatherAllCurrentPrimaryArtifactRevisions: 0.001ms
-	UnloadStreamsBegin: 2.496ms
-	PersistCurrentRevisions: 0.249ms
-	UnloadStreamsEnd: 0.002ms
-	GenerateScriptTypeHashes: 6.066ms
-	Untracked: 12074.261ms
-
-Application.AssetDatabase Initial Refresh End
-Scanning for USB devices : 1.759ms
-Initializing Unity extensions:
-Unloading 16 Unused Serialized files (Serialized files now loaded: 0)
-Unloading 7306 unused Assets / (4.0 MB). Loaded Objects now: 8039.
-Memory consumption went from 268.4 MB to 264.4 MB.
-Total: 26.141200 ms (FindLiveObjects: 1.421300 ms CreateObjectMapping: 1.249700 ms MarkObjects: 15.766800 ms  DeleteObjects: 7.700300 ms)
-
-Batchmode quit successfully invoked - shutting down!
-No graphic device is available to initialize the view.
-UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
-UnityEngine.StackTraceUtility:ExtractStackTrace ()
-UnityEditor.GUIView:Internal_Init (int,int,bool)
-UnityEditor.GUIView:SetWindow (UnityEditor.ContainerWindow)
-UnityEditor.HostView:SetWindow (UnityEditor.ContainerWindow)
-UnityEditor.View:SetWindowRecurse (UnityEditor.ContainerWindow)
-UnityEditor.View:RemoveChild (int)
-UnityEditor.View:RemoveChild (UnityEditor.View)
-UnityEditor.SplitView:RemoveChild (UnityEditor.View)
-UnityEditor.SplitView:RemoveChildNice (UnityEditor.View)
-UnityEditor.DockArea:KillIfEmpty ()
-UnityEditor.DockArea:RemoveTab (UnityEditor.EditorWindow,bool,bool)
-UnityEditor.EditorWindow:Close ()
-Unity.PlasticSCM.Editor.UI.CloseWindowIfOpened:UVCS () (at ./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/UI/CloseWindowIfOpened.cs:25)
-Unity.PlasticSCM.Editor.SwitchUVCSPlugin:Off (Unity.PlasticSCM.Editor.UVCSPlugin) (at ./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/SwitchUVCSPlugin.cs:37)
-Unity.PlasticSCM.Editor.Settings.UVCSProjectSettingsProvider:OnDeactivate () (at ./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/Settings/UVCSProjectSettingsProvider.cs:63)
-UnityEditor.VersionControl.VersionControlManager:Deactivate ()
-UnityEditor.EditorApplication:Internal_EditorApplicationQuit ()
-
-[./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/UI/CloseWindowIfOpened.cs line 25]
-
-[Physics::Module] Cleanup current backned.
-[Physics::Module] Id: 0xf2b8ea05
-Input System module state changed to: ShutdownInProgress.
-Input System polling thread exited.
-Input System module state changed to: Shutdown.
-[Licensing::IpcConnector] LicenseClient-rocio-6000.0.55-notifications channel disconnected successfully.
-[Licensing::IpcConnector] LicenseClient-rocio-6000.0.55 channel disconnected successfully.
-AcceleratorClientConnectionCallback - disconnected - :0
-Cleanup mono
-Exiting batchmode successfully now!
-Exiting without the bug reporter. Application will terminate with return code 0
+A crash has been intercepted by the crash handler. For call stack and other details, see the latest crash report generated in:
+ * C:/Users/rocio/AppData/Local/Temp/Unity/Editor/Crashes

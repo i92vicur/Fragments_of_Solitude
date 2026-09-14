@@ -12,7 +12,7 @@ using UnityEngine.SceneManagement;
 
 public static class AddPhase4StateManager
 {
-    private const string scenePath = "Assets/Scenes/Puzzles/ConstraintPuzzle_New.unity";
+    private const string scenePath = "Assets/Scenes/Level1/ConstraintPuzzle_New.unity";
 
     public static void Add()
     {

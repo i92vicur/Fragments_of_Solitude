@@ -47,18 +47,20 @@ using UnityEngine.SceneManagement;
 public class SceneLoader : MonoBehaviour
 {
     [Header("Scene Names (must match Build Settings exactly)")]
-    [SerializeField] private string gameplaySceneName = "Level3";
+    [SerializeField] private string gameplaySceneName = "Level2";
     [SerializeField] private string platformerSceneName = "Level4";
-    [SerializeField] private string phase2SceneName = "Level3_Phase2";
+    [SerializeField] private string level5SceneName = "Level5";
+    [SerializeField] private string phase2SceneName = "Level2_Phase2";
     [SerializeField] private string puzzleMenuSceneName = "PuzzleMenu";
     [SerializeField] private string slidingPuzzle4x4SceneName = "SlidingPuzzle4x4";
     [SerializeField] private string longestPathPuzzleSceneName = "LongestPathPuzzle";
     [SerializeField] private string constraintPuzzleSceneName = "ConstraintPuzzle_New";
     [SerializeField] private string mainMenuSceneName = "MainMenu";
 
-    // -------------------------------------------------------------------------
-    // Public methods - wire directly to UI Button onClick events
-    // -------------------------------------------------------------------------
+        // -------------------------------------------------------------------------
+        // Public methods - wire directly to UI Button onClick events
+        // -------------------------------------------------------------------------
+        // Level 2 Phase 2 transition is handled here.
 
     /// <summary>
     /// Load the main gameplay scene.
@@ -71,7 +73,7 @@ public class SceneLoader : MonoBehaviour
 
     /// <summary>
     /// Load the Phase 2 roguelite continuation scene.
-    /// Used by the Level 3 staircase trigger when the player reaches level 6.
+    /// Used by the Level 2 staircase trigger when the player reaches level 6.
     /// </summary>
     public void LoadPhase2()
     {
@@ -104,6 +106,15 @@ public class SceneLoader : MonoBehaviour
     public void LoadPlatformer()
     {
         LoadScene(platformerSceneName);
+    }
+
+    /// <summary>
+    /// Load the Level 5 turn-based battle scene.
+    /// Called by: Level 5 button in MainMenu.
+    /// </summary>
+    public void LoadLevel5()
+    {
+        LoadScene(level5SceneName);
     }
 
     /// <summary>

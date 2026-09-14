@@ -366,6 +366,11 @@ bossEncounterActive = false;
 // Stop spawning further enemies for this run — we've reached the victory condition.
 running = false;
 
+if (GameProgressManager.Instance != null)
+{
+    GameProgressManager.Instance.MarkLevel3Completed();
+}
+
 // Signal victory via PauseManager so UI/other systems can respond
 if (PauseManager.Instance != null)
 {

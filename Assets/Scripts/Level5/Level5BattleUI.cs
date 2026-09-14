@@ -104,6 +104,8 @@ public class Level5BattleUI : MonoBehaviour
             battleController.OnBattleEnded += HandleBattleEnded;
             battleController.OnEnemyAttack += HandleEnemyAttack;
         }
+
+        PauseManager.Instance.OnPauseStateChanged += HandlePauseStateChanged;
     }
 
     private void OnDisable()
@@ -114,6 +116,8 @@ public class Level5BattleUI : MonoBehaviour
             battleController.OnBattleEnded -= HandleBattleEnded;
             battleController.OnEnemyAttack -= HandleEnemyAttack;
         }
+
+        PauseManager.Instance.OnPauseStateChanged -= HandlePauseStateChanged;
     }
 
     private void Start()
@@ -123,7 +127,7 @@ public class Level5BattleUI : MonoBehaviour
 
     private void ChooseAction(string actionName)
     {
-        if (battleController == null || !battleController.IsPlayerTurn || battleEndedMessage != null)
+        if (battleController == null || !battleController.IsPlayerTurn || battleEndedMessage != null || PauseManager.Instance.IsPaused)
             return;
 
         Combatant actor = battleController.CurrentCombatant;
@@ -208,13 +212,18 @@ public class Level5BattleUI : MonoBehaviour
         Refresh();
     }
 
+    private void HandlePauseStateChanged(System.Collections.Generic.HashSet<PauseManager.PauseReason> activeReasons)
+    {
+        Refresh();
+    }
+
     private void Refresh()
     {
         if (battleController == null)
             return;
 
         Combatant current = battleController.CurrentCombatant;
-        bool playerTurn = battleController.IsPlayerTurn && battleEndedMessage == null;
+        bool playerTurn = battleController.IsPlayerTurn && battleEndedMessage == null && !PauseManager.Instance.IsPaused;
 
         SetButtonsInteractable(playerTurn);
         if (magicButton != null) magicButton.interactable = playerTurn && current == mageCombatant;

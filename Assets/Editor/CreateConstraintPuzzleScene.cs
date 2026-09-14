@@ -19,7 +19,7 @@ using UnityEngine.EventSystems;
 
 public static class CreateConstraintPuzzleScene
 {
-    private const string puzzleScenePath = "Assets/Scenes/Puzzles/ConstraintPuzzle_New.unity";
+    private const string puzzleScenePath = "Assets/Scenes/Level1/ConstraintPuzzle_New.unity";
 
     // Public static method for batch mode execution
     public static void CreateScene()

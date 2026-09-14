@@ -45,7 +45,8 @@ public enum PauseReason
     Death,
     Debug,
     Victory,
-    PlatformerMenu
+    PlatformerMenu,
+    Level5Menu
 }
 private static PauseManager instance;
 public static PauseManager Instance

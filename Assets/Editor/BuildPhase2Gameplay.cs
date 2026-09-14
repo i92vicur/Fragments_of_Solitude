@@ -3,17 +3,17 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// Adds the existing EnemySpawner and ChestSpawner systems to Level3_Phase2, using the
-// real Level3 configuration as a starting point (enemy prefabs, chest prefab, spawn
+// Adds the existing EnemySpawner and ChestSpawner systems to Level2_Phase2, using the
+// real Level2 configuration as a starting point (enemy prefabs, chest prefab, spawn
 // tuning values copied - no invented references). All source values are extracted into
-// plain C# locals BEFORE closing the temporary Level3 scene, since SerializedProperty
+// plain C# locals BEFORE closing the temporary Level2 scene, since SerializedProperty
 // references become invalid once their scene is closed. Boss configuration is copied
-// from the real Level3 spawner so Phase2 uses the existing boss infrastructure. Arena bounds are auto-detected by the existing components
+// from the real Level2 spawner so Phase2 uses the existing boss infrastructure. Arena bounds are auto-detected by the existing components
 // themselves via the "Arena_Bounds" GameObject already present in Phase2.
 public static class BuildPhase2Gameplay
 {
-    private const string Level3Path = "Assets/Scenes/Level3/Level3.unity";
-    private const string Phase2Path = "Assets/Scenes/Level3/Level3_Phase2.unity";
+    private const string Level2Path = "Assets/Scenes/Level2/Level2.unity";
+    private const string Phase2Path = "Assets/Scenes/Level2/Level2_Phase2.unity";
 
     private struct EnemyEntryData
     {
@@ -28,7 +28,7 @@ public static class BuildPhase2Gameplay
         Scene active = EditorSceneManager.GetActiveScene();
         if (active.path != Phase2Path)
         {
-            Debug.LogError("BuildPhase2Gameplay: Please open Level3_Phase2.unity as the active scene before running this.");
+            Debug.LogError("BuildPhase2Gameplay: Please open Level2_Phase2.unity as the active scene before running this.");
             return;
         }
 
@@ -39,23 +39,23 @@ public static class BuildPhase2Gameplay
             return;
         }
 
-        Scene level3 = EditorSceneManager.GetSceneByPath(Level3Path);
-        bool weOpenedLevel3 = false;
-        if (!level3.IsValid() || !level3.isLoaded)
+        Scene level2 = EditorSceneManager.GetSceneByPath(Level2Path);
+        bool weOpenedLevel2 = false;
+        if (!level2.IsValid() || !level2.isLoaded)
         {
-            level3 = EditorSceneManager.OpenScene(Level3Path, OpenSceneMode.Additive);
-            weOpenedLevel3 = true;
+            level2 = EditorSceneManager.OpenScene(Level2Path, OpenSceneMode.Additive);
+            weOpenedLevel2 = true;
         }
 
-        GameObject sourceEnemySpawnerGO = FindRoot(level3, "EnemySpawner");
-        GameObject sourceChestSpawnerGO = FindRoot(level3, "ChestSpawner");
-        GameObject sourceAudioHubGO = FindRoot(level3, "AudioHub");
-        GameObject sourceVFXHubGO = FindRoot(level3, "VFXHub");
+        GameObject sourceEnemySpawnerGO = FindRoot(level2, "EnemySpawner");
+        GameObject sourceChestSpawnerGO = FindRoot(level2, "ChestSpawner");
+        GameObject sourceAudioHubGO = FindRoot(level2, "AudioHub");
+        GameObject sourceVFXHubGO = FindRoot(level2, "VFXHub");
 
         if (sourceEnemySpawnerGO == null || sourceChestSpawnerGO == null)
         {
-            Debug.LogError("BuildPhase2Gameplay: Could not find 'EnemySpawner' and/or 'ChestSpawner' in Level3.");
-            if (weOpenedLevel3) EditorSceneManager.CloseScene(level3, true);
+            Debug.LogError("BuildPhase2Gameplay: Could not find 'EnemySpawner' and/or 'ChestSpawner' in Level2.");
+            if (weOpenedLevel2) EditorSceneManager.CloseScene(level2, true);
             return;
         }
 
@@ -94,7 +94,7 @@ public static class BuildPhase2Gameplay
 
         Vector3 bossSpawnPosition = Vector3.zero;
         Quaternion bossSpawnRotation = Quaternion.identity;
-        GameObject sourceBossSpawnPoint = FindRoot(level3, "BossSpawnPoint");
+        GameObject sourceBossSpawnPoint = FindRoot(level2, "BossSpawnPoint");
         if (sourceBossSpawnPoint != null)
         {
             bossSpawnPosition = sourceBossSpawnPoint.transform.position;
@@ -111,7 +111,7 @@ public static class BuildPhase2Gameplay
         float minDistanceFromBossSpawn = sourceChestSO.FindProperty("minDistanceFromBossSpawn").floatValue;
         float minDistanceBetweenChests = sourceChestSO.FindProperty("minDistanceBetweenChests").floatValue;
 
-        if (weOpenedLevel3) EditorSceneManager.CloseScene(level3, true);
+        if (weOpenedLevel2) EditorSceneManager.CloseScene(level2, true);
 
         // --- Create/find EnemySpawner in Phase2 ---
         GameObject enemySpawnerGO = GameObject.Find("EnemySpawner");
@@ -218,7 +218,7 @@ public static class BuildPhase2Gameplay
         EditorSceneManager.MarkSceneDirty(active);
         EditorSceneManager.SaveScene(active);
 
-        Debug.Log("BuildPhase2Gameplay: EnemySpawner and ChestSpawner configured in Level3_Phase2.");
+        Debug.Log("BuildPhase2Gameplay: EnemySpawner and ChestSpawner configured in Level2_Phase2.");
     }
 
     private static GameObject FindRoot(Scene scene, string objectName)

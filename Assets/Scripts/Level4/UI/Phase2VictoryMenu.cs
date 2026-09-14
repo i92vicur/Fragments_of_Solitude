@@ -68,7 +68,7 @@ public class Phase2VictoryMenu : MonoBehaviour
         Image background = panel.AddComponent<Image>();
         background.color = new Color(0f, 0f, 0f, 0.82f);
 
-        CreateText("Title", panel.transform, "LEVEL COMPLETE", new Vector2(0f, 110f), 34, FontStyle.Bold);
+        CreateText("Title", panel.transform, "LEVEL COMPLETE!", new Vector2(0f, 110f), 34, FontStyle.Bold);
         CreateButton("Restart", panel.transform, "RESTART", new Vector2(0f, -5f), Restart);
         CreateButton("MainMenu", panel.transform, "MAIN MENU", new Vector2(0f, -95f), GoToMainMenu);
     }

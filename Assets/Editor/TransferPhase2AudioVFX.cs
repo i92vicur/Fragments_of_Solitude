@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public static class TransferPhase2AudioVFX
 {
-    private const string Level3Path = "Assets/Scenes/Level3/Level3.unity";
-    private const string Phase2Path = "Assets/Scenes/Level3/Level3_Phase2.unity";
+    private const string Level2Path = "Assets/Scenes/Level2/Level2.unity";
+    private const string Phase2Path = "Assets/Scenes/Level2/Level2_Phase2.unity";
 
     [MenuItem("Prototype/Roguelite/Transfer AudioHub & VFXHub to Phase 2")]
     public static void Transfer()
@@ -26,21 +26,21 @@ public static class TransferPhase2AudioVFX
             phase2Scene = EditorSceneManager.OpenScene(Phase2Path, OpenSceneMode.Single);
         }
 
-        Scene level3Scene = EditorSceneManager.GetSceneByPath(Level3Path);
-        bool openedLevel3 = false;
-        if (!level3Scene.IsValid() || !level3Scene.isLoaded)
+        Scene level2Scene = EditorSceneManager.GetSceneByPath(Level2Path);
+        bool openedLevel2 = false;
+        if (!level2Scene.IsValid() || !level2Scene.isLoaded)
         {
-            level3Scene = EditorSceneManager.OpenScene(Level3Path, OpenSceneMode.Additive);
-            openedLevel3 = true;
+            level2Scene = EditorSceneManager.OpenScene(Level2Path, OpenSceneMode.Additive);
+            openedLevel2 = true;
         }
 
-        GameObject sourceAudio = FindRoot(level3Scene, "AudioHub");
-        GameObject sourceVfx = FindRoot(level3Scene, "VFXHub");
+        GameObject sourceAudio = FindRoot(level2Scene, "AudioHub");
+        GameObject sourceVfx = FindRoot(level2Scene, "VFXHub");
 
         if (sourceAudio == null || sourceVfx == null)
         {
-            Debug.LogError("TransferPhase2AudioVFX: AudioHub or VFXHub is missing from Level3.unity.");
-            if (openedLevel3) EditorSceneManager.CloseScene(level3Scene, true);
+            Debug.LogError("TransferPhase2AudioVFX: AudioHub or VFXHub is missing from Level2.unity.");
+            if (openedLevel2) EditorSceneManager.CloseScene(level2Scene, true);
             EditorApplication.Exit(0);
             return;
         }
@@ -52,12 +52,12 @@ public static class TransferPhase2AudioVFX
         bool saved = EditorSceneManager.SaveScene(phase2Scene);
         Debug.Log("TransferPhase2AudioVFX: scene save result = " + saved);
 
-        if (openedLevel3)
+        if (openedLevel2)
         {
-            EditorSceneManager.CloseScene(level3Scene, true);
+            EditorSceneManager.CloseScene(level2Scene, true);
         }
 
-        Debug.Log("TransferPhase2AudioVFX: Copied the real Level 3 AudioHub and VFXHub into Level3_Phase2.unity.");
+        Debug.Log("TransferPhase2AudioVFX: Copied the real Level 2 AudioHub and VFXHub into Level2_Phase2.unity.");
         EditorApplication.Exit(0);
     }
 

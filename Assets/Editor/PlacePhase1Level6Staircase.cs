@@ -8,28 +8,28 @@ namespace Prototype
 {
     public static class PlacePhase1Level6Staircase
     {
-        private const string Level3ScenePath = "Assets/Scenes/Level3/Level3.unity";
+        private const string Level2ScenePath = "Assets/Scenes/Level2/Level2.unity";
 
         [MenuItem("Prototype/Roguelite/Place Phase1 Level6 Staircase")]
-        public static void CreateOrUpdateInLevel3()
+        public static void CreateOrUpdateInLevel2()
         {
             Scene activeScene = EditorSceneManager.GetActiveScene();
             Scene desiredScene = activeScene;
 
-            if (!string.Equals(activeScene.path, Level3ScenePath, System.StringComparison.Ordinal))
+            if (!string.Equals(activeScene.path, Level2ScenePath, System.StringComparison.Ordinal))
             {
-                desiredScene = EditorSceneManager.OpenScene(Level3ScenePath, OpenSceneMode.Single);
+                desiredScene = EditorSceneManager.OpenScene(Level2ScenePath, OpenSceneMode.Single);
                 if (!desiredScene.IsValid())
                 {
-                    Debug.LogError("[PlacePhase1Level6Staircase] Could not open Level3 scene.");
+                    Debug.LogError("[PlacePhase1Level6Staircase] Could not open Level2 scene.");
                     return;
                 }
             }
 
-            GameObject levelRoot = desiredScene.GetRootGameObjects().FirstOrDefault(go => go.name == "Level3");
+            GameObject levelRoot = desiredScene.GetRootGameObjects().FirstOrDefault(go => go.name == "Level2");
             if (levelRoot == null)
             {
-                levelRoot = new GameObject("Level3");
+                levelRoot = new GameObject("Level2");
                 SceneManager.MoveGameObjectToScene(levelRoot, desiredScene);
             }
 
@@ -105,14 +105,14 @@ namespace Prototype
             var phase2SceneNameProp = serializedLoader.FindProperty("phase2SceneName");
             if (phase2SceneNameProp != null)
             {
-                phase2SceneNameProp.stringValue = "Level3_Phase2";
+                phase2SceneNameProp.stringValue = "Level2_Phase2";
                 serializedLoader.ApplyModifiedProperties();
             }
 
             EditorSceneManager.MarkSceneDirty(desiredScene);
             EditorSceneManager.SaveScene(desiredScene);
 
-            Debug.Log("[PlacePhase1Level6Staircase] Phase2Stairs created and configured in Level3.");
+            Debug.Log("[PlacePhase1Level6Staircase] Phase2Stairs created and configured in Level2.");
         }
 
         private static Sprite CreatePlaceholderSprite()

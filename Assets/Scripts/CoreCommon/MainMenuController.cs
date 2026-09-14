@@ -27,11 +27,34 @@ using UnityEngine.UI;
 [DisallowMultipleComponent]
 public class MainMenuController : MonoBehaviour
 {
+    [SerializeField, Tooltip("Confirmation panel shown before starting a new game. Auto-found if not assigned.")]
+    private GameObject newGameConfirmationPanel = null;
+
+    [SerializeField, Tooltip("New Game button in the scene. Auto-found if not assigned.")]
+    private Button newGameButton = null;
+
+    private const string ButtonsPanelPath = "Buttons_Panel";
+    private const string Level3ButtonPath = "Buttons_Panel/Level3Button";
+    private const string Level4ButtonPath = "Buttons_Panel/Level4Button";
+    private const string Level5ButtonPath = "Buttons_Panel/Level5Button";
+    private const string NewGameButtonPath = "Buttons_Panel/NewGameButton";
+
+    private const string Level3ButtonBaseLabel = "Level 2 (RogueLite)";
+    private const string Level4ButtonBaseLabel = "Level 4 (Platformer)";
+    private const string Level5ButtonBaseLabel = "Level 5 (Turn-Based Combat) ";
+    private const string NewGameButtonBaseLabel = "New Game";
+    private const string CompletionText = "\u2713 COMPLETE";
+    private const string CompletionColor = "#3CCF4E";
+    private const float CompletionLabelOffsetX = 0f;
+    private const float CompletionLabelOffsetY = 58f;
+    private const float CompletionLabelWidth = 220f;
+    private const float CompletionLabelHeight = 40f;
+
     [SerializeField, Tooltip("SceneLoader in this scene. Auto-found if not assigned.")]
     private SceneLoader sceneLoader = null;
 
     [SerializeField, Tooltip("Fallback scene name used if SceneLoader is not present.")]
-    private string fallbackGameplaySceneName = "Level3";
+    private string fallbackGameplaySceneName = "Level2";
 
     [SerializeField, Tooltip("Fallback scene name used if SceneLoader is not present.")]
     private string fallbackSlidingPuzzleSceneName = "PuzzleMenu";
@@ -40,12 +63,40 @@ public class MainMenuController : MonoBehaviour
     private string fallbackLongestPathPuzzleSceneName = "LongestPathPuzzle";
 
     [SerializeField, Tooltip("Fallback scene name used if SceneLoader is not present.")]
+    private string fallbackLevel5SceneName = "Level5";
+
+    [SerializeField, Tooltip("Fallback scene name used if SceneLoader is not present.")]
     private string fallbackPuzzleMenuSceneName = "PuzzleMenu";
 
     private void Start()
     {
         if (sceneLoader == null)
             sceneLoader = FindAnyObjectByType<SceneLoader>();
+
+        if (newGameConfirmationPanel == null)
+            newGameConfirmationPanel = transform.Find("NewGameConfirmationPanel")?.gameObject;
+
+        if (newGameButton == null)
+            newGameButton = transform.Find(NewGameButtonPath)?.GetComponent<Button>();
+
+        EnsureCompletionLabels();
+        RefreshCompletionIndicators();
+
+        if (newGameConfirmationPanel != null)
+            newGameConfirmationPanel.SetActive(false);
+
+    }
+
+    private void OnEnable()
+    {
+        if (newGameButton == null)
+            newGameButton = transform.Find(NewGameButtonPath)?.GetComponent<Button>();
+
+        EnsureCompletionLabels();
+        RefreshCompletionIndicators();
+
+        if (newGameConfirmationPanel != null)
+            newGameConfirmationPanel.SetActive(false);
 
     }
 
@@ -82,6 +133,23 @@ public class MainMenuController : MonoBehaviour
         {
             Time.timeScale = 1f;
             SceneManager.LoadScene("Level4", LoadSceneMode.Single);
+        }
+    }
+
+    /// <summary>
+    /// Called by the Level 5 button. Loads the turn-based battle scene.
+    /// Uses SceneLoader if available; falls back to a direct SceneManager call.
+    /// </summary>
+    public void LoadLevel5()
+    {
+        if (sceneLoader != null)
+        {
+            sceneLoader.LoadLevel5();
+        }
+        else
+        {
+            Time.timeScale = 1f;
+            SceneManager.LoadScene(fallbackLevel5SceneName, LoadSceneMode.Single);
         }
     }
 
@@ -133,5 +201,124 @@ public class MainMenuController : MonoBehaviour
             Time.timeScale = 1f;
             SceneManager.LoadScene(fallbackLongestPathPuzzleSceneName, LoadSceneMode.Single);
         }
+    }
+
+    public void ShowNewGameConfirmation()
+    {
+        if (newGameConfirmationPanel != null)
+            newGameConfirmationPanel.SetActive(true);
+    }
+
+    public void CancelNewGame()
+    {
+        if (newGameConfirmationPanel != null)
+            newGameConfirmationPanel.SetActive(false);
+    }
+
+    public void ConfirmNewGame()
+    {
+        GameProgressManager.Instance.StartNewGame();
+        RefreshCompletionIndicators();
+
+        if (newGameConfirmationPanel != null)
+            newGameConfirmationPanel.SetActive(false);
+    }
+
+    private void RefreshCompletionIndicators()
+    {
+        UpdateCompletionLabel(Level3ButtonPath, Level3ButtonBaseLabel, GameProgressManager.Instance.Level3Completed);
+        UpdateCompletionLabel(Level4ButtonPath, Level4ButtonBaseLabel, GameProgressManager.Instance.Level4Completed);
+        UpdateCompletionLabel(Level5ButtonPath, Level5ButtonBaseLabel, GameProgressManager.Instance.Level5Completed);
+    }
+
+    private void EnsureCompletionLabels()
+    {
+        CreateOrCacheCompletionLabel(Level3ButtonPath, "Level3CompletionLabel");
+        CreateOrCacheCompletionLabel(Level4ButtonPath, "Level4CompletionLabel");
+        CreateOrCacheCompletionLabel(Level5ButtonPath, "Level5CompletionLabel");
+    }
+
+    private void UpdateCompletionLabel(string buttonPath, string baseLabel, bool completed)
+    {
+        Text label = GetCompletionLabel(buttonPath);
+        if (label == null)
+            return;
+
+        label.gameObject.SetActive(completed);
+        if (!completed)
+            return;
+
+        label.text = CompletionText;
+    }
+
+    private Text GetCompletionLabel(string buttonPath)
+    {
+        Transform buttonTransform = transform.Find(buttonPath);
+        if (buttonTransform == null)
+            return null;
+
+        string labelName = buttonTransform.name switch
+        {
+            "Level3Button" => "Level3CompletionLabel",
+            "Level4Button" => "Level4CompletionLabel",
+            "Level5Button" => "Level5CompletionLabel",
+            _ => null
+        };
+
+        if (string.IsNullOrEmpty(labelName))
+            return null;
+
+        Transform labelTransform = transform.Find(ButtonsPanelPath + "/" + labelName);
+        return labelTransform != null ? labelTransform.GetComponent<Text>() : null;
+    }
+
+    private void CreateOrCacheCompletionLabel(string buttonPath, string labelName)
+    {
+        Transform buttonTransform = transform.Find(buttonPath);
+        if (buttonTransform == null)
+            return;
+
+        Transform existingLabel = transform.Find(ButtonsPanelPath + "/" + labelName);
+        if (existingLabel != null)
+            return;
+
+        RectTransform buttonRect = buttonTransform as RectTransform;
+        if (buttonRect == null)
+            return;
+
+        Transform buttonsPanel = transform.Find(ButtonsPanelPath);
+        if (buttonsPanel == null)
+            return;
+
+        GameObject labelObject = new GameObject(labelName);
+        labelObject.transform.SetParent(buttonsPanel, false);
+
+        RectTransform labelRect = labelObject.AddComponent<RectTransform>();
+        labelRect.anchorMin = buttonRect.anchorMin;
+        labelRect.anchorMax = buttonRect.anchorMax;
+        labelRect.pivot = new Vector2(0.5f, 0.5f);
+        labelRect.anchoredPosition = new Vector2(buttonRect.anchoredPosition.x + CompletionLabelOffsetX, buttonRect.anchoredPosition.y + CompletionLabelOffsetY);
+        labelRect.sizeDelta = new Vector2(CompletionLabelWidth, CompletionLabelHeight);
+
+        Text label = labelObject.AddComponent<Text>();
+        label.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        label.fontSize = 24;
+        label.fontStyle = FontStyle.Bold;
+        label.alignment = TextAnchor.MiddleCenter;
+        label.color = ParseCompletionColor();
+        label.raycastTarget = false;
+        label.supportRichText = true;
+        label.text = CompletionText;
+
+        labelObject.SetActive(false);
+    }
+
+    private static Color ParseCompletionColor()
+    {
+        if (ColorUtility.TryParseHtmlString(CompletionColor, out Color color))
+            return color;
+
+        return new Color(0.235f, 0.811f, 0.306f, 1f);
+
     }
 }

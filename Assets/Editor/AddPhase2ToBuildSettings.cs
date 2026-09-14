@@ -1,7 +1,7 @@
 /*
 AddPhase2ToBuildSettings.cs (Editor utility)
 
-Purpose: Add Level3_Phase2 to Build Settings after scene file creation.
+Purpose: Add Level2_Phase2 to Build Settings after scene file creation.
 */
 
 using UnityEditor;
@@ -9,9 +9,9 @@ using UnityEditor.SceneManagement;
 
 public static class AddPhase2ToBuildSettings
 {
-    private const string ScenePath = "Assets/Scenes/Level3/Level3_Phase2.unity";
+    private const string ScenePath = "Assets/Scenes/Level2/Level2_Phase2.unity";
 
-    [MenuItem("Prototype/Roguelite/Add Level3 Phase 2 to Build Settings")]
+    [MenuItem("Prototype/Roguelite/Add Level2 Phase 2 to Build Settings")]
     public static void AddToBuildSettings()
     {
         // Load current build scenes
@@ -35,7 +35,7 @@ public static class AddPhase2ToBuildSettings
 
         // Apply
         EditorBuildSettings.scenes = sceneList.ToArray();
-        UnityEngine.Debug.Log("[AddPhase2ToBuildSettings] Added Level3_Phase2 to Build Settings at index " + (sceneList.Count - 1));
+        UnityEngine.Debug.Log("[AddPhase2ToBuildSettings] Added Level2_Phase2 to Build Settings at index " + (sceneList.Count - 1));
         AssetDatabase.SaveAssets();
     }
 }

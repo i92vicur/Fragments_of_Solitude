@@ -16,7 +16,7 @@ using TMPro;
 
 public static class BuildConstraintPuzzleUI
 {
-    private const string scenePath = "Assets/Scenes/Puzzles/ConstraintPuzzle_New.unity";
+    private const string scenePath = "Assets/Scenes/Level1/ConstraintPuzzle_New.unity";
     private static Canvas mainCanvas;
     private static Transform puzzleRoot;
 
@@ -63,6 +63,13 @@ public static class BuildConstraintPuzzleUI
         CreateLettersArea();
         CreateSlotsArea();
         CreateButtonsArea();
+
+        ConstraintPuzzleSpriteSkin spriteSkin = puzzleRootGO.GetComponent<ConstraintPuzzleSpriteSkin>();
+        if (spriteSkin == null)
+        {
+            spriteSkin = puzzleRootGO.AddComponent<ConstraintPuzzleSpriteSkin>();
+        }
+        spriteSkin.RefreshVisuals();
 
         EditorSceneManager.SaveScene(scene);
         Debug.Log("ConstraintPuzzle UI built successfully!");

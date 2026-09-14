@@ -313,6 +313,8 @@ public class Level5BattleController : MonoBehaviour
     {
         state = BattleState.Victory;
 
+        GameProgressManager.Instance.MarkLevel5Completed();
+
         Debug.Log($"[Level5Battle] {defeatedEnemy.CombatantName} defeated. VICTORY!", defeatedEnemy);
         OnBattleEnded?.Invoke("VICTORY!");
     }

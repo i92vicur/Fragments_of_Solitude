@@ -81,11 +81,15 @@ public class MainMenuHoverPreview : MonoBehaviour, IPointerEnterHandler, IPointe
             gameObject.name.Contains("PuzzleMenu", StringComparison.OrdinalIgnoreCase))
             return "Assets/Art/Characters/Level1/Menu_animation.png";
 
-        if (gameObject.name.Contains("Level3", StringComparison.OrdinalIgnoreCase))
-            return "Assets/Art/Characters/Level3/Player/Animations/Run/Run_while_shooting_Left.png";
+        if (gameObject.name.Contains("Level2", StringComparison.OrdinalIgnoreCase) ||
+            gameObject.name.Contains("Level3", StringComparison.OrdinalIgnoreCase))
+            return "Assets/Art/Characters/Level2/Player/Animations/Run/Run_while_shooting_Left.png";
 
         if (gameObject.name.Contains("Level4", StringComparison.OrdinalIgnoreCase))
             return "Assets/Art/Characters/Level4/Player/Animations/Dash/Dash_right_Down.png";
+
+        if (gameObject.name.Contains("Level5", StringComparison.OrdinalIgnoreCase))
+            return "Assets/Art/Level5/main_menu_chest.png";
 
         return string.Empty;
     }

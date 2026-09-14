@@ -17,7 +17,7 @@ using UnityEngine.EventSystems;
 public static class CreateMainMenuScene
 {
     private const string mainMenuScenePath = "Assets/Scenes/MainMenu.unity";
-    private const string mainGameScenePath = "Assets/Scenes/Main.unity";
+    private const string mainGameScenePath = "Assets/Scenes/Level2/Level2.unity";
 
     [MenuItem("Prototype/Create MainMenu Scene")]
     public static void CreateMenu()
@@ -131,7 +131,7 @@ public static class CreateMainMenuScene
         GameObject buttonTextGO = new GameObject("Text");
         buttonTextGO.transform.SetParent(buttonGO.transform, false);
         Text buttonText = buttonTextGO.AddComponent<Text>();
-        buttonText.text = "PLAY LEVEL 3";
+        buttonText.text = "PLAY LEVEL 2";
         buttonText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
         buttonText.fontSize = 30;
         buttonText.fontStyle = FontStyle.Bold;
@@ -169,11 +169,11 @@ public static class CreateMainMenuScene
         }
 
         if (mainMenuGuid == null) { Debug.LogError("MainMenu scene not found in assets!"); return; }
-        if (mainGameGuid == null) { Debug.LogError("Main (gameplay) scene not found in assets!"); return; }
+        if (mainGameGuid == null) { Debug.LogError("Level2 gameplay scene not found in assets!"); return; }
 
         EditorBuildSettingsScene[] existing = EditorBuildSettings.scenes;
 
-        // Rebuild list: MainMenu first, Main second, rest after (no duplicates)
+        // Rebuild list: MainMenu first, Level2 second, rest after (no duplicates)
         System.Collections.Generic.List<EditorBuildSettingsScene> newList = new System.Collections.Generic.List<EditorBuildSettingsScene>();
         newList.Add(new EditorBuildSettingsScene(mainMenuScenePath, true));
 
@@ -192,6 +192,6 @@ public static class CreateMainMenuScene
             newList.Insert(1, new EditorBuildSettingsScene(mainGameScenePath, true));
 
         EditorBuildSettings.scenes = newList.ToArray();
-        Debug.Log("Build Settings updated: MainMenu = Scene 0, Main = Scene 1");
+        Debug.Log("Build Settings updated: MainMenu = Scene 0, Level2 = Scene 1");
     }
 }

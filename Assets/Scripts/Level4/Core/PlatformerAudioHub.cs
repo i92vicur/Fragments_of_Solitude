@@ -47,6 +47,10 @@ public class PlatformerAudioHub : MonoBehaviour
             audioSource = gameObject.AddComponent<AudioSource>();
 
         audioSource.playOnAwake = false;
+
+        if (audioSource.outputAudioMixerGroup == null)
+            audioSource.outputAudioMixerGroup = SettingsManager.SfxGroup;
+
         SceneManager.sceneLoaded += HandleSceneLoaded;
     }
 

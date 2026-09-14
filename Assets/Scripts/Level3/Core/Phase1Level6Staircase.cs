@@ -6,7 +6,7 @@ public class Phase1Level6Staircase : MonoBehaviour
 {
     [Header("Scene transition")]
     [SerializeField] private SceneLoader sceneLoader;
-    [SerializeField] private string phase2SceneName = "Level3_Phase2";
+    [SerializeField] private string phase2SceneName = "Level2_Phase2";
     [SerializeField] private SpriteRenderer visual;
 
     private Collider2D triggerCollider;

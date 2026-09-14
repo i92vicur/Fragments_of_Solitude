@@ -146,7 +146,9 @@ public static class CreateLevel5Scene
                 anchor: new Vector2(0.5f, 1f),
                 anchoredPos: new Vector2(0f, -30f - (i * 68f)),
                 size: new Vector2(580f, 60f));
-            slot.GetComponent<Image>().color = new Color(0.15f, 0.15f, 0.20f, 0.85f);
+            var slotImage = slot.GetComponent<Image>();
+            slotImage.color = new Color(0.15f, 0.15f, 0.20f, 0.85f);
+            slotImage.preserveAspect = true;
             CreateLabel($"CharacterSlot_{i + 1}_Placeholder", slot, $"CHARACTER {i + 1} (placeholder)", font, 16);
         }
 

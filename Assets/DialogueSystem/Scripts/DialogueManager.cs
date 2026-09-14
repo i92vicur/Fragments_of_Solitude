@@ -44,8 +44,11 @@ public class DialogueManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         }
 
+        if (audioSource != null && audioSource.outputAudioMixerGroup == null)
+            audioSource.outputAudioMixerGroup = SettingsManager.SfxGroup;
     }
 
     public void OnCharReveal(AudioClip clip)

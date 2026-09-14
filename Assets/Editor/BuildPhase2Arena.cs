@@ -3,16 +3,16 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// Builds the Cycle 2 rectangular arena for Level3_Phase2.unity:
+// Builds the Cycle 2 rectangular arena for Level2_Phase2.unity:
 // Arena_Bounds (4 real BoxCollider2D walls), MapStructures (empty root required by
 // GeneratedFloor), FloorGenerator (rectangular mode, sprite arrays copied from the
-// real Level3 FloorGenerator), and ArenaBorder. Also repositions the existing Player
+// real Level2 FloorGenerator), and ArenaBorder. Also repositions the existing Player
 // and re-wires the camera follow target. No invented GUIDs/fileIDs: all sprite and
-// script references are copied live from Level3's actual FloorGenerator component.
+// script references are copied live from Level2's actual FloorGenerator component.
 public static class BuildPhase2Arena
 {
-    private const string Level3Path = "Assets/Scenes/Level3/Level3.unity";
-    private const string Phase2Path = "Assets/Scenes/Level3/Level3_Phase2.unity";
+    private const string Level2Path = "Assets/Scenes/Level2/Level2.unity";
+    private const string Phase2Path = "Assets/Scenes/Level2/Level2_Phase2.unity";
 
     // Half-extents of the new rectangular arena (world units).
     private const float HalfWidth = 35f;
@@ -25,24 +25,24 @@ public static class BuildPhase2Arena
         Scene active = EditorSceneManager.GetActiveScene();
         if (active.path != Phase2Path)
         {
-            Debug.LogError("BuildPhase2Arena: Please open Level3_Phase2.unity as the active scene before running this.");
+            Debug.LogError("BuildPhase2Arena: Please open Level2_Phase2.unity as the active scene before running this.");
             return;
         }
 
-        // --- Pull real sprite/config references from Level3's FloorGenerator ---
-        Scene level3 = EditorSceneManager.GetSceneByPath(Level3Path);
-        bool weOpenedLevel3 = false;
-        if (!level3.IsValid() || !level3.isLoaded)
+        // --- Pull real sprite/config references from Level2's FloorGenerator ---
+        Scene level2 = EditorSceneManager.GetSceneByPath(Level2Path);
+        bool weOpenedLevel2 = false;
+        if (!level2.IsValid() || !level2.isLoaded)
         {
-            level3 = EditorSceneManager.OpenScene(Level3Path, OpenSceneMode.Additive);
-            weOpenedLevel3 = true;
+            level2 = EditorSceneManager.OpenScene(Level2Path, OpenSceneMode.Additive);
+            weOpenedLevel2 = true;
         }
 
-        GameObject sourceFloorGeneratorGO = FindRoot(level3, "FloorGenerator");
+        GameObject sourceFloorGeneratorGO = FindRoot(level2, "FloorGenerator");
         if (sourceFloorGeneratorGO == null)
         {
-            Debug.LogError("BuildPhase2Arena: Could not find 'FloorGenerator' in Level3.");
-            if (weOpenedLevel3) EditorSceneManager.CloseScene(level3, true);
+            Debug.LogError("BuildPhase2Arena: Could not find 'FloorGenerator' in Level2.");
+            if (weOpenedLevel2) EditorSceneManager.CloseScene(level2, true);
             return;
         }
 
@@ -62,7 +62,7 @@ public static class BuildPhase2Arena
         int sortingOrder = sourceFloorSO.FindProperty("sortingOrder").intValue;
         string sortingLayerName = sourceFloorSO.FindProperty("sortingLayerName").stringValue;
 
-        if (weOpenedLevel3) EditorSceneManager.CloseScene(level3, true);
+        if (weOpenedLevel2) EditorSceneManager.CloseScene(level2, true);
 
         // --- Arena_Bounds with 4 real wall colliders (enabled, since rectangle mode has no polygon collider) ---
         GameObject arenaBounds = GameObject.Find("Arena_Bounds");

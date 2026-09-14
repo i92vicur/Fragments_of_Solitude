@@ -1,0 +1,1151 @@
+[Licensing::Module] Trying to connect to existing licensing client channel...
+Built from '6000.0/staging' branch; Version is '6000.0.55f1 (c5f59906196d) revision 12973465'; Using compiler version '193933523'; Build Type 'Release'
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-rocio" at "2026-09-03T22:40:06.3470803Z"
+OS: 'Windows 11  (10.0.26200) 64bit Professional' Language: 'es' Physical Memory: 15773 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1
+Date: 2026-09-03T22:40:06Z
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Unity.exe
+-batchmode
+-quit
+-nographics
+-projectPath
+C:\Users\rocio\Fragments of Solitude
+-executeMethod
+FixLevel5MagicButtonScene.Run
+-logFile
+C:\Users\rocio\Fragments of Solitude\FixLevel5MagicButton.log
+Successfully changed project path to: C:\Users\rocio\Fragments of Solitude
+C:/Users/rocio/Fragments of Solitude
+[UnityMemory] Configuration Parameters - Can be set up in boot.config
+    "memorysetup-bucket-allocator-granularity=16"
+    "memorysetup-bucket-allocator-bucket-count=8"
+    "memorysetup-bucket-allocator-block-size=33554432"
+    "memorysetup-bucket-allocator-block-count=8"
+    "memorysetup-main-allocator-block-size=16777216"
+    "memorysetup-thread-allocator-block-size=16777216"
+    "memorysetup-gfx-main-allocator-block-size=16777216"
+    "memorysetup-gfx-thread-allocator-block-size=16777216"
+    "memorysetup-cache-allocator-block-size=4194304"
+    "memorysetup-typetree-allocator-block-size=2097152"
+    "memorysetup-profiler-bucket-allocator-granularity=16"
+    "memorysetup-profiler-bucket-allocator-bucket-count=8"
+    "memorysetup-profiler-bucket-allocator-block-size=33554432"
+    "memorysetup-profiler-bucket-allocator-block-count=8"
+    "memorysetup-profiler-allocator-block-size=16777216"
+    "memorysetup-profiler-editor-allocator-block-size=1048576"
+    "memorysetup-temp-allocator-size-main=16777216"
+    "memorysetup-job-temp-allocator-block-size=2097152"
+    "memorysetup-job-temp-allocator-block-size-background=1048576"
+    "memorysetup-job-temp-allocator-reduction-small-platforms=262144"
+    "memorysetup-allocator-temp-initial-block-size-main=262144"
+    "memorysetup-allocator-temp-initial-block-size-worker=262144"
+    "memorysetup-temp-allocator-size-background-worker=32768"
+    "memorysetup-temp-allocator-size-job-worker=262144"
+    "memorysetup-temp-allocator-size-preload-manager=33554432"
+    "memorysetup-temp-allocator-size-nav-mesh-worker=65536"
+    "memorysetup-temp-allocator-size-audio-worker=65536"
+    "memorysetup-temp-allocator-size-cloud-worker=32768"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gi-baking-worker=262144"
+    "memorysetup-temp-allocator-size-gfx=262144"
+Player connection [10040]  Target information:
+
+Player connection [10040]  * "[IP] 10.92.165.214 [Port] 55504 [Flags] 2 [Guid] 2316155209 [EditorId] 2316155209 [Version] 1048832 [Id] WindowsEditor(7,aSuSito_) [Debug] 1 [PackageName] WindowsEditor [ProjectName] Editor" 
+
+Player connection [10040] Host joined multi-casting on [225.0.0.222:54997]...
+Player connection [10040] Host joined alternative multi-casting on [225.0.0.222:34997]...
+Input System module state changed to: Initialized.
+[Physics::Module] Initialized fallback backend.
+[Physics::Module] Id: 0xdecafbad
+[Licensing::Client] Code 10 while verifying Licensing Client signature (process Id: 9528, path: "C:/Program Files/Unity Hub/UnityLicensingClient_V1/Unity.Licensing.Client.exe")
+[Licensing::Module] LicensingClient has failed validation; ignoring
+[Licensing::Client] Error: HandshakeResponse reported an error:
+	ResponseCode: 505
+	ResponseStatus: Unsupported protocol version '1.17.1'.
+[Licensing::Module] Error: Failed to handshake to channel: "LicenseClient-rocio"
+[Licensing::IpcConnector] LicenseClient-rocio channel disconnected successfully.
+[Licensing::IpcConnector] Channel LicenseClient-rocio-6000.0.55 doesn't exist
+[Licensing::Module] Successfully launched the LicensingClient (PId: 8924)
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-rocio-6000.0.55" at "2026-09-03T22:40:07.3173089Z"
+[Licensing::Client] Code 10 while verifying Licensing Client signature (process Id: 8924, path: "C:/Program Files/Unity/Hub/Editor/6000.0.55f1/Editor/Data/Resources/Licensing/Client/Unity.Licensing.Client.exe")
+[Licensing::Module] LicensingClient has failed validation; ignoring
+[Package Manager] Connected to IPC stream "Upm-32868" after 0.9 seconds.
+Library Redirect Path: Library/
+[Licensing::Client] Handshaking with LicensingClient:
+  Version:                 1.17.1+ae67fbc
+  Session Id:              e811164c374a4fe08a4762cc27beeb9c
+  Correlation Id:          4d721641a1eeccd7800bd30f74fd8d9c
+  External correlation Id: 2815365363097208220
+  Machine Id:              EvbTlGRR9UvmNvUEtU3MjyXqHi8=
+[Licensing::Module] Successfully connected to LicensingClient on channel: "LicenseClient-rocio-6000.0.55" (connect: 0.85s, validation: 0.68s, handshake: 0.02s)
+[Licensing::IpcConnector] Successfully connected to: "LicenseClient-rocio-6000.0.55-notifications" at "2026-09-03T22:40:08.017774Z"
+[Licensing::Module] Connected to LicensingClient (PId: 8924, launch time: 0.01, total connection time: 1.55s)
+[Licensing::Module] Error: Access token is unavailable; failed to update
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] License group:
+  Id: F4-W4BU-7SVG-DAWC-44UG-XXXX
+  Product: Unity Personal
+  Type: ULF
+  Expiration: Unlimited
+[Licensing::Module] License group:
+  Id: 1374587830530-UnityPersXXXX
+  Product: Unity Personal
+  Type: Assigned
+  Expiration: Unlimited
+[Licensing::Client] Successfully updated license, isAsync: True, time: 0.03
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] License group:
+  Id: F4-W4BU-7SVG-DAWC-44UG-XXXX
+  Product: Unity Personal
+  Type: ULF
+  Expiration: Unlimited
+[Licensing::Module] License group:
+  Id: 1374587830530-UnityPersXXXX
+  Product: Unity Personal
+  Type: Assigned
+  Expiration: Unlimited
+[Licensing::Module] Licensing Background thread has ended after 1.81s
+[Physics::Module] Selected backend.
+[Physics::Module] Name: PhysX
+[Physics::Module] Id: 0xf2b8ea05
+[Physics::Module] SDK Version: 4.1.2
+[Physics::Module] Integration Version: 1.0.0
+[Physics::Module] Threading Mode: Multi-Threaded
+Refreshing native plugins compatible for Editor in 9.27 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 6000.0.55f1 (c5f59906196d)
+[Subsystems] Discovering subsystems at path C:/Program Files/Unity/Hub/Editor/6000.0.55f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path C:/Users/rocio/Fragments of Solitude/Assets
+Forcing GfxDevice: Null
+GfxDevice: creating device client; kGfxThreadingModeNonThreaded
+NullGfxDevice:
+    Version:  NULL 1.0 [1.0]
+    Renderer: Null Device
+    Vendor:   Unity Technologies
+Shader Hidden/ProbeVolume/VoxelizeScene is not supported: GPU does not support conservative rasterization
+Initialize mono
+Mono path[0] = 'C:/Program Files/Unity/Hub/Editor/6000.0.55f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/Unity/Hub/Editor/6000.0.55f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit-win32'
+Mono config path = 'C:/Program Files/Unity/Hub/Editor/6000.0.55f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56868
+Using cacheserver namespaces - metadata:defaultmetadata, artifacts:defaultartifacts
+Using cacheserver namespaces - metadata:defaultmetadata, artifacts:defaultartifacts
+ImportWorker Server TCP listen port: 0
+AcceleratorClientConnectionCallback - disconnected - :0
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/Unity/Hub/Editor/6000.0.55f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.023540 seconds.
+- Loaded All Assemblies, in  1.475 seconds
+Native extension for WindowsStandalone target not found
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  0.963 seconds
+Domain Reload Profiling: 2414ms
+	BeginReloadAssembly (609ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (0ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (5ms)
+	RebuildCommonClasses (140ms)
+	RebuildNativeTypeToScriptingClass (29ms)
+	initialDomainReloadingComplete (206ms)
+	LoadAllAssembliesAndSetupDomain (463ms)
+		LoadAssemblies (580ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (453ms)
+			TypeCache.Refresh (450ms)
+				TypeCache.ScanAssembly (410ms)
+			BuildScriptInfoCaches (1ms)
+			ResolveRequiredComponents (1ms)
+	FinalizeReload (965ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (873ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (76ms)
+			SetLoadedEditorAssemblies (11ms)
+			BeforeProcessingInitializeOnLoad (177ms)
+			ProcessInitializeOnLoadAttributes (443ms)
+			ProcessInitializeOnLoadMethodAttributes (165ms)
+			AfterProcessingInitializeOnLoad (0ms)
+			EditorAssembliesLoaded (0ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (0ms)
+[Licensing::Client] Successfully resolved entitlement details
+[Licensing::Module] License group:
+  Id: F4-W4BU-7SVG-DAWC-44UG-XXXX
+  Product: Unity Personal
+  Type: ULF
+  Expiration: Unlimited
+[Licensing::Module] License group:
+  Id: 1374587830530-UnityPersXXXX
+  Product: Unity Personal
+  Type: Assigned
+  Expiration: Unlimited
+Application.AssetDatabase Initial Refresh Start
+Package Manager log level set to [2]
+[Package Manager] Restoring resolved packages state from cache
+[Licensing::Client] Successfully resolved entitlement details
+[Package Manager] Registered 65 packages:
+  Packages from [https://packages.unity.com]:
+    com.unity.collab-proxy@2.13.5 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.collab-proxy@120d77864ebc)
+    com.unity.ide.rider@3.0.36 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.ide.rider@4d374c7eb6db)
+    com.unity.ide.visualstudio@2.0.23 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.ide.visualstudio@198cdf337d13)
+    com.unity.inputsystem@1.14.1 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.inputsystem@978211393e28)
+    com.unity.timeline@1.8.7 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.timeline@c58b4ee65782)
+    com.unity.visualscripting@1.9.7 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.visualscripting@6279e2b7c485)
+    com.unity.2d.animation@10.2.1 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.2d.animation@81ad133dbdf1)
+    com.unity.2d.pixel-perfect@5.0.3 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.2d.pixel-perfect@e3ae982b672d)
+    com.unity.2d.psdimporter@9.1.0 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.2d.psdimporter@e0ffc26deb40)
+    com.unity.2d.spriteshape@10.0.7 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.2d.spriteshape@9e35352ae135)
+    com.unity.2d.tilemap.extras@4.1.0 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.2d.tilemap.extras@13634da7dbe0)
+    com.unity.2d.aseprite@1.1.9 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.2d.aseprite@996e69f78764)
+    com.unity.collections@2.6.8 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.collections@84e8eb3fc12e)
+    com.unity.searcher@4.9.3 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.searcher@1e17ce91558d)
+    com.unity.mathematics@1.3.2 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.mathematics@8017b507cc74)
+    com.unity.2d.common@9.1.1 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.2d.common@bc041c6e0d0d)
+    com.unity.burst@1.8.29 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.burst@6bb9aca3ef38)
+    com.unity.nuget.mono-cecil@1.11.6 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.nuget.mono-cecil@ecb9724e46ff)
+    com.unity.test-framework.performance@3.1.0 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.test-framework.performance@92d1d09a72ed)
+  Built-in packages:
+    com.unity.feature.2d@2.0.1 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.feature.2d@dd1ea8910f12)
+    com.unity.multiplayer.center@1.0.0 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.multiplayer.center@f3fb577b3546)
+    com.unity.render-pipelines.universal@17.0.4 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.render-pipelines.universal@dd24be0d7cf1)
+    com.unity.test-framework@1.5.1 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.test-framework@dfdbd02f5918)
+    com.unity.ugui@2.0.0 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.ugui@529b01454a55)
+    com.unity.modules.accessibility@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.accessibility)
+    com.unity.modules.ai@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.ai)
+    com.unity.modules.androidjni@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.androidjni)
+    com.unity.modules.animation@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.animation)
+    com.unity.modules.assetbundle@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.assetbundle)
+    com.unity.modules.audio@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.audio)
+    com.unity.modules.cloth@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.cloth)
+    com.unity.modules.director@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.director)
+    com.unity.modules.imageconversion@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.imageconversion)
+    com.unity.modules.imgui@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.imgui)
+    com.unity.modules.jsonserialize@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.jsonserialize)
+    com.unity.modules.particlesystem@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.particlesystem)
+    com.unity.modules.physics@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.physics)
+    com.unity.modules.physics2d@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.physics2d)
+    com.unity.modules.screencapture@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.screencapture)
+    com.unity.modules.terrain@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.terrain)
+    com.unity.modules.terrainphysics@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.terrainphysics)
+    com.unity.modules.tilemap@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.tilemap)
+    com.unity.modules.ui@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.ui)
+    com.unity.modules.uielements@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.uielements)
+    com.unity.modules.umbra@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.umbra)
+    com.unity.modules.unityanalytics@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.unityanalytics)
+    com.unity.modules.unitywebrequest@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.unitywebrequest)
+    com.unity.modules.unitywebrequestassetbundle@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.unitywebrequestassetbundle)
+    com.unity.modules.unitywebrequestaudio@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.unitywebrequestaudio)
+    com.unity.modules.unitywebrequesttexture@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.unitywebrequesttexture)
+    com.unity.modules.unitywebrequestwww@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.unitywebrequestwww)
+    com.unity.modules.vehicles@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.vehicles)
+    com.unity.modules.video@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.video)
+    com.unity.modules.vr@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.vr)
+    com.unity.modules.wind@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.wind)
+    com.unity.modules.xr@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.xr)
+    com.unity.modules.subsystems@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.subsystems)
+    com.unity.modules.hierarchycore@1.0.0 (location: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Resources\PackageManager\BuiltInPackages\com.unity.modules.hierarchycore)
+    com.unity.ext.nunit@2.0.5 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.ext.nunit@031a54704bff)
+    com.unity.render-pipelines.core@17.0.4 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.render-pipelines.core@571bc777a084)
+    com.unity.shadergraph@17.0.4 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.shadergraph@58c763b6444e)
+    com.unity.render-pipelines.universal-config@17.0.3 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.render-pipelines.universal-config@dd206bf35d04)
+    com.unity.2d.sprite@1.0.0 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.2d.sprite@a1146c20a947)
+    com.unity.2d.tilemap@1.0.0 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.2d.tilemap@3f6ff602680c)
+    com.unity.rendering.light-transport@1.0.1 (location: C:\Users\rocio\Fragments of Solitude\Library\PackageCache\com.unity.rendering.light-transport@9bd588f963c0)
+[Subsystems] No new subsystems found in resolved package list.
+[Package Manager] Done registering packages in 0.08 seconds
+[ScriptCompilation] Requested script compilation because: Assetdatabase observed changes in script compilation related files
+Starting: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\bee_backend.exe --ipc --defer-dag-verification --dagfile="Library/Bee/1900b0aE.dag" --continue-on-failure --profile="Library/Bee/backend1.traceevents" ScriptAssemblies
+WorkingDir: C:/Users/rocio/Fragments of Solitude
+DisplayProgressbar: Compiling Scripts
+ExitCode: 4 Duration: 1s849ms
+Rebuilding DAG because FileSignature timestamp changed: Library/Bee/1900b0aE-inputdata.json
+[ 674/1003  1s] ILPP-Configuration Library/ilpp-configuration.nevergeneratedoutput
+*** Tundra requires additional run (1.72 seconds), 1 items updated, 671 evaluated
+Starting: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Tools\netcorerun\netcorerun.exe "C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\Tools\BuildPipeline\ScriptCompilationBuildProgram.exe" "Library/Bee/1900b0aE.dag.json" "Library/Bee/1900b0aE-inputdata.json" "Library\Bee\buildprogram0.traceevents"
+WorkingDir: C:/Users/rocio/Fragments of Solitude
+ExitCode: 0 Duration: 2s178ms
+Starting: C:\Program Files\Unity\Hub\Editor\6000.0.55f1\Editor\Data\bee_backend.exe --ipc --defer-dag-verification --dagfile="Library/Bee/1900b0aE.dag" --continue-on-failure --dagfilejson="Library\Bee\1900b0aE.dag.json" --profile="Library/Bee/backend2.traceevents" ScriptAssemblies
+WorkingDir: C:/Users/rocio/Fragments of Solitude
+ExitCode: 0 Duration: 11s
+Finished compiling graph: 1006 nodes, 17992 flattened edges (14510 ToBuild, 162 ToUse), maximum node priority 1165
+[ 477/1003  0s] WriteText Library/Bee/artifacts/1900b0aE.dag/Assembly-CSharp-Editor.rsp
+[ 775/1003  0s] ILPP-Configuration Library/ilpp-configuration.nevergeneratedoutput
+[ 995/1003  4s] Csc Library/Bee/artifacts/1900b0aE.dag/Assembly-CSharp.dll (+2 others)
+Assets\Scripts\Level3\Player\PlayerExperience.cs(76,14): warning CS0219: The variable 'leveled' is assigned but its value is never used
+
+Assets\Scripts\Level1\LongestPathPuzzleBoardView.cs(31,35): warning CS0414: The field 'LongestPathPuzzleBoardView.showResetRouteButton' is assigned but its value is never used
+[ 996/1003  1s] Csc Library/Bee/artifacts/1900b0aE.dag/Assembly-CSharp-Editor.dll (+2 others)
+Assets\Editor\BuildConstraintPuzzleUI.cs(91,15): warning CS0219: The variable 'cellWidth' is assigned but its value is never used
+
+Assets\Editor\BuildConstraintPuzzleUI.cs(92,15): warning CS0219: The variable 'cellHeight' is assigned but its value is never used
+
+Assets\Editor\BuildConstraintPuzzleUI.cs(155,15): warning CS0219: The variable 'cellWidth' is assigned but its value is never used
+
+Assets\Editor\BuildConstraintPuzzleUI.cs(156,15): warning CS0219: The variable 'cellHeight' is assigned but its value is never used
+[ 997/1003  2s] ILPostProcess Library/Bee/artifacts/1900b0aE.dag/post-processed/Assembly-CSharp-Editor.dll (+pdb)
+Processing assembly Library/Bee/artifacts/1900b0aE.dag/Assembly-CSharp-Editor.dll, with 126 defines and 330 references
+
+processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+
+running Unity.Jobs.CodeGen.JobsILPostProcessor
+
+running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[ 998/1003  4s] ILPostProcess Library/Bee/artifacts/1900b0aE.dag/post-processed/Assembly-CSharp.dll (+pdb)
+Processing assembly Library/Bee/artifacts/1900b0aE.dag/Assembly-CSharp.dll, with 128 defines and 309 references
+
+processors: Unity.Jobs.CodeGen.JobsILPostProcessor, zzzUnity.Burst.CodeGen.BurstILPostProcessor
+
+running Unity.Jobs.CodeGen.JobsILPostProcessor
+
+running zzzUnity.Burst.CodeGen.BurstILPostProcessor
+[ 999/1003  0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp-Editor.pdb
+[1000/1003  0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp.dll
+[1001/1003  0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp.pdb
+[1002/1003  0s] CopyFiles Library/ScriptAssemblies/Assembly-CSharp-Editor.dll
+*** Tundra build success (11.81 seconds), 10 items updated, 1003 evaluated
+Assets\Scripts\Level3\Player\PlayerExperience.cs(76,14): warning CS0219: The variable 'leveled' is assigned but its value is never used
+Assets\Scripts\Level1\LongestPathPuzzleBoardView.cs(31,35): warning CS0414: The field 'LongestPathPuzzleBoardView.showResetRouteButton' is assigned but its value is never used
+Assets\Editor\BuildConstraintPuzzleUI.cs(91,15): warning CS0219: The variable 'cellWidth' is assigned but its value is never used
+Assets\Editor\BuildConstraintPuzzleUI.cs(92,15): warning CS0219: The variable 'cellHeight' is assigned but its value is never used
+Assets\Editor\BuildConstraintPuzzleUI.cs(155,15): warning CS0219: The variable 'cellWidth' is assigned but its value is never used
+Assets\Editor\BuildConstraintPuzzleUI.cs(156,15): warning CS0219: The variable 'cellHeight' is assigned but its value is never used
+AssetDatabase: script compilation time: 17.389706s
+Begin MonoManager ReloadAssembly
+- Loaded All Assemblies, in  4.463 seconds
+Refreshing native plugins compatible for Editor in 24.63 ms, found 5 plugins.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 17.56 ms, found 5 plugins.
+Mono: successfully reloaded assembly
+- Finished resetting the current domain, in  9.751 seconds
+Domain Reload Profiling: 14162ms
+	BeginReloadAssembly (731ms)
+		ExecutionOrderSort (0ms)
+		DisableScriptedObjects (32ms)
+		BackupInstance (0ms)
+		ReleaseScriptingObjects (0ms)
+		CreateAndSetChildDomain (190ms)
+	RebuildCommonClasses (94ms)
+	RebuildNativeTypeToScriptingClass (29ms)
+	initialDomainReloadingComplete (123ms)
+	LoadAllAssembliesAndSetupDomain (3432ms)
+		LoadAssemblies (3001ms)
+		RebuildTransferFunctionScriptingTraits (0ms)
+		AnalyzeDomain (758ms)
+			TypeCache.Refresh (584ms)
+				TypeCache.ScanAssembly (561ms)
+			BuildScriptInfoCaches (137ms)
+			ResolveRequiredComponents (30ms)
+	FinalizeReload (9752ms)
+		ReleaseScriptCaches (0ms)
+		RebuildScriptCaches (0ms)
+		SetupLoadedEditorAssemblies (9251ms)
+			LogAssemblyErrors (0ms)
+			InitializePlatformSupportModulesInManaged (55ms)
+			SetLoadedEditorAssemblies (14ms)
+			BeforeProcessingInitializeOnLoad (573ms)
+			ProcessInitializeOnLoadAttributes (7888ms)
+			ProcessInitializeOnLoadMethodAttributes (672ms)
+			AfterProcessingInitializeOnLoad (49ms)
+			EditorAssembliesLoaded (1ms)
+		ExecutionOrderSort2 (0ms)
+		AwakeInstancesAfterBackupRestoration (26ms)
+[MODES] ModeService[none].Initialize
+[MODES] ModeService[none].LoadModes
+[MODES] Loading mode Default (0) for mode-current-id-Fragments of Solitude
+No graphic device is available to initialize the view.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEditor.GUIView:Internal_Init (int,int,bool)
+UnityEditor.GUIView:SetWindow (UnityEditor.ContainerWindow)
+UnityEditor.HostView:SetWindow (UnityEditor.ContainerWindow)
+UnityEditor.View:SetWindowRecurse (UnityEditor.ContainerWindow)
+UnityEditor.View:AddChild (UnityEditor.View,int)
+UnityEditor.SplitView:AddChild (UnityEditor.View,int)
+UnityEditor.View:AddChild (UnityEditor.View)
+UnityEditor.EditorWindow:CreateNewWindowForEditorWindow (UnityEditor.EditorWindow,bool,bool,bool)
+UnityEditor.EditorWindow:Show (bool)
+UnityEditor.EditorWindow:Show ()
+UnityEditor.EditorWindow:CreateWindow<Unity.PlasticSCM.Editor.UVCSWindow> (string,System.Type[])
+UnityEditor.EditorWindow:GetWindow<Unity.PlasticSCM.Editor.UVCSWindow> (string,bool,System.Type[])
+Unity.PlasticSCM.Editor.UI.ShowWindow:UVCS () (at ./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/UI/ShowWindow.cs:27)
+Unity.PlasticSCM.Editor.SwitchUVCSPlugin:On (Unity.PlasticSCM.Editor.UVCSPlugin) (at ./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/SwitchUVCSPlugin.cs:16)
+Unity.PlasticSCM.Editor.SwitchUVCSPlugin:OnIfNeeded (Unity.PlasticSCM.Editor.UVCSPlugin) (at ./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/SwitchUVCSPlugin.cs:25)
+Unity.PlasticSCM.Editor.Settings.UVCSProjectSettingsProvider:OnActivate () (at ./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/Settings/UVCSProjectSettingsProvider.cs:51)
+UnityEditor.VersionControl.VersionControlManager:Activate (string)
+
+[./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/UI/ShowWindow.cs line 27]
+
+No graphic device is available to show the window.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEditor.ContainerWindow:Internal_Show (UnityEngine.Rect,int,UnityEngine.Vector2,UnityEngine.Vector2)
+UnityEditor.ContainerWindow:Show (UnityEditor.ShowMode,bool,bool,bool)
+UnityEditor.EditorWindow:CreateNewWindowForEditorWindow (UnityEditor.EditorWindow,bool,bool,bool)
+UnityEditor.EditorWindow:Show (bool)
+UnityEditor.EditorWindow:Show ()
+UnityEditor.EditorWindow:CreateWindow<Unity.PlasticSCM.Editor.UVCSWindow> (string,System.Type[])
+UnityEditor.EditorWindow:GetWindow<Unity.PlasticSCM.Editor.UVCSWindow> (string,bool,System.Type[])
+Unity.PlasticSCM.Editor.UI.ShowWindow:UVCS () (at ./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/UI/ShowWindow.cs:27)
+Unity.PlasticSCM.Editor.SwitchUVCSPlugin:On (Unity.PlasticSCM.Editor.UVCSPlugin) (at ./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/SwitchUVCSPlugin.cs:16)
+Unity.PlasticSCM.Editor.SwitchUVCSPlugin:OnIfNeeded (Unity.PlasticSCM.Editor.UVCSPlugin) (at ./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/SwitchUVCSPlugin.cs:25)
+Unity.PlasticSCM.Editor.Settings.UVCSProjectSettingsProvider:OnActivate () (at ./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/Settings/UVCSProjectSettingsProvider.cs:51)
+UnityEditor.VersionControl.VersionControlManager:Activate (string)
+
+[./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/UI/ShowWindow.cs line 27]
+
+No graphic device is available to initialize the view.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEditor.GUIView:Internal_Init (int,int,bool)
+UnityEditor.GUIView:SetWindow (UnityEditor.ContainerWindow)
+UnityEditor.HostView:SetWindow (UnityEditor.ContainerWindow)
+UnityEditor.View:SetWindowRecurse (UnityEditor.ContainerWindow)
+UnityEditor.View:SetWindowRecurse (UnityEditor.ContainerWindow)
+UnityEditor.ContainerWindow:Show (UnityEditor.ShowMode,bool,bool,bool)
+UnityEditor.EditorWindow:CreateNewWindowForEditorWindow (UnityEditor.EditorWindow,bool,bool,bool)
+UnityEditor.EditorWindow:Show (bool)
+UnityEditor.EditorWindow:Show ()
+UnityEditor.EditorWindow:CreateWindow<Unity.PlasticSCM.Editor.UVCSWindow> (string,System.Type[])
+UnityEditor.EditorWindow:GetWindow<Unity.PlasticSCM.Editor.UVCSWindow> (string,bool,System.Type[])
+Unity.PlasticSCM.Editor.UI.ShowWindow:UVCS () (at ./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/UI/ShowWindow.cs:27)
+Unity.PlasticSCM.Editor.SwitchUVCSPlugin:On (Unity.PlasticSCM.Editor.UVCSPlugin) (at ./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/SwitchUVCSPlugin.cs:16)
+Unity.PlasticSCM.Editor.SwitchUVCSPlugin:OnIfNeeded (Unity.PlasticSCM.Editor.UVCSPlugin) (at ./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/SwitchUVCSPlugin.cs:25)
+Unity.PlasticSCM.Editor.Settings.UVCSProjectSettingsProvider:OnActivate () (at ./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/Settings/UVCSProjectSettingsProvider.cs:51)
+UnityEditor.VersionControl.VersionControlManager:Activate (string)
+
+[./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/UI/ShowWindow.cs line 27]
+
+Refreshing native plugins compatible for Editor in 20.09 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=e51f7aabd93780b4ebbc0bc60c78b0b5): Total: 36.712 seconds - Initiated by InitialRefreshV2(ForceSynchronousImport)
+	Summary:
+		Imports: total=0 (actual=0, local cache=0, cache server=0)
+		Asset DB Process Time: managed=0 ms, native=11969 ms
+		Asset DB Callback time: managed=1017 ms, native=1519 ms
+		Scripting: domain reloads=1, domain reload time=4464 ms, compile time=17393 ms, other=348 ms
+		Project Asset Count: scripts=1581, non-scripts=3403
+		Asset File Changes: new=1, changed=3, moved=0, deleted=0
+		Scan Filter Count: 0
+	InvokeCustomDependenciesCallbacks: 0.003ms
+	InvokePackagesCallback: 108.580ms
+	ApplyChangesToAssetFolders: 2.259ms
+	Scan: 625.761ms
+	OnSourceAssetsModified: 1.860ms
+	CategorizeAssetsWithTransientArtifact: 234.575ms
+	ProcessAssetsWithTransientArtifactChanges: 227.103ms
+	CategorizeAssets: 291.451ms
+	ImportOutOfDateAssets: 9823.026ms (-7574.321ms without children)
+		CompileScripts: 17392.746ms
+		ReloadNativeAssets: 0.050ms
+		UnloadImportedAssets: 1.584ms
+		EnsureUptoDateAssetsAreRegisteredWithGuidPM: 1.498ms
+		InitializingProgressBar: 0.000ms
+		PostProcessAllAssetNotificationsAddChangedAssets: 0.001ms
+		OnDemandSchedulerStart: 1.467ms
+	PostProcessAllAssets: 2402.615ms
+	Hotreload: 32.556ms
+	GatherAllCurrentPrimaryArtifactRevisions: 0.001ms
+	UnloadStreamsBegin: 3.088ms
+	PersistCurrentRevisions: 0.311ms
+	UnloadStreamsEnd: 0.004ms
+	GenerateScriptTypeHashes: 8.051ms
+	Untracked: 22959.093ms
+
+Application.AssetDatabase Initial Refresh End
+Scanning for USB devices : 3.079ms
+Initializing Unity extensions:
+Unloading 16 Unused Serialized files (Serialized files now loaded: 0)
+Unloading 7307 unused Assets / (4.3 MB). Loaded Objects now: 8040.
+Memory consumption went from 271.9 MB to 267.6 MB.
+Total: 31.302700 ms (FindLiveObjects: 1.147900 ms CreateObjectMapping: 1.708200 ms MarkObjects: 21.768500 ms  DeleteObjects: 6.675100 ms)
+
+Opening scene 'Assets/Scenes/Level5/Level5.unity'
+Unloading 4 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Assets/Scenes/Level5/Level5.unity'
+	Deserialize:            29.397 ms
+	Integration:            1575.742 ms
+	Integration of assets:  5.516 ms
+	Thread Wait Time:       0.054 ms
+	Total Operation Time:   1610.709 ms
+Unloading 2 unused Assets / (Unknown). Loaded Objects now: 8207.
+Memory consumption went from 262.6 MB to 264.6 MB.
+Total: 22.219500 ms (FindLiveObjects: 1.016800 ms CreateObjectMapping: 1.050900 ms MarkObjects: 20.069200 ms  DeleteObjects: 0.078900 ms)
+
+Start importing Assets/Art/Characters/Level4/Player/Animations/Idle_Front.anim using Guid(45672a32172300646ae2113ff9df5faf) (NativeFormatImporter) -> (artifact id: '195e1105de55ee7f2fd3731472d4ad18') in 0.0383803 seconds
+Refreshing native plugins compatible for Editor in 16.22 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=e6bcc49a59512024aac0f06a5b8f773c): Total: 0.276 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Idle_Front.anim using Guid(45672a32172300646ae2113ff9df5faf) (NativeFormatImporter) -> (artifact id: '195e1105de55ee7f2fd3731472d4ad18') in 0.0086532 seconds
+Refreshing native plugins compatible for Editor in 14.95 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=9c9d85f7274832f469daf4a447a34732): Total: 0.096 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Jump_Front.anim using Guid(916ed8f301b7fc24e809c7f2593fb646) (NativeFormatImporter) -> (artifact id: 'a80bd4e09dee661cb7091ec2304b6468') in 0.0075721 seconds
+Refreshing native plugins compatible for Editor in 15.39 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=b0cd2373b72d4b74b8616be303cb04ca): Total: 0.096 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Jump_Front.anim using Guid(916ed8f301b7fc24e809c7f2593fb646) (NativeFormatImporter) -> (artifact id: 'a80bd4e09dee661cb7091ec2304b6468') in 0.0074879 seconds
+Refreshing native plugins compatible for Editor in 14.55 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=9d802a9af0240ac45a094c37fc98a384): Total: 0.090 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Dash_Front.anim using Guid(0f76bf8f6c2553f41882cd339f3a4142) (NativeFormatImporter) -> (artifact id: '42c39f7f1bc43a94e5fbad8c696539e4') in 0.0081454 seconds
+Refreshing native plugins compatible for Editor in 14.74 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=e5dbd30e68d2c3545836f93b1ef6c537): Total: 0.089 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Dash_Front.anim using Guid(0f76bf8f6c2553f41882cd339f3a4142) (NativeFormatImporter) -> (artifact id: '42c39f7f1bc43a94e5fbad8c696539e4') in 0.0076114 seconds
+Refreshing native plugins compatible for Editor in 16.70 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=e9d0dd5b3d913ad45a01eea8f3c48ab5): Total: 0.092 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Idle_Left.anim using Guid(d1f1b2c3d4e5f60718293a4b5c6d7e8f) (NativeFormatImporter) -> (artifact id: 'f211cbf316c53ff12342b06a8c8c9256') in 0.0090849 seconds
+Refreshing native plugins compatible for Editor in 19.21 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=98154207a2350da4c9bb18c5358a9c6e): Total: 0.107 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Idle_Left.anim using Guid(d1f1b2c3d4e5f60718293a4b5c6d7e8f) (NativeFormatImporter) -> (artifact id: 'f211cbf316c53ff12342b06a8c8c9256') in 0.0083884 seconds
+Refreshing native plugins compatible for Editor in 18.92 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=b9b3911cac4d5b748b2908290350fcd2): Total: 0.113 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Jump_Left.anim using Guid(d3f1b2c3d4e5f60718293a4b5c6d7e8f) (NativeFormatImporter) -> (artifact id: 'a2a9ed6d9398513ef4827b86a4bc64e6') in 0.0072427 seconds
+Refreshing native plugins compatible for Editor in 17.18 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=f1ab1c49e4bb16642b823e30ef14703e): Total: 0.101 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Jump_Left.anim using Guid(d3f1b2c3d4e5f60718293a4b5c6d7e8f) (NativeFormatImporter) -> (artifact id: 'a2a9ed6d9398513ef4827b86a4bc64e6') in 0.0080922 seconds
+Refreshing native plugins compatible for Editor in 15.09 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=1c3fd7d3751bb9a458b076ce0d721809): Total: 0.095 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Dash_Left.anim using Guid(d5f1b2c3d4e5f60718293a4b5c6d7e8f) (NativeFormatImporter) -> (artifact id: '850e21db526f6b3f0835776936262a99') in 0.0069016 seconds
+Refreshing native plugins compatible for Editor in 14.57 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=070098798c1dc4443b499e3bd34bd43a): Total: 0.095 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Dash_Left.anim using Guid(d5f1b2c3d4e5f60718293a4b5c6d7e8f) (NativeFormatImporter) -> (artifact id: '850e21db526f6b3f0835776936262a99') in 0.0071137 seconds
+Refreshing native plugins compatible for Editor in 14.86 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=95ad19993dc7cb44a93ad3953bcd5876): Total: 0.089 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Idle_Right.anim using Guid(d2f1b2c3d4e5f60718293a4b5c6d7e8f) (NativeFormatImporter) -> (artifact id: '624485a21ad5d5ca07c321343a17f2df') in 0.007351 seconds
+Refreshing native plugins compatible for Editor in 14.95 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=a8c35c8a09aa753468f66b7ac39c0b48): Total: 0.098 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Idle_Right.anim using Guid(d2f1b2c3d4e5f60718293a4b5c6d7e8f) (NativeFormatImporter) -> (artifact id: '624485a21ad5d5ca07c321343a17f2df') in 0.0067436 seconds
+Refreshing native plugins compatible for Editor in 21.29 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=9c89d60eb9a7b4445a4d51dc637d3d76): Total: 0.103 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Jump_Right.anim using Guid(d4f1b2c3d4e5f60718293a4b5c6d7e8f) (NativeFormatImporter) -> (artifact id: '26b647c9646d806249757f4b1211755c') in 0.007579 seconds
+Refreshing native plugins compatible for Editor in 16.53 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=908463c507b000243b4c877c06cc32fb): Total: 0.095 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Jump_Right.anim using Guid(d4f1b2c3d4e5f60718293a4b5c6d7e8f) (NativeFormatImporter) -> (artifact id: '26b647c9646d806249757f4b1211755c') in 0.0075518 seconds
+Refreshing native plugins compatible for Editor in 15.67 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=1234ccaffa71c0c419f112957c455ac9): Total: 0.097 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Dash_Right.anim using Guid(d6f1b2c3d4e5f60718293a4b5c6d7e8f) (NativeFormatImporter) -> (artifact id: '04d07bebc3d207f976b5ceaca1e62be1') in 0.0076686 seconds
+Refreshing native plugins compatible for Editor in 15.23 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=2dff7283ea68eb544a3431317c56411a): Total: 0.127 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Dash_Right.anim using Guid(d6f1b2c3d4e5f60718293a4b5c6d7e8f) (NativeFormatImporter) -> (artifact id: '04d07bebc3d207f976b5ceaca1e62be1') in 0.0070443 seconds
+Refreshing native plugins compatible for Editor in 15.15 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=cec8e91c53a4c7841b557150ccd953a5): Total: 0.094 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Run_Left.anim using Guid(3e0c11f51fdf188489197248e943014b) (NativeFormatImporter) -> (artifact id: '131527d4918e6a22db85a676aebc8d5f') in 0.0072324 seconds
+Refreshing native plugins compatible for Editor in 14.18 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=5fb732f7193c414428dbc8614c756e23): Total: 0.092 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Run_Left.anim using Guid(3e0c11f51fdf188489197248e943014b) (NativeFormatImporter) -> (artifact id: '131527d4918e6a22db85a676aebc8d5f') in 0.0063847 seconds
+Refreshing native plugins compatible for Editor in 13.67 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=44c103618ac15ce45957a614c9d59596): Total: 0.088 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Run_Right.anim using Guid(a9ebb4ef6cccd9143bae91d3a6ff62ed) (NativeFormatImporter) -> (artifact id: '1b21449df4bf2f889a3dfb1126d8258e') in 0.0074985 seconds
+Refreshing native plugins compatible for Editor in 14.15 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=78598e14152fba34a84115e9c2a8d89f): Total: 0.090 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Run_Right.anim using Guid(a9ebb4ef6cccd9143bae91d3a6ff62ed) (NativeFormatImporter) -> (artifact id: '1b21449df4bf2f889a3dfb1126d8258e') in 0.0077137 seconds
+Refreshing native plugins compatible for Editor in 16.19 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=1607ec1d59f58c84d8ceefe27a3ccc90): Total: 0.092 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Player.controller using Guid(d0f1b2c3d4e5f60718293a4b5c6d7e8f) (NativeFormatImporter) -> (artifact id: '97213d62c0a69010e3a66a6e32ef5ac4') in 0.0071014 seconds
+Refreshing native plugins compatible for Editor in 19.67 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=b5fa916650e202043838817de018b392): Total: 0.135 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Player.controller using Guid(d0f1b2c3d4e5f60718293a4b5c6d7e8f) (NativeFormatImporter) -> (artifact id: '97213d62c0a69010e3a66a6e32ef5ac4') in 0.0067827 seconds
+Refreshing native plugins compatible for Editor in 13.10 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=9c648226bbf2f324c9076d733276c9d9): Total: 0.085 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Idle_Up.anim using Guid(369eab22df34a3f44a3bca105830d730) (NativeFormatImporter) -> (artifact id: 'ff95057ebc23a7bbe10b36b139506d39') in 0.0079352 seconds
+Refreshing native plugins compatible for Editor in 14.12 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=350f53f3b40bcb0459f6d02502dd29a9): Total: 0.095 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Idle_Up.anim using Guid(369eab22df34a3f44a3bca105830d730) (NativeFormatImporter) -> (artifact id: 'ff95057ebc23a7bbe10b36b139506d39') in 0.0071892 seconds
+Refreshing native plugins compatible for Editor in 15.61 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=e450bfe3e43a2c548a9039175a877c0d): Total: 0.092 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Run_Up.anim using Guid(97f039a19cd078741bba7f800bffb521) (NativeFormatImporter) -> (artifact id: '62cde9efa1ca651b0a10db0b54d9674c') in 0.0064819 seconds
+Refreshing native plugins compatible for Editor in 16.47 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=d0fb39f9ca13e58418d963129367718b): Total: 0.093 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Run_Up.anim using Guid(97f039a19cd078741bba7f800bffb521) (NativeFormatImporter) -> (artifact id: '62cde9efa1ca651b0a10db0b54d9674c') in 0.0072164 seconds
+Refreshing native plugins compatible for Editor in 16.45 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=f31d6f2ea8aeb044fbcd1dc122d505c6): Total: 0.094 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Dead_Up.anim using Guid(3f5c1b1901ea39540810c60a2a997055) (NativeFormatImporter) -> (artifact id: '32962b506aad3007e57502b31929aa8e') in 0.0074853 seconds
+Refreshing native plugins compatible for Editor in 15.27 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=5c00a977d9a88b647b3d0557e9cb9b6f): Total: 0.112 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Dead_Up.anim using Guid(3f5c1b1901ea39540810c60a2a997055) (NativeFormatImporter) -> (artifact id: '32962b506aad3007e57502b31929aa8e') in 0.0071804 seconds
+Refreshing native plugins compatible for Editor in 16.02 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=9d8d56d42c2cdad4a8fdb8425175381e): Total: 0.098 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Idle_Down.anim using Guid(8dd48679c32c3be4eba62d43de45687f) (NativeFormatImporter) -> (artifact id: '469422dc8ea220e58bc4af494adac7b7') in 0.0079997 seconds
+Refreshing native plugins compatible for Editor in 17.05 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=6eee5faa6faee064aa29bf3d103a8ab6): Total: 0.101 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Idle_Down.anim using Guid(8dd48679c32c3be4eba62d43de45687f) (NativeFormatImporter) -> (artifact id: '469422dc8ea220e58bc4af494adac7b7') in 0.0072376 seconds
+Refreshing native plugins compatible for Editor in 15.52 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=f5b2a4b281ff7324ca4a146da2198f50): Total: 0.093 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Run_Down.anim using Guid(55174b1aff99e654f9dd9477ad34e519) (NativeFormatImporter) -> (artifact id: '2407dd401c8423a0dbd88f7bd536005c') in 0.0093153 seconds
+Refreshing native plugins compatible for Editor in 16.23 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=399b06b69b5c13d41825102ee2aa6d4d): Total: 0.101 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Run_Down.anim using Guid(55174b1aff99e654f9dd9477ad34e519) (NativeFormatImporter) -> (artifact id: '2407dd401c8423a0dbd88f7bd536005c') in 0.0083112 seconds
+Refreshing native plugins compatible for Editor in 16.93 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=8242814ad47afe34680ac70169bd4ef2): Total: 0.100 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Dead_Down.anim using Guid(0691c20b55991c9458a298165e59ad73) (NativeFormatImporter) -> (artifact id: '049f19b87b1ef5a7f34f0f7e4cbbdbf7') in 0.0077391 seconds
+Refreshing native plugins compatible for Editor in 14.18 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=e7fa7c6da1150df47ad26802a92200f0): Total: 0.091 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Dead_Down.anim using Guid(0691c20b55991c9458a298165e59ad73) (NativeFormatImporter) -> (artifact id: '049f19b87b1ef5a7f34f0f7e4cbbdbf7') in 0.007816 seconds
+Refreshing native plugins compatible for Editor in 15.77 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=ba9f3aa0abd86774993407cd83420004): Total: 0.096 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Idle_Left.anim using Guid(c158696ee208da14b9d105f8236288b2) (NativeFormatImporter) -> (artifact id: '4cfec98e1d88f99c79e826ed0939b43d') in 0.0073128 seconds
+Refreshing native plugins compatible for Editor in 17.83 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=9f3c2cc2b0cd7f541907c451948fc96d): Total: 0.097 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Idle_Left.anim using Guid(c158696ee208da14b9d105f8236288b2) (NativeFormatImporter) -> (artifact id: '4cfec98e1d88f99c79e826ed0939b43d') in 0.0082897 seconds
+Refreshing native plugins compatible for Editor in 15.50 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=ef96ed18fd5662045a9b3ea6e296d4a7): Total: 0.111 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Run_Left.anim using Guid(fa389d0c9b89c9f4588a4d1764c0b04b) (NativeFormatImporter) -> (artifact id: 'c36c26a4cf0dec22d5b3819d8cbf62b3') in 0.0073944 seconds
+Refreshing native plugins compatible for Editor in 14.51 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=7ab3e132752e7c740855a498514a5394): Total: 0.089 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Run_Left.anim using Guid(fa389d0c9b89c9f4588a4d1764c0b04b) (NativeFormatImporter) -> (artifact id: 'c36c26a4cf0dec22d5b3819d8cbf62b3') in 0.0075078 seconds
+Refreshing native plugins compatible for Editor in 15.09 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=10f03d47cfb68bd488eab16718ea1c79): Total: 0.094 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Dead_Left.anim using Guid(622b81cc2094cfc4a914976264857932) (NativeFormatImporter) -> (artifact id: '78f1a4e8220f6e853cf63ca1e3edbd54') in 0.0089012 seconds
+Refreshing native plugins compatible for Editor in 15.27 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=94d5b833c2094624abe7496e52fa235b): Total: 0.100 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Dead_Left.anim using Guid(622b81cc2094cfc4a914976264857932) (NativeFormatImporter) -> (artifact id: '78f1a4e8220f6e853cf63ca1e3edbd54') in 0.0076567 seconds
+Refreshing native plugins compatible for Editor in 16.58 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=5d997399b46227b43ba77361e190bbd6): Total: 0.096 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Idle_Right.anim using Guid(5c6b9e4fa3d6a0a4bacdaacfd0394c9b) (NativeFormatImporter) -> (artifact id: '6c5d02ee8e0620395273a1241982122e') in 0.0073897 seconds
+Refreshing native plugins compatible for Editor in 15.47 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=a21ae00bc8f02994cbbb1d13f5a65be1): Total: 0.094 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Idle_Right.anim using Guid(5c6b9e4fa3d6a0a4bacdaacfd0394c9b) (NativeFormatImporter) -> (artifact id: '6c5d02ee8e0620395273a1241982122e') in 0.0068474 seconds
+Refreshing native plugins compatible for Editor in 14.22 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=5a9fa3b2c5287a44ea99efd381672672): Total: 0.089 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Run_Right.anim using Guid(9b1c26ea8cb6cc24dbf4f4085ab5a073) (NativeFormatImporter) -> (artifact id: '2c3b89322e1d7e7b02ca3400458c41f7') in 0.0078014 seconds
+Refreshing native plugins compatible for Editor in 14.49 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=6e353ba44aada5a4282d363c8d643f9c): Total: 0.091 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Run_Right.anim using Guid(9b1c26ea8cb6cc24dbf4f4085ab5a073) (NativeFormatImporter) -> (artifact id: '2c3b89322e1d7e7b02ca3400458c41f7') in 0.0077775 seconds
+Refreshing native plugins compatible for Editor in 15.75 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=816a8e36625a21b4594853cbd34917f1): Total: 0.092 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Dead_Right.anim using Guid(0860eb42fc945f6439a2c585a2fa6b2b) (NativeFormatImporter) -> (artifact id: '6c4b1a90073d74a4de32f81a4940a68b') in 0.0094199 seconds
+Refreshing native plugins compatible for Editor in 17.74 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=b1867bdddb6a55e4fb6396b900d97fb8): Total: 0.099 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Dead_Right.anim using Guid(0860eb42fc945f6439a2c585a2fa6b2b) (NativeFormatImporter) -> (artifact id: '6c4b1a90073d74a4de32f81a4940a68b') in 0.0075554 seconds
+Refreshing native plugins compatible for Editor in 17.66 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=cee6748604ef2444482506a106303b96): Total: 0.102 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Idle_UpLeft.anim using Guid(4adcdbd129b8beb4cb9c0f9daf533b82) (NativeFormatImporter) -> (artifact id: '14ffb4db13c0f5f84cdadad0df3405f8') in 0.0072522 seconds
+Refreshing native plugins compatible for Editor in 16.16 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=d2f08cb6c0e8a4b448a95aec51fc4171): Total: 0.109 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Idle_UpLeft.anim using Guid(4adcdbd129b8beb4cb9c0f9daf533b82) (NativeFormatImporter) -> (artifact id: '14ffb4db13c0f5f84cdadad0df3405f8') in 0.0072113 seconds
+Refreshing native plugins compatible for Editor in 16.17 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=9046af59cbcf0864aacfc13cb4ecf38e): Total: 0.096 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Run_UpLeft.anim using Guid(ff5164379f571e54fa04d593fb63fac8) (NativeFormatImporter) -> (artifact id: '42c97b52e0d73e418391c05167167b82') in 0.0077054 seconds
+Refreshing native plugins compatible for Editor in 13.41 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=7fe4d0e9eec728142b00240c6973232f): Total: 0.098 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Run_UpLeft.anim using Guid(ff5164379f571e54fa04d593fb63fac8) (NativeFormatImporter) -> (artifact id: '42c97b52e0d73e418391c05167167b82') in 0.0074973 seconds
+Refreshing native plugins compatible for Editor in 14.89 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=38c74a602312f354584a82d55512c997): Total: 0.093 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Dead_UpLeft.anim using Guid(5683de36a7c43e149a755d1af7fac54c) (NativeFormatImporter) -> (artifact id: 'a30f3ec8b79dc0faf1fb099d5a906c6b') in 0.0071436 seconds
+Refreshing native plugins compatible for Editor in 13.84 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=aa49447d3d627834c93d933fd88042d1): Total: 0.092 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Dead_UpLeft.anim using Guid(5683de36a7c43e149a755d1af7fac54c) (NativeFormatImporter) -> (artifact id: 'a30f3ec8b79dc0faf1fb099d5a906c6b') in 0.007626 seconds
+Refreshing native plugins compatible for Editor in 14.21 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=b44dbaa24e1879d4eb93627fd2dfd728): Total: 0.090 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Idle_UpRight.anim using Guid(5e3fb1548ac648b46af32951e56a6ab7) (NativeFormatImporter) -> (artifact id: '113815e010c4ccffd3c5478de7f8514b') in 0.0081876 seconds
+Refreshing native plugins compatible for Editor in 14.95 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=1bda7e4df7cd00746a394a049b9e07a4): Total: 0.093 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Idle_UpRight.anim using Guid(5e3fb1548ac648b46af32951e56a6ab7) (NativeFormatImporter) -> (artifact id: '113815e010c4ccffd3c5478de7f8514b') in 0.0070412 seconds
+Refreshing native plugins compatible for Editor in 17.40 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=497b458bc949cf44586500b1c996b43b): Total: 0.093 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Run_UpRight.anim using Guid(9566903d185f51d4ca432f0cd9c9c896) (NativeFormatImporter) -> (artifact id: 'b1a17c366a031a8591d289af8f58e13a') in 0.0075594 seconds
+Refreshing native plugins compatible for Editor in 15.07 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=c2b8ab1c943181b4c8958c517239c759): Total: 0.094 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Run_UpRight.anim using Guid(9566903d185f51d4ca432f0cd9c9c896) (NativeFormatImporter) -> (artifact id: 'b1a17c366a031a8591d289af8f58e13a') in 0.0079333 seconds
+Refreshing native plugins compatible for Editor in 15.86 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=d2ecd0f17fe79a546b7d8f913fc8229e): Total: 0.090 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Dead_UpRight.anim using Guid(c059d8e389fa49f48b7fde6f278d58ea) (NativeFormatImporter) -> (artifact id: '63283f18bd3011c82bec09b035070cc7') in 0.008121 seconds
+Refreshing native plugins compatible for Editor in 15.16 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=1d7ece62a84137540a04dc6468e9431e): Total: 0.108 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Dead_UpRight.anim using Guid(c059d8e389fa49f48b7fde6f278d58ea) (NativeFormatImporter) -> (artifact id: '63283f18bd3011c82bec09b035070cc7') in 0.007043 seconds
+Refreshing native plugins compatible for Editor in 14.16 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=70ccac7d548e0a74d9d286cc8507aa36): Total: 0.088 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Idle_DownLeft.anim using Guid(dfa02a73b0c42f040b78e27b41aea4f5) (NativeFormatImporter) -> (artifact id: '4edd368380df11a0519588058054bfbe') in 0.0082024 seconds
+Refreshing native plugins compatible for Editor in 13.13 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=49fa72bd73bcef9419b2c58f1cb214f8): Total: 0.093 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Idle_DownLeft.anim using Guid(dfa02a73b0c42f040b78e27b41aea4f5) (NativeFormatImporter) -> (artifact id: '4edd368380df11a0519588058054bfbe') in 0.0066325 seconds
+Refreshing native plugins compatible for Editor in 14.65 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=e84aaf356d39eb246922b5c385757fc4): Total: 0.090 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Run_DownLeft.anim using Guid(740436035888ffd4a91e712a4c34bc42) (NativeFormatImporter) -> (artifact id: '2833351c94a838e3ceeecf17918a39f0') in 0.0086523 seconds
+Refreshing native plugins compatible for Editor in 13.43 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=612c3d58f5acac944963a8c3e6285992): Total: 0.092 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Run_DownLeft.anim using Guid(740436035888ffd4a91e712a4c34bc42) (NativeFormatImporter) -> (artifact id: '2833351c94a838e3ceeecf17918a39f0') in 0.0069339 seconds
+Refreshing native plugins compatible for Editor in 13.99 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=c8f3d577a6b3c664e86adbdefd8d1733): Total: 0.092 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Dead_DownLeft.anim using Guid(8d70146dbccb15a45a9c552fe043d807) (NativeFormatImporter) -> (artifact id: '6465bbb4a83f7bd4c825a99dc2002185') in 0.0074898 seconds
+Refreshing native plugins compatible for Editor in 14.06 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=acee4a226ec811c42a892ed0c6a95334): Total: 0.090 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Dead_DownLeft.anim using Guid(8d70146dbccb15a45a9c552fe043d807) (NativeFormatImporter) -> (artifact id: '6465bbb4a83f7bd4c825a99dc2002185') in 0.0077825 seconds
+Refreshing native plugins compatible for Editor in 15.79 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=136970d9c8230d84697a930c3a5aacae): Total: 0.091 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Idle_DownRight.anim using Guid(8fa4a0bd9ad07ca4c895393a1e66b7c6) (NativeFormatImporter) -> (artifact id: '4b985ddd8837215f9bb607558294ac2e') in 0.0079694 seconds
+Refreshing native plugins compatible for Editor in 15.73 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=14755a8c52a615e48a45522c59cfc0f0): Total: 0.097 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Idle_DownRight.anim using Guid(8fa4a0bd9ad07ca4c895393a1e66b7c6) (NativeFormatImporter) -> (artifact id: '4b985ddd8837215f9bb607558294ac2e') in 0.0079689 seconds
+Refreshing native plugins compatible for Editor in 16.16 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=0d90b438d029fd3498b9612ae67734e5): Total: 0.096 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Run_DownRight.anim using Guid(ab404da3ef9c5cc47ac4d3f1e3170927) (NativeFormatImporter) -> (artifact id: '5532cf8a04e0ef432baac3195fd799d8') in 0.0081175 seconds
+Refreshing native plugins compatible for Editor in 16.28 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=16104199ba8454d4ab68e6ff7faa75ab): Total: 0.096 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Run_DownRight.anim using Guid(ab404da3ef9c5cc47ac4d3f1e3170927) (NativeFormatImporter) -> (artifact id: '5532cf8a04e0ef432baac3195fd799d8') in 0.0083951 seconds
+Refreshing native plugins compatible for Editor in 15.41 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=7a8b86687b3a4fe4bacf09cdd77f453d): Total: 0.092 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Dead_DownRight.anim using Guid(b89b0a26b0249d7489a08e0ad8d5051b) (NativeFormatImporter) -> (artifact id: '4d92433f15f7500de22c814543d55109') in 0.0076767 seconds
+Refreshing native plugins compatible for Editor in 15.24 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=556214129794a384b90131478db97828): Total: 0.098 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Dead_DownRight.anim using Guid(b89b0a26b0249d7489a08e0ad8d5051b) (NativeFormatImporter) -> (artifact id: '4d92433f15f7500de22c814543d55109') in 0.0065897 seconds
+Refreshing native plugins compatible for Editor in 18.07 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=025469a04aae62b4481ab8d80fd64c28): Total: 0.102 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Player.controller using Guid(7a1f6e5c961a4e748ae4dbe22bd70e0d) (NativeFormatImporter) -> (artifact id: '9e6fb9139b2db18c41a37f89c8b4e667') in 0.0077734 seconds
+Refreshing native plugins compatible for Editor in 15.06 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=43b8cc569f9cf12498af85085a12a64b): Total: 0.116 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Player.controller using Guid(7a1f6e5c961a4e748ae4dbe22bd70e0d) (NativeFormatImporter) -> (artifact id: '9e6fb9139b2db18c41a37f89c8b4e667') in 0.0077661 seconds
+Refreshing native plugins compatible for Editor in 15.39 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=b556aea2c6d9d554da36c392a672be9e): Total: 0.093 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Scenes/Level5/Level5.unity using Guid(9ed114f2d274c6f41a44371db6fc2496) (DefaultImporter) -> (artifact id: '0f8c66c21ffbb5af5905ad63f006ab2b') in 0.0031394 seconds
+Refreshing native plugins compatible for Editor in 14.77 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=311b3d353edb50d4ea859c9df3b4c0bb): Total: 0.117 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+[FixLevel5MagicButtonScene] MAGIC_Button created from ITEM_Button template.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+FixLevel5MagicButtonScene:Run () (at Assets/Editor/FixLevel5MagicButtonScene.cs:56)
+
+(Filename: Assets/Editor/FixLevel5MagicButtonScene.cs Line: 56)
+
+Opening scene 'Assets/Scenes/Level5/Level5.unity'
+Unloading 15 Unused Serialized files (Serialized files now loaded: 0)
+Loaded scene 'Assets/Scenes/Level5/Level5.unity'
+	Deserialize:            7.788 ms
+	Integration:            493.748 ms
+	Integration of assets:  0.003 ms
+	Thread Wait Time:       0.062 ms
+	Total Operation Time:   501.601 ms
+Unloading 363 unused Assets / (11.1 MB). Loaded Objects now: 8219.
+Memory consumption went from 279.2 MB to 268.1 MB.
+Total: 38.840500 ms (FindLiveObjects: 1.006300 ms CreateObjectMapping: 0.816800 ms MarkObjects: 16.970300 ms  DeleteObjects: 20.044500 ms)
+
+Start importing Assets/Art/Characters/Level4/Player/Animations/Idle_Front.anim using Guid(45672a32172300646ae2113ff9df5faf) (NativeFormatImporter) -> (artifact id: '195e1105de55ee7f2fd3731472d4ad18') in 0.0069694 seconds
+Refreshing native plugins compatible for Editor in 15.18 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=a5efac6d233985e4aa16f3d8735b4ef9): Total: 0.115 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Idle_Front.anim using Guid(45672a32172300646ae2113ff9df5faf) (NativeFormatImporter) -> (artifact id: '195e1105de55ee7f2fd3731472d4ad18') in 0.0080194 seconds
+Refreshing native plugins compatible for Editor in 15.12 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=6bec00bc1f9562947b7213d108d642cb): Total: 0.092 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Jump_Front.anim using Guid(916ed8f301b7fc24e809c7f2593fb646) (NativeFormatImporter) -> (artifact id: 'a80bd4e09dee661cb7091ec2304b6468') in 0.0078882 seconds
+Refreshing native plugins compatible for Editor in 13.86 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=44e5f0c7157680a4d982bc09df0775fb): Total: 0.091 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Jump_Front.anim using Guid(916ed8f301b7fc24e809c7f2593fb646) (NativeFormatImporter) -> (artifact id: 'a80bd4e09dee661cb7091ec2304b6468') in 0.0067612 seconds
+Refreshing native plugins compatible for Editor in 15.52 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=64edea0ba31184b48bf1eb3b48ac1415): Total: 0.095 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Dash_Front.anim using Guid(0f76bf8f6c2553f41882cd339f3a4142) (NativeFormatImporter) -> (artifact id: '42c39f7f1bc43a94e5fbad8c696539e4') in 0.0067638 seconds
+Refreshing native plugins compatible for Editor in 18.09 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=08cc50270b4c684449e6be0d4eaa8f15): Total: 0.092 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Dash_Front.anim using Guid(0f76bf8f6c2553f41882cd339f3a4142) (NativeFormatImporter) -> (artifact id: '42c39f7f1bc43a94e5fbad8c696539e4') in 0.0065741 seconds
+Refreshing native plugins compatible for Editor in 18.45 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=82dcd3ecaf4a5f040b367558b1414c1c): Total: 0.097 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Idle_Left.anim using Guid(d1f1b2c3d4e5f60718293a4b5c6d7e8f) (NativeFormatImporter) -> (artifact id: 'f211cbf316c53ff12342b06a8c8c9256') in 0.0062049 seconds
+Refreshing native plugins compatible for Editor in 15.87 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=26fbd01b2bf9d04468e18f06b49a7328): Total: 0.089 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Idle_Left.anim using Guid(d1f1b2c3d4e5f60718293a4b5c6d7e8f) (NativeFormatImporter) -> (artifact id: 'f211cbf316c53ff12342b06a8c8c9256') in 0.0074732 seconds
+Refreshing native plugins compatible for Editor in 13.76 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=8873bea003f8e0d4b92b890796c01692): Total: 0.090 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Jump_Left.anim using Guid(d3f1b2c3d4e5f60718293a4b5c6d7e8f) (NativeFormatImporter) -> (artifact id: 'a2a9ed6d9398513ef4827b86a4bc64e6') in 0.007235 seconds
+Refreshing native plugins compatible for Editor in 14.46 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=477061f40bbc81643a0c0b3fb4970d30): Total: 0.093 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Jump_Left.anim using Guid(d3f1b2c3d4e5f60718293a4b5c6d7e8f) (NativeFormatImporter) -> (artifact id: 'a2a9ed6d9398513ef4827b86a4bc64e6') in 0.0074261 seconds
+Refreshing native plugins compatible for Editor in 20.38 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=43687fdff2c969c4cb15b99ab362782a): Total: 0.110 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Dash_Left.anim using Guid(d5f1b2c3d4e5f60718293a4b5c6d7e8f) (NativeFormatImporter) -> (artifact id: '850e21db526f6b3f0835776936262a99') in 0.0067837 seconds
+Refreshing native plugins compatible for Editor in 15.92 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=769fe11ce5f84bb4e8b0318db1e6fbc3): Total: 0.114 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Dash_Left.anim using Guid(d5f1b2c3d4e5f60718293a4b5c6d7e8f) (NativeFormatImporter) -> (artifact id: '850e21db526f6b3f0835776936262a99') in 0.0084807 seconds
+Refreshing native plugins compatible for Editor in 19.01 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=8e4bf0546a99b9541bbce7896b59b44a): Total: 0.103 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Idle_Right.anim using Guid(d2f1b2c3d4e5f60718293a4b5c6d7e8f) (NativeFormatImporter) -> (artifact id: '624485a21ad5d5ca07c321343a17f2df') in 0.0078023 seconds
+Refreshing native plugins compatible for Editor in 14.55 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=97382e4414397ac4caadbde95ccc6c27): Total: 0.089 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Idle_Right.anim using Guid(d2f1b2c3d4e5f60718293a4b5c6d7e8f) (NativeFormatImporter) -> (artifact id: '624485a21ad5d5ca07c321343a17f2df') in 0.0069768 seconds
+Refreshing native plugins compatible for Editor in 14.53 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=1f619a82281e449409aead5a78c76cea): Total: 0.088 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Jump_Right.anim using Guid(d4f1b2c3d4e5f60718293a4b5c6d7e8f) (NativeFormatImporter) -> (artifact id: '26b647c9646d806249757f4b1211755c') in 0.0084731 seconds
+Refreshing native plugins compatible for Editor in 14.79 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=d0420facac7b59a4580a6257de315fbf): Total: 0.090 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Jump_Right.anim using Guid(d4f1b2c3d4e5f60718293a4b5c6d7e8f) (NativeFormatImporter) -> (artifact id: '26b647c9646d806249757f4b1211755c') in 0.006853 seconds
+Refreshing native plugins compatible for Editor in 15.38 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=332e75dec32c63a4ca84d8d0b811c8f5): Total: 0.090 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Dash_Right.anim using Guid(d6f1b2c3d4e5f60718293a4b5c6d7e8f) (NativeFormatImporter) -> (artifact id: '04d07bebc3d207f976b5ceaca1e62be1') in 0.0075259 seconds
+Refreshing native plugins compatible for Editor in 15.00 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=d372c985143b854439f76e50c0b6092b): Total: 0.089 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Dash_Right.anim using Guid(d6f1b2c3d4e5f60718293a4b5c6d7e8f) (NativeFormatImporter) -> (artifact id: '04d07bebc3d207f976b5ceaca1e62be1') in 0.0074153 seconds
+Refreshing native plugins compatible for Editor in 15.17 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=ae0ffa7c254e88544946d2c57e555674): Total: 0.089 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Run_Left.anim using Guid(3e0c11f51fdf188489197248e943014b) (NativeFormatImporter) -> (artifact id: '131527d4918e6a22db85a676aebc8d5f') in 0.0071338 seconds
+Refreshing native plugins compatible for Editor in 15.24 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=d273c19662f848146ad08604d8458cf9): Total: 0.108 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Run_Left.anim using Guid(3e0c11f51fdf188489197248e943014b) (NativeFormatImporter) -> (artifact id: '131527d4918e6a22db85a676aebc8d5f') in 0.0083718 seconds
+Refreshing native plugins compatible for Editor in 14.32 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=09a2eb409100bae49985eb96ff307e9c): Total: 0.091 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Run_Right.anim using Guid(a9ebb4ef6cccd9143bae91d3a6ff62ed) (NativeFormatImporter) -> (artifact id: '1b21449df4bf2f889a3dfb1126d8258e') in 0.0071686 seconds
+Refreshing native plugins compatible for Editor in 14.68 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=9349c303fc7886d4d9c7a7e49f3d17fa): Total: 0.090 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Run_Right.anim using Guid(a9ebb4ef6cccd9143bae91d3a6ff62ed) (NativeFormatImporter) -> (artifact id: '1b21449df4bf2f889a3dfb1126d8258e') in 0.0075398 seconds
+Refreshing native plugins compatible for Editor in 15.98 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=588908c5184be1742b073144c7de2220): Total: 0.092 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Player.controller using Guid(d0f1b2c3d4e5f60718293a4b5c6d7e8f) (NativeFormatImporter) -> (artifact id: '09fa6d48bfe3ab999e4100fe6264d08f') in 0.0078729 seconds
+Refreshing native plugins compatible for Editor in 14.99 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=c178ae41e97f882488f540a39b24d780): Total: 0.135 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level4/Player/Animations/Player.controller using Guid(d0f1b2c3d4e5f60718293a4b5c6d7e8f) (NativeFormatImporter) -> (artifact id: '09fa6d48bfe3ab999e4100fe6264d08f') in 0.0074926 seconds
+Refreshing native plugins compatible for Editor in 14.38 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=e5e0f81027f0ae747bf4917e4333806b): Total: 0.089 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Idle_Up.anim using Guid(369eab22df34a3f44a3bca105830d730) (NativeFormatImporter) -> (artifact id: 'ff95057ebc23a7bbe10b36b139506d39') in 0.007137 seconds
+Refreshing native plugins compatible for Editor in 15.11 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=f6a7c65a8e42f0340b37db7c3ef77038): Total: 0.091 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Idle_Up.anim using Guid(369eab22df34a3f44a3bca105830d730) (NativeFormatImporter) -> (artifact id: 'ff95057ebc23a7bbe10b36b139506d39') in 0.0103844 seconds
+Refreshing native plugins compatible for Editor in 15.63 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=37c55f59a41b49c42a990b97ba0b5547): Total: 0.105 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Run_Up.anim using Guid(97f039a19cd078741bba7f800bffb521) (NativeFormatImporter) -> (artifact id: '62cde9efa1ca651b0a10db0b54d9674c') in 0.0074636 seconds
+Refreshing native plugins compatible for Editor in 17.24 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=bfbc03fc062c79642af530566585f091): Total: 0.089 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Run_Up.anim using Guid(97f039a19cd078741bba7f800bffb521) (NativeFormatImporter) -> (artifact id: '62cde9efa1ca651b0a10db0b54d9674c') in 0.0064144 seconds
+Refreshing native plugins compatible for Editor in 19.26 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=f80c301fa22f43c4684e63471b5f2bed): Total: 0.095 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Dead_Up.anim using Guid(3f5c1b1901ea39540810c60a2a997055) (NativeFormatImporter) -> (artifact id: '32962b506aad3007e57502b31929aa8e') in 0.0073881 seconds
+Refreshing native plugins compatible for Editor in 16.58 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=89f32f3c1dd20e942b12d9e4f671dd09): Total: 0.093 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Dead_Up.anim using Guid(3f5c1b1901ea39540810c60a2a997055) (NativeFormatImporter) -> (artifact id: '32962b506aad3007e57502b31929aa8e') in 0.0070807 seconds
+Refreshing native plugins compatible for Editor in 18.86 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=50c7eb5d0ffe0094b97f05ca3fdfd670): Total: 0.095 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Idle_Down.anim using Guid(8dd48679c32c3be4eba62d43de45687f) (NativeFormatImporter) -> (artifact id: '469422dc8ea220e58bc4af494adac7b7') in 0.0071823 seconds
+Refreshing native plugins compatible for Editor in 16.12 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=c4e4cf2b037e7ec43aafe68fdaafaa70): Total: 0.092 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Idle_Down.anim using Guid(8dd48679c32c3be4eba62d43de45687f) (NativeFormatImporter) -> (artifact id: '469422dc8ea220e58bc4af494adac7b7') in 0.0066541 seconds
+Refreshing native plugins compatible for Editor in 17.77 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=67dca239ae6021046b3931ea312599e1): Total: 0.094 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Run_Down.anim using Guid(55174b1aff99e654f9dd9477ad34e519) (NativeFormatImporter) -> (artifact id: '2407dd401c8423a0dbd88f7bd536005c') in 0.0070427 seconds
+Refreshing native plugins compatible for Editor in 14.62 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=bfce9cbe477caa748bc9166d54bc9b6f): Total: 0.093 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Run_Down.anim using Guid(55174b1aff99e654f9dd9477ad34e519) (NativeFormatImporter) -> (artifact id: '2407dd401c8423a0dbd88f7bd536005c') in 0.0073622 seconds
+Refreshing native plugins compatible for Editor in 14.74 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=1c9c47786a9681940b52ae3f1307a251): Total: 0.089 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Dead_Down.anim using Guid(0691c20b55991c9458a298165e59ad73) (NativeFormatImporter) -> (artifact id: '049f19b87b1ef5a7f34f0f7e4cbbdbf7') in 0.0074449 seconds
+Refreshing native plugins compatible for Editor in 15.30 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=4f55a8af756b4c04fa74c85184928e06): Total: 0.093 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Dead_Down.anim using Guid(0691c20b55991c9458a298165e59ad73) (NativeFormatImporter) -> (artifact id: '049f19b87b1ef5a7f34f0f7e4cbbdbf7') in 0.007171 seconds
+Refreshing native plugins compatible for Editor in 13.86 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=e9ebeb3fbcc5be74b822910e4fbeb370): Total: 0.087 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Idle_Left.anim using Guid(c158696ee208da14b9d105f8236288b2) (NativeFormatImporter) -> (artifact id: '4cfec98e1d88f99c79e826ed0939b43d') in 0.0069103 seconds
+Refreshing native plugins compatible for Editor in 15.53 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=6ffa47bb45685064a9b1b9d509ecb538): Total: 0.094 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Idle_Left.anim using Guid(c158696ee208da14b9d105f8236288b2) (NativeFormatImporter) -> (artifact id: '4cfec98e1d88f99c79e826ed0939b43d') in 0.0082747 seconds
+Refreshing native plugins compatible for Editor in 13.93 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=e7584615be244184e90dc0e17cc79531): Total: 0.086 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Run_Left.anim using Guid(fa389d0c9b89c9f4588a4d1764c0b04b) (NativeFormatImporter) -> (artifact id: 'c36c26a4cf0dec22d5b3819d8cbf62b3') in 0.0077678 seconds
+Refreshing native plugins compatible for Editor in 18.97 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=ae4b6e5fbacc7fa43a435c98dd390365): Total: 0.097 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Run_Left.anim using Guid(fa389d0c9b89c9f4588a4d1764c0b04b) (NativeFormatImporter) -> (artifact id: 'c36c26a4cf0dec22d5b3819d8cbf62b3') in 0.0076142 seconds
+Refreshing native plugins compatible for Editor in 16.11 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=aaa3337865478cb4fa1bb42a8e82d46e): Total: 0.093 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Dead_Left.anim using Guid(622b81cc2094cfc4a914976264857932) (NativeFormatImporter) -> (artifact id: '78f1a4e8220f6e853cf63ca1e3edbd54') in 0.0077135 seconds
+Refreshing native plugins compatible for Editor in 19.53 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=3a9d1373a72597f4292dcedd242bdf59): Total: 0.098 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Dead_Left.anim using Guid(622b81cc2094cfc4a914976264857932) (NativeFormatImporter) -> (artifact id: '78f1a4e8220f6e853cf63ca1e3edbd54') in 0.0071216 seconds
+Refreshing native plugins compatible for Editor in 16.28 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=be31f65fe8d823142b9d5ace2385b1fe): Total: 0.093 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Idle_Right.anim using Guid(5c6b9e4fa3d6a0a4bacdaacfd0394c9b) (NativeFormatImporter) -> (artifact id: '6c5d02ee8e0620395273a1241982122e') in 0.006806 seconds
+Refreshing native plugins compatible for Editor in 14.54 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=f409dbb5e81a866468f485cb8a8df34e): Total: 0.088 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Idle_Right.anim using Guid(5c6b9e4fa3d6a0a4bacdaacfd0394c9b) (NativeFormatImporter) -> (artifact id: '6c5d02ee8e0620395273a1241982122e') in 0.0073864 seconds
+Refreshing native plugins compatible for Editor in 14.79 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=d3882a22ca0ed99408d72bd86e9ca63c): Total: 0.098 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Run_Right.anim using Guid(9b1c26ea8cb6cc24dbf4f4085ab5a073) (NativeFormatImporter) -> (artifact id: '2c3b89322e1d7e7b02ca3400458c41f7') in 0.0071263 seconds
+Refreshing native plugins compatible for Editor in 15.41 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=64a48da34823d8a4ab8d095c6d3185de): Total: 0.093 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Run_Right.anim using Guid(9b1c26ea8cb6cc24dbf4f4085ab5a073) (NativeFormatImporter) -> (artifact id: '2c3b89322e1d7e7b02ca3400458c41f7') in 0.0076525 seconds
+Refreshing native plugins compatible for Editor in 15.06 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=983b5f8cb5959bb4c957975e203ec2d8): Total: 0.096 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Dead_Right.anim using Guid(0860eb42fc945f6439a2c585a2fa6b2b) (NativeFormatImporter) -> (artifact id: '6c4b1a90073d74a4de32f81a4940a68b') in 0.0077622 seconds
+Refreshing native plugins compatible for Editor in 15.45 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=8ce5f1e44911fb241a70757f74a045eb): Total: 0.097 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Dead_Right.anim using Guid(0860eb42fc945f6439a2c585a2fa6b2b) (NativeFormatImporter) -> (artifact id: '6c4b1a90073d74a4de32f81a4940a68b') in 0.0068767 seconds
+Refreshing native plugins compatible for Editor in 15.78 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=5d56c641a34997a43b5142bbccf0b306): Total: 0.093 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Idle_UpLeft.anim using Guid(4adcdbd129b8beb4cb9c0f9daf533b82) (NativeFormatImporter) -> (artifact id: '14ffb4db13c0f5f84cdadad0df3405f8') in 0.007638 seconds
+Refreshing native plugins compatible for Editor in 14.14 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=a6c005996fe1cc0498c81c21d6f12286): Total: 0.093 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Idle_UpLeft.anim using Guid(4adcdbd129b8beb4cb9c0f9daf533b82) (NativeFormatImporter) -> (artifact id: '14ffb4db13c0f5f84cdadad0df3405f8') in 0.0073619 seconds
+Refreshing native plugins compatible for Editor in 13.81 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=63521f108e3174648abcd69a65cfde49): Total: 0.087 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Run_UpLeft.anim using Guid(ff5164379f571e54fa04d593fb63fac8) (NativeFormatImporter) -> (artifact id: '42c97b52e0d73e418391c05167167b82') in 0.0078105 seconds
+Refreshing native plugins compatible for Editor in 14.59 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=98aabce69fc5833408957a455a4305f5): Total: 0.088 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Run_UpLeft.anim using Guid(ff5164379f571e54fa04d593fb63fac8) (NativeFormatImporter) -> (artifact id: '42c97b52e0d73e418391c05167167b82') in 0.0069606 seconds
+Refreshing native plugins compatible for Editor in 13.41 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=cc2bd0f40ca734e42a5ad241a86bed6a): Total: 0.092 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Dead_UpLeft.anim using Guid(5683de36a7c43e149a755d1af7fac54c) (NativeFormatImporter) -> (artifact id: 'a30f3ec8b79dc0faf1fb099d5a906c6b') in 0.0064031 seconds
+Refreshing native plugins compatible for Editor in 14.85 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=c2ee3a18741210e4fa2c42fb9aa85eca): Total: 0.088 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Dead_UpLeft.anim using Guid(5683de36a7c43e149a755d1af7fac54c) (NativeFormatImporter) -> (artifact id: 'a30f3ec8b79dc0faf1fb099d5a906c6b') in 0.0080767 seconds
+Refreshing native plugins compatible for Editor in 15.71 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=0fbe5b7bab21aac4e89cd4ac5667c836): Total: 0.090 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Idle_UpRight.anim using Guid(5e3fb1548ac648b46af32951e56a6ab7) (NativeFormatImporter) -> (artifact id: '113815e010c4ccffd3c5478de7f8514b') in 0.0076115 seconds
+Refreshing native plugins compatible for Editor in 14.73 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=ce3d529d5e3faf14b975f651a971fc1b): Total: 0.090 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Idle_UpRight.anim using Guid(5e3fb1548ac648b46af32951e56a6ab7) (NativeFormatImporter) -> (artifact id: '113815e010c4ccffd3c5478de7f8514b') in 0.0075818 seconds
+Refreshing native plugins compatible for Editor in 16.40 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=4206c584173147143a28b37f221d275f): Total: 0.100 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Run_UpRight.anim using Guid(9566903d185f51d4ca432f0cd9c9c896) (NativeFormatImporter) -> (artifact id: 'b1a17c366a031a8591d289af8f58e13a') in 0.007688 seconds
+Refreshing native plugins compatible for Editor in 14.85 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=715e901a54f6e624a8a5a387ab991feb): Total: 0.089 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Run_UpRight.anim using Guid(9566903d185f51d4ca432f0cd9c9c896) (NativeFormatImporter) -> (artifact id: 'b1a17c366a031a8591d289af8f58e13a') in 0.0075957 seconds
+Refreshing native plugins compatible for Editor in 16.42 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=0870f34d19badac4a895682d41254108): Total: 0.089 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Dead_UpRight.anim using Guid(c059d8e389fa49f48b7fde6f278d58ea) (NativeFormatImporter) -> (artifact id: '63283f18bd3011c82bec09b035070cc7') in 0.0079 seconds
+Refreshing native plugins compatible for Editor in 14.62 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=d3cf448131589704d99827e4618e89bc): Total: 0.089 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Dead_UpRight.anim using Guid(c059d8e389fa49f48b7fde6f278d58ea) (NativeFormatImporter) -> (artifact id: '63283f18bd3011c82bec09b035070cc7') in 0.0072937 seconds
+Refreshing native plugins compatible for Editor in 15.67 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=78d299210afef274598184c414cdd920): Total: 0.090 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Idle_DownLeft.anim using Guid(dfa02a73b0c42f040b78e27b41aea4f5) (NativeFormatImporter) -> (artifact id: '4edd368380df11a0519588058054bfbe') in 0.00673 seconds
+Refreshing native plugins compatible for Editor in 14.69 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=d0ce9d46972a250439d26803b091f9eb): Total: 0.091 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Idle_DownLeft.anim using Guid(dfa02a73b0c42f040b78e27b41aea4f5) (NativeFormatImporter) -> (artifact id: '4edd368380df11a0519588058054bfbe') in 0.0078734 seconds
+Refreshing native plugins compatible for Editor in 16.93 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=b0948ef1d7ccf17418e417c090ab698b): Total: 0.097 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Run_DownLeft.anim using Guid(740436035888ffd4a91e712a4c34bc42) (NativeFormatImporter) -> (artifact id: '2833351c94a838e3ceeecf17918a39f0') in 0.0085681 seconds
+Refreshing native plugins compatible for Editor in 15.94 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=17eeb819f51bfdb4fac401a133f3a2d6): Total: 0.097 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Run_DownLeft.anim using Guid(740436035888ffd4a91e712a4c34bc42) (NativeFormatImporter) -> (artifact id: '2833351c94a838e3ceeecf17918a39f0') in 0.0083115 seconds
+Refreshing native plugins compatible for Editor in 15.97 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=2efc89d86181c6945a5bfc4b3c907f4b): Total: 0.096 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Dead_DownLeft.anim using Guid(8d70146dbccb15a45a9c552fe043d807) (NativeFormatImporter) -> (artifact id: '6465bbb4a83f7bd4c825a99dc2002185') in 0.0080864 seconds
+Refreshing native plugins compatible for Editor in 16.49 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=59e8bbbd9a958b34ebf26fe189b5c316): Total: 0.099 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Dead_DownLeft.anim using Guid(8d70146dbccb15a45a9c552fe043d807) (NativeFormatImporter) -> (artifact id: '6465bbb4a83f7bd4c825a99dc2002185') in 0.0072475 seconds
+Refreshing native plugins compatible for Editor in 15.77 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=26d54c028a86eb74cad94785a45f3ea5): Total: 0.098 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Idle_DownRight.anim using Guid(8fa4a0bd9ad07ca4c895393a1e66b7c6) (NativeFormatImporter) -> (artifact id: '4b985ddd8837215f9bb607558294ac2e') in 0.0067451 seconds
+Refreshing native plugins compatible for Editor in 17.63 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=8885faaf346da2e42b79664cf44f4632): Total: 0.097 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Idle_DownRight.anim using Guid(8fa4a0bd9ad07ca4c895393a1e66b7c6) (NativeFormatImporter) -> (artifact id: '4b985ddd8837215f9bb607558294ac2e') in 0.0067572 seconds
+Refreshing native plugins compatible for Editor in 16.28 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=cbe271de6fe4fb04f811661c1f892ed6): Total: 0.097 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Run_DownRight.anim using Guid(ab404da3ef9c5cc47ac4d3f1e3170927) (NativeFormatImporter) -> (artifact id: '5532cf8a04e0ef432baac3195fd799d8') in 0.0069013 seconds
+Refreshing native plugins compatible for Editor in 14.93 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=615a6e481c0d1884486b123af2469c73): Total: 0.090 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Run_DownRight.anim using Guid(ab404da3ef9c5cc47ac4d3f1e3170927) (NativeFormatImporter) -> (artifact id: '5532cf8a04e0ef432baac3195fd799d8') in 0.0071839 seconds
+Refreshing native plugins compatible for Editor in 13.84 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=f2b413b3f0a7a054680fdddd801f08ce): Total: 0.092 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Dead_DownRight.anim using Guid(b89b0a26b0249d7489a08e0ad8d5051b) (NativeFormatImporter) -> (artifact id: '4d92433f15f7500de22c814543d55109') in 0.0069754 seconds
+Refreshing native plugins compatible for Editor in 13.97 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=180e0213979677c41843aeb99aa9ae2f): Total: 0.090 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Dead_DownRight.anim using Guid(b89b0a26b0249d7489a08e0ad8d5051b) (NativeFormatImporter) -> (artifact id: '4d92433f15f7500de22c814543d55109') in 0.0072402 seconds
+Refreshing native plugins compatible for Editor in 15.65 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=c78bd8bff5d8b22429cd40790ff0e309): Total: 0.090 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Player.controller using Guid(7a1f6e5c961a4e748ae4dbe22bd70e0d) (NativeFormatImporter) -> (artifact id: 'ef4b0985bd0f9efb59ee354a36c3401b') in 0.0111136 seconds
+Refreshing native plugins compatible for Editor in 15.96 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=81e1f63aa1b491e449e05e942bfbe128): Total: 0.141 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Art/Characters/Level3/Player/Animations/Player.controller using Guid(7a1f6e5c961a4e748ae4dbe22bd70e0d) (NativeFormatImporter) -> (artifact id: 'ef4b0985bd0f9efb59ee354a36c3401b') in 0.0071076 seconds
+Refreshing native plugins compatible for Editor in 14.06 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=1d3291ec845580840a101ae57ae14a14): Total: 0.089 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+Start importing Assets/Scenes/Level5/Level5.unity using Guid(9ed114f2d274c6f41a44371db6fc2496) (DefaultImporter) -> (artifact id: '8ab59c228f07b06e58024e7a70af6f84') in 0.0025023 seconds
+Refreshing native plugins compatible for Editor in 15.43 ms, found 5 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Asset Pipeline Refresh (id=e98576c01e68be0459786dbc04aa65af): Total: 0.111 seconds - Initiated by StopAssetImportingV2(NoUpdateAssetOptions)
+[SetupLevel5ActionUI] Action UI wired: ATTACK / DEFEND / USE ITEM / MAGIC.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEngine.DebugLogHandler:Internal_Log (UnityEngine.LogType,UnityEngine.LogOption,string,UnityEngine.Object)
+UnityEngine.DebugLogHandler:LogFormat (UnityEngine.LogType,UnityEngine.Object,string,object[])
+UnityEngine.Logger:Log (UnityEngine.LogType,object)
+UnityEngine.Debug:Log (object)
+SetupLevel5ActionUI:Setup () (at Assets/Editor/SetupLevel5ActionUI.cs:112)
+FixLevel5MagicButtonScene:Run () (at Assets/Editor/FixLevel5MagicButtonScene.cs:65)
+
+(Filename: Assets/Editor/SetupLevel5ActionUI.cs Line: 112)
+
+Batchmode quit successfully invoked - shutting down!
+No graphic device is available to initialize the view.
+UnityEngine.Debug:ExtractStackTraceNoAlloc (byte*,int,string)
+UnityEngine.StackTraceUtility:ExtractStackTrace ()
+UnityEditor.GUIView:Internal_Init (int,int,bool)
+UnityEditor.GUIView:SetWindow (UnityEditor.ContainerWindow)
+UnityEditor.HostView:SetWindow (UnityEditor.ContainerWindow)
+UnityEditor.View:SetWindowRecurse (UnityEditor.ContainerWindow)
+UnityEditor.View:RemoveChild (int)
+UnityEditor.View:RemoveChild (UnityEditor.View)
+UnityEditor.SplitView:RemoveChild (UnityEditor.View)
+UnityEditor.SplitView:RemoveChildNice (UnityEditor.View)
+UnityEditor.DockArea:KillIfEmpty ()
+UnityEditor.DockArea:RemoveTab (UnityEditor.EditorWindow,bool,bool)
+UnityEditor.EditorWindow:Close ()
+Unity.PlasticSCM.Editor.UI.CloseWindowIfOpened:UVCS () (at ./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/UI/CloseWindowIfOpened.cs:25)
+Unity.PlasticSCM.Editor.SwitchUVCSPlugin:Off (Unity.PlasticSCM.Editor.UVCSPlugin) (at ./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/SwitchUVCSPlugin.cs:37)
+Unity.PlasticSCM.Editor.Settings.UVCSProjectSettingsProvider:OnDeactivate () (at ./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/Settings/UVCSProjectSettingsProvider.cs:63)
+UnityEditor.VersionControl.VersionControlManager:Deactivate ()
+UnityEditor.EditorApplication:Internal_EditorApplicationQuit ()
+
+[./Library/PackageCache/com.unity.collab-proxy@120d77864ebc/Editor/UI/CloseWindowIfOpened.cs line 25]
+
+[Physics::Module] Cleanup current backned.
+[Physics::Module] Id: 0xf2b8ea05
+Input System module state changed to: ShutdownInProgress.
+Input System polling thread exited.
+Input System module state changed to: Shutdown.
+[Licensing::IpcConnector] LicenseClient-rocio-6000.0.55-notifications channel disconnected successfully.
+[Licensing::IpcConnector] LicenseClient-rocio-6000.0.55 channel disconnected successfully.
+AcceleratorClientConnectionCallback - disconnected - :0
+Cleanup mono
+Exiting batchmode successfully now!
+Exiting without the bug reporter. Application will terminate with return code 0

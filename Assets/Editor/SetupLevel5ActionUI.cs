@@ -92,10 +92,14 @@ public static class SetupLevel5ActionUI
         {
             party.GetArrayElementAtIndex(i).objectReferenceValue =
                 GetComponentAt<Combatant>($"BattleArena/Party/{PartyObjectNames[i]}");
+
+            Image slotImage = GetComponentAt<Image>($"BattleCanvas/CharacterInfo_Panel/CharacterSlot_{i + 1}");
+            if (slotImage != null)
+                slotImage.preserveAspect = true;
+
             slotTexts.GetArrayElementAtIndex(i).objectReferenceValue =
                 GetComponentAt<Text>($"BattleCanvas/CharacterInfo_Panel/CharacterSlot_{i + 1}/CharacterSlot_{i + 1}_Placeholder");
-            slotImages.GetArrayElementAtIndex(i).objectReferenceValue =
-                GetComponentAt<Image>($"BattleCanvas/CharacterInfo_Panel/CharacterSlot_{i + 1}");
+            slotImages.GetArrayElementAtIndex(i).objectReferenceValue = slotImage;
         }
 
         so.FindProperty("enemyCombatant").objectReferenceValue =

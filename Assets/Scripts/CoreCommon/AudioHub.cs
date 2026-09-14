@@ -79,6 +79,9 @@ public class AudioHub : MonoBehaviour
             audioSource = gameObject.AddComponent<AudioSource>();
             audioSource.playOnAwake = false;
         }
+
+        if (audioSource.outputAudioMixerGroup == null)
+            audioSource.outputAudioMixerGroup = SettingsManager.SfxGroup;
     }
 
     private void PlayClip(AudioClip clip, float vol = 1f)
