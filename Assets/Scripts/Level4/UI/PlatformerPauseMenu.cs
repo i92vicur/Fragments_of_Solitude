@@ -76,7 +76,7 @@ public class PlatformerPauseMenu : MonoBehaviour
         Image background = panel.AddComponent<Image>();
         background.color = new Color(0f, 0f, 0f, 0.82f);
 
-        CreateText("Title", panel.transform, "PAUSE MENU", new Vector2(0f, 120f), 34, FontStyle.Bold);
+        CreateText("Title", panel.transform, "PAUSE MENU", new Vector2(0f, 120f), 34, FontStyle.Normal);
         CreateButton("Continue", panel.transform, "RESUME", new Vector2(0f, -5f), Continue);
         CreateButton("MainMenu", panel.transform, "MAIN MENU", new Vector2(0f, -110f), ReturnToMainMenu);
     }

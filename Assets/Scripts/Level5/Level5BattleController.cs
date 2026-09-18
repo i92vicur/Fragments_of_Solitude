@@ -33,8 +33,12 @@ using UnityEngine;
 
 [DisallowMultipleComponent]
 public class Level5BattleController : MonoBehaviour
-{    [SerializeField, Tooltip("Fixed turn order: Warrior, Tank, Mage, Support, Final Enemy.")]
+{
+    [SerializeField, Tooltip("Fixed turn order: Warrior, Tank, Mage, Support, Final Enemy.")]
     private Combatant[] turnOrder = new Combatant[0];
+
+    [SerializeField, Tooltip("When enabled, the Final Enemy in Level 0 removes one living ally per turn without normal damage resolution.")]
+    private bool enableLevel0BossTurnMode = false;
 
     private int currentIndex = 0;
 
@@ -58,6 +62,8 @@ public class Level5BattleController : MonoBehaviour
         (turnOrder != null && currentIndex >= 0 && currentIndex < turnOrder.Length) ? turnOrder[currentIndex] : null;
 
     public int CurrentTurnIndex => currentIndex;
+
+    public bool IsLevel0BossTurnModeActive => enableLevel0BossTurnMode;
 
     /// <summary>True while a living player-side combatant is acting.</summary>
     public bool IsPlayerTurn
@@ -227,6 +233,12 @@ public class Level5BattleController : MonoBehaviour
         if (enemy == null || !enemy.IsEnemy || !enemy.IsAlive)
             return;
 
+        if (enableLevel0BossTurnMode)
+        {
+            ExecuteLevel0BossTurn();
+            return;
+        }
+
         ResolveEnemyHit(enemy);
 
         // At most one extra attack, and only if the first one didn't already end the battle.
@@ -262,6 +274,55 @@ public class Level5BattleController : MonoBehaviour
 
         Debug.Log($"[Level5Battle] {message}", enemy);
         OnEnemyAttack?.Invoke(message);
+    }
+
+    /// <summary>
+    /// Level 0 boss-turn path: eliminate the first living ally in the fixed turn order without damage
+    /// calculation, random targeting, critical hits, misses, or a second attack.
+    /// </summary>
+    private void ExecuteLevel0BossTurn()
+    {
+        if (state != BattleState.InProgress)
+            return;
+
+        Combatant enemy = CurrentCombatant;
+        if (enemy == null || !enemy.IsEnemy || !enemy.IsAlive)
+            return;
+
+        Combatant target = FindFirstLivingPlayer();
+        if (target == null)
+        {
+            Debug.LogWarning("[Level5Battle] Level 0 boss has no living player target.", this);
+            return;
+        }
+
+        int applied = target.TakeDamage(target.CurrentHP);
+        Debug.Log($"[Level5Battle] Level 0 boss eliminates {target.CombatantName} for {applied} fatal damage.", enemy);
+
+        if (!target.IsAlive && !target.IsEnemy && AllPlayersDead())
+        {
+            EndDefeat();
+            return;
+        }
+
+        if (state == BattleState.InProgress)
+            EndCurrentTurn();
+    }
+
+    /// <summary>
+    /// Returns the first living, non-enemy combatant in the fixed turn order, or null if none remain.
+    /// </summary>
+    private Combatant FindFirstLivingPlayer()
+    {
+        if (turnOrder == null) return null;
+
+        foreach (var combatant in turnOrder)
+        {
+            if (combatant != null && !combatant.IsEnemy && combatant.IsAlive)
+                return combatant;
+        }
+
+        return null;
     }
 
     /// <summary>
@@ -328,6 +389,7 @@ public class Level5BattleController : MonoBehaviour
         state = BattleState.Defeat;
 
         Debug.Log("[Level5Battle] All player characters defeated. DEFEAT.", this);
+        Debug.Log("Level5BattleController firing OnBattleEnded with DEFEAT");
         OnBattleEnded?.Invoke("DEFEAT");
     }
 

@@ -93,6 +93,8 @@ public class HudController : MonoBehaviour
     private GameObject levelUpPanel;
 
     // Pause menu UI
+    private const string PersistentPauseButtonName = "PauseButton";
+    private Button pauseButton;
     private GameObject pausePanel;
     private Button levelBtnMove;
     private Button levelBtnAttackSpeed;
@@ -166,6 +168,12 @@ public class HudController : MonoBehaviour
             TryFindExistingElements();
         }
 
+        if (pauseButton == null)
+            pauseButton = TryFindPauseButtonInScene();
+
+        if (pauseButton != null)
+            WirePauseButton();
+
         // If an IMGUI HealthBar exists in scene, disable it so HUD is primary
         var imguiHB = UnityEngine.Object.FindAnyObjectByType<HealthBar>();
         if (imguiHB != null)
@@ -226,6 +234,16 @@ public class HudController : MonoBehaviour
             PauseManager.Instance.Unpause(PauseManager.PauseReason.Debug);
         else if (!PauseManager.Instance.IsPaused)
             PauseManager.Instance.Pause(PauseManager.PauseReason.Debug);
+    }
+
+    private void WirePauseButton()
+    {
+        if (pauseButton == null)
+            return;
+
+        pauseButton.onClick.RemoveAllListeners();
+        pauseButton.onClick.AddListener(ToggleDebugPause);
+        pauseButton.gameObject.SetActive(true);
     }
 
     /// <summary>
@@ -570,13 +588,30 @@ public class HudController : MonoBehaviour
         pt.gameObject.SetActive(false);
         pauseStateText = pt;
 
-        var pauseButton = CreateButton("Hud_Pause", overlayGO.transform, Vector2.zero, new Vector2(110, 38), "PAUSE");
-        var pauseButtonRect = pauseButton.GetComponent<RectTransform>();
-        pauseButtonRect.anchorMin = new Vector2(1, 1);
-        pauseButtonRect.anchorMax = new Vector2(1, 1);
-        pauseButtonRect.pivot = new Vector2(1, 1);
-        pauseButtonRect.anchoredPosition = new Vector2(-18, -18);
-        pauseButton.onClick.AddListener(ToggleDebugPause);
+        pauseButton = TryFindPauseButtonInScene();
+        if (pauseButton == null)
+        {
+            pauseButton = CreateButton(PersistentPauseButtonName, overlayGO.transform, Vector2.zero, new Vector2(110, 38), "PAUSE");
+            var pauseButtonRect = pauseButton.GetComponent<RectTransform>();
+            pauseButtonRect.anchorMin = new Vector2(1, 1);
+            pauseButtonRect.anchorMax = new Vector2(1, 1);
+            pauseButtonRect.pivot = new Vector2(1, 1);
+            pauseButtonRect.anchoredPosition = new Vector2(-18, -18);
+        }
+        else
+        {
+            var pauseButtonRect = pauseButton.GetComponent<RectTransform>();
+            if (pauseButtonRect != null)
+            {
+                pauseButtonRect.SetParent(overlayGO.transform, false);
+                pauseButtonRect.anchorMin = new Vector2(1, 1);
+                pauseButtonRect.anchorMax = new Vector2(1, 1);
+                pauseButtonRect.pivot = new Vector2(1, 1);
+                pauseButtonRect.anchoredPosition = new Vector2(-18, -18);
+                pauseButtonRect.sizeDelta = new Vector2(110, 38);
+            }
+        }
+        WirePauseButton();
 
         // Boss panel (top-center, hidden by default)
         bossPanel = new GameObject("Boss_Panel");
@@ -837,11 +872,29 @@ public class HudController : MonoBehaviour
         return btn;
     }
 
+    private Button TryFindPauseButtonInScene()
+    {
+        var pauseButtonGO = GameObject.Find(PersistentPauseButtonName);
+        if (pauseButtonGO == null)
+            return null;
+
+        var button = pauseButtonGO.GetComponent<Button>();
+        if (button != null)
+            return button;
+
+        button = pauseButtonGO.GetComponentInChildren<Button>();
+        return button;
+    }
+
     private void TryFindExistingElements()
     {
         // Try to find existing named elements under the Canvas for compatibility with editor-setup HUDs.
         try
         {
+            var pauseBtn = GameObject.Find(PersistentPauseButtonName);
+            if (pauseBtn != null)
+                pauseButton = pauseBtn.GetComponent<Button>() ?? pauseBtn.GetComponentInChildren<Button>();
+
             var healthFill = GameObject.Find("Health_Fill");
             if (healthFill != null)
                 healthFillImage = healthFill.GetComponent<Image>();

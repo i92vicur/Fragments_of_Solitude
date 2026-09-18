@@ -134,6 +134,14 @@ public class Level5BattleUI : MonoBehaviour
 
         if (actionName == AttackAction)
         {
+            if (battleController.IsLevel0BossTurnModeActive)
+            {
+                lastActionLine = "The attack has no effect.";
+                Debug.Log($"[Level5Battle] {lastActionLine}", actor);
+                battleController.EndCurrentTurn();
+                return;
+            }
+
             Combatant target = battleController.EnemyCombatant;
             if (target == null)
             {
@@ -153,11 +161,27 @@ public class Level5BattleUI : MonoBehaviour
         }
         else if (actionName == DefendAction)
         {
+            if (battleController.IsLevel0BossTurnModeActive)
+            {
+                lastActionLine = "The action has no effect.";
+                Debug.Log($"[Level5Battle] {lastActionLine}", actor);
+                battleController.EndCurrentTurn();
+                return;
+            }
+
             actor.ApplyDefendBonus(TemporaryDefenseBonus);
             lastActionLine = $"{actor.CombatantName} is defending!";
         }
         else if (actionName == UseItemAction)
         {
+            if (battleController.IsLevel0BossTurnModeActive)
+            {
+                lastActionLine = "The action has no effect.";
+                Debug.Log($"[Level5Battle] {lastActionLine}", actor);
+                battleController.EndCurrentTurn();
+                return;
+            }
+
             int healAmount = actor == supportCombatant ? SupportHealAmount : HealAmount;
             int healed = actor.Heal(healAmount);
             lastActionLine = healed > 0
@@ -166,6 +190,14 @@ public class Level5BattleUI : MonoBehaviour
         }
         else if (actionName == MagicAction)
         {
+            if (battleController.IsLevel0BossTurnModeActive)
+            {
+                lastActionLine = "The magic has no effect.";
+                Debug.Log($"[Level5Battle] {lastActionLine}", actor);
+                battleController.EndCurrentTurn();
+                return;
+            }
+
             if (actor != mageCombatant)
                 return;
 
