@@ -14,14 +14,12 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
 [DisallowMultipleComponent]
 public class PlatformerPauseMenu : MonoBehaviour
 {
     [SerializeField] private KeyCode pauseKey = KeyCode.P;
+    [SerializeField] private Sprite menuFrame;
 
     private GameObject panel;
     private GameObject openButton;
@@ -71,14 +69,16 @@ public class PlatformerPauseMenu : MonoBehaviour
         panelRect.anchorMin = new Vector2(0.5f, 0.5f);
         panelRect.anchorMax = new Vector2(0.5f, 0.5f);
         panelRect.pivot = new Vector2(0.5f, 0.5f);
-        panelRect.sizeDelta = new Vector2(550f, 430f);
+        panelRect.sizeDelta = new Vector2(750f, 650f);
 
         Image background = panel.AddComponent<Image>();
-        background.color = new Color(0f, 0f, 0f, 0.82f);
+        background.sprite = menuFrame;
+        background.type = Image.Type.Simple;
+        background.color = Color.white;
 
-        CreateText("Title", panel.transform, "PAUSE MENU", new Vector2(0f, 120f), 34, FontStyle.Normal);
-        CreateButton("Continue", panel.transform, "RESUME", new Vector2(0f, -5f), Continue);
-        CreateButton("MainMenu", panel.transform, "MAIN MENU", new Vector2(0f, -110f), ReturnToMainMenu);
+        CreateText("Title", panel.transform, "PAUSE MENU", new Vector2(0f, 100f), 34, FontStyle.Normal);
+        CreateButton("Continue", panel.transform, "Resume", new Vector2(0f, -5f), Continue);
+        CreateButton("MainMenu", panel.transform, "Main Menu", new Vector2(0f, -110f), ReturnToMainMenu);
     }
 
     private void TogglePause()
@@ -131,11 +131,9 @@ public class PlatformerPauseMenu : MonoBehaviour
 
     private static Font GetPauseMenuFont()
     {
-#if UNITY_EDITOR
-        Font font = AssetDatabase.LoadAssetAtPath<Font>("Assets/Fonts/PressStart2P-Regular.ttf");
+        Font font = Resources.Load<Font>("Fonts/PressStart2P-Regular");
         if (font != null)
             return font;
-#endif
 
         return Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
     }

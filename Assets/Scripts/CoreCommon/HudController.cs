@@ -63,6 +63,9 @@ public class HudController : MonoBehaviour
     [Header("Health Bar")]
     [SerializeField] private Sprite[] healthBarSprites = new Sprite[5];
 
+    [SerializeField] private Sprite menuFrame;
+    [SerializeField] private Sprite upgradeMenuFrame;
+
     [Header("Font")]
     [SerializeField, Tooltip("Font used by the HUD. Assign Assets/Fonts/PressStart2P-Regular.ttf here for the custom look.")]
     private Font hudFont;
@@ -120,16 +123,33 @@ public class HudController : MonoBehaviour
             healIndicatorDuration = 0.1f;
     }
 
+    private Sprite ResolveUpgradeMenuFrame()
+    {
+        if (upgradeMenuFrame != null)
+            return upgradeMenuFrame;
+
+        #if UNITY_EDITOR
+        upgradeMenuFrame = UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Art/upgrade_menu_frame.png");
+        #endif
+
+        if (upgradeMenuFrame == null)
+        {
+            upgradeMenuFrame = Resources.Load<Sprite>("upgrade_menu_frame");
+            if (upgradeMenuFrame == null)
+                upgradeMenuFrame = Resources.Load<Sprite>("Art/upgrade_menu_frame");
+        }
+
+        return upgradeMenuFrame;
+    }
+
     private Font GetHudFont()
     {
         if (hudFont != null)
             return hudFont;
 
-#if UNITY_EDITOR
-        hudFont = AssetDatabase.LoadAssetAtPath<Font>("Assets/Fonts/PressStart2P-Regular.ttf");
+        hudFont = Resources.Load<Font>("Fonts/PressStart2P-Regular");
         if (hudFont != null)
             return hudFont;
-#endif
 
         try { hudFont = Resources.GetBuiltinResource<Font>("Arial.ttf"); } catch (Exception) { hudFont = Font.CreateDynamicFontFromOSFont("Arial", 14); }
         return hudFont;
@@ -728,12 +748,14 @@ public class HudController : MonoBehaviour
         pauseRT.anchorMax = new Vector2(0.5f, 0.5f);
         pauseRT.pivot = new Vector2(0.5f, 0.5f);
         pauseRT.anchoredPosition = Vector2.zero;
-        pauseRT.sizeDelta = new Vector2(340, 260);
+        pauseRT.sizeDelta = new Vector2(420, 330);
 
         var pauseBG = new GameObject("Pause_BG");
         pauseBG.transform.SetParent(pausePanel.transform, false);
         var pauseBGImage = pauseBG.AddComponent<Image>();
-        pauseBGImage.color = new Color(0f, 0f, 0f, 0.82f);
+        pauseBGImage.sprite = menuFrame;
+        pauseBGImage.type = Image.Type.Simple;
+        pauseBGImage.color = Color.white;
         var pauseBGRT = pauseBG.GetComponent<RectTransform>();
         pauseBGRT.anchorMin = Vector2.zero;
         pauseBGRT.anchorMax = Vector2.one;
@@ -746,7 +768,7 @@ public class HudController : MonoBehaviour
         pauseTitleRT.anchorMin = new Vector2(0.5f, 1f);
         pauseTitleRT.anchorMax = new Vector2(0.5f, 1f);
         pauseTitleRT.pivot = new Vector2(0.5f, 1f);
-        pauseTitleRT.anchoredPosition = new Vector2(0, -20);
+        pauseTitleRT.anchoredPosition = new Vector2(0, -100);
         pauseTitleRT.sizeDelta = new Vector2(280, 36);
         var pauseTitleTxt = pauseTitleGO.AddComponent<Text>();
         pauseTitleTxt.text = "PAUSED";
@@ -788,12 +810,15 @@ public class HudController : MonoBehaviour
         lupRT.anchorMax = new Vector2(0.5f, 0.5f);
         lupRT.pivot = new Vector2(0.5f, 0.5f);
         lupRT.anchoredPosition = new Vector2(0, 0);
-        lupRT.sizeDelta = new Vector2(460, 200);
+        lupRT.sizeDelta = new Vector2(550, 200);
 
         var lupBG = new GameObject("LevelUp_BG");
         lupBG.transform.SetParent(levelUpPanel.transform, false);
         var lupBGImage = lupBG.AddComponent<Image>();
-        lupBGImage.color = new Color(0f, 0f, 0f, 0.75f);
+        var resolvedUpgradeFrame = ResolveUpgradeMenuFrame();
+        lupBGImage.sprite = resolvedUpgradeFrame != null ? resolvedUpgradeFrame : menuFrame;
+        lupBGImage.type = Image.Type.Simple;
+        lupBGImage.color = Color.white;
         var lupBGRT = lupBG.GetComponent<RectTransform>();
         lupBGRT.anchorMin = new Vector2(0, 0);
         lupBGRT.anchorMax = new Vector2(1, 1);
@@ -807,7 +832,7 @@ public class HudController : MonoBehaviour
         titleRT.anchorMin = new Vector2(0.5f, 1f);
         titleRT.anchorMax = new Vector2(0.5f, 1f);
         titleRT.pivot = new Vector2(0.5f, 1f);
-        titleRT.anchoredPosition = new Vector2(0, -10);
+        titleRT.anchoredPosition = new Vector2(0, -50);
         titleRT.sizeDelta = new Vector2(380, 24);
         var titleText = titleGO.AddComponent<Text>();
         titleText.alignment = TextAnchor.UpperCenter;
@@ -817,9 +842,9 @@ public class HudController : MonoBehaviour
         titleText.text = "New level Reached!! Choose an Upgrade";
 
         // Buttons
-        levelBtnMove = CreateButton("MoveSpeed", levelUpPanel.transform, new Vector2(-150, -50), new Vector2(140, 40), "Increase Speed");
-        levelBtnAttackSpeed = CreateButton("AttackSpeed", levelUpPanel.transform, new Vector2(0, -50), new Vector2(140, 40), "Faster Attack");
-        levelBtnProjectile = CreateButton("ProjectileDamage", levelUpPanel.transform, new Vector2(150, -50), new Vector2(140, 40), "Stronger Projectiles");
+        levelBtnMove = CreateButton("MoveSpeed", levelUpPanel.transform, new Vector2(-150, -30), new Vector2(140, 40), "Increase Speed");
+        levelBtnAttackSpeed = CreateButton("AttackSpeed", levelUpPanel.transform, new Vector2(0, -30), new Vector2(140, 40), "Faster Attack");
+        levelBtnProjectile = CreateButton("ProjectileDamage", levelUpPanel.transform, new Vector2(150, -30), new Vector2(140, 40), "Stronger Projectiles");
 
         levelUpPanel.SetActive(false);
 

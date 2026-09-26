@@ -1320,6 +1320,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseKey: 112
+  menuFrame: {fileID: 21300000, guid: fccb834b2f5954f4c922b1f085877056, type: 3}
 --- !u!1 &42453212
 GameObject:
   m_ObjectHideFlags: 0

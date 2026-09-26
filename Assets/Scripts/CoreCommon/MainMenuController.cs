@@ -38,6 +38,7 @@ public class MainMenuController : MonoBehaviour
     private const string Level4ButtonPath = "Buttons_Panel/Level4Button";
     private const string Level5ButtonPath = "Buttons_Panel/Level5Button";
     private const string NewGameButtonPath = "Buttons_Panel/NewGameButton";
+    private const string QuitButtonName = "BackToDesktopButton";
 
     private const string Level3ButtonBaseLabel = "Level 2 (RogueLite)";
     private const string Level4ButtonBaseLabel = "Level 4 (Platformer)";
@@ -79,6 +80,7 @@ public class MainMenuController : MonoBehaviour
         if (newGameButton == null)
             newGameButton = transform.Find(NewGameButtonPath)?.GetComponent<Button>();
 
+        EnsureQuitButton();
         EnsureCompletionLabels();
         RefreshCompletionIndicators();
 
@@ -92,12 +94,63 @@ public class MainMenuController : MonoBehaviour
         if (newGameButton == null)
             newGameButton = transform.Find(NewGameButtonPath)?.GetComponent<Button>();
 
+        EnsureQuitButton();
         EnsureCompletionLabels();
         RefreshCompletionIndicators();
 
         if (newGameConfirmationPanel != null)
             newGameConfirmationPanel.SetActive(false);
 
+    }
+
+    private void EnsureQuitButton()
+    {
+        Transform buttonPanel = transform.Find("Buttons_Panel");
+        if (buttonPanel == null)
+            return;
+
+        if (buttonPanel.Find(QuitButtonName) != null)
+            return;
+
+        GameObject quitButtonObject = new GameObject(QuitButtonName, typeof(RectTransform), typeof(Image), typeof(Button));
+        quitButtonObject.transform.SetParent(buttonPanel, false);
+
+        RectTransform buttonRect = quitButtonObject.GetComponent<RectTransform>();
+        buttonRect.anchorMin = new Vector2(0.5f, 0.5f);
+        buttonRect.anchorMax = new Vector2(0.5f, 0.5f);
+        buttonRect.sizeDelta = new Vector2(315f, 67f);
+        buttonRect.anchoredPosition = new Vector2(0f, -270f);
+
+        Image buttonImage = quitButtonObject.GetComponent<Image>();
+        buttonImage.color = new Color(0.05f, 0.05f, 0.05f, 1f);
+
+        Button button = quitButtonObject.GetComponent<Button>();
+        button.targetGraphic = buttonImage;
+        ColorBlock colors = button.colors;
+        colors.normalColor = new Color(0f, 0f, 0f, 1f);
+        colors.highlightedColor = new Color(0.82f, 0.05f, 0.07f, 1f);
+        colors.pressedColor = new Color(0.247f, 0.247f, 0.247f, 1f);
+        colors.selectedColor = new Color(0.96f, 0.96f, 0.96f, 1f);
+        colors.disabledColor = new Color(0.784f, 0.784f, 0.784f, 0.502f);
+        button.colors = colors;
+        button.onClick.AddListener(QuitToDesktop);
+
+        GameObject textObject = new GameObject("Text", typeof(RectTransform), typeof(Text));
+        textObject.transform.SetParent(quitButtonObject.transform, false);
+
+        RectTransform textRect = textObject.GetComponent<RectTransform>();
+        textRect.anchorMin = Vector2.zero;
+        textRect.anchorMax = Vector2.one;
+        textRect.offsetMin = Vector2.zero;
+        textRect.offsetMax = Vector2.zero;
+
+        Text text = textObject.GetComponent<Text>();
+        text.text = "BACK TO DESKTOP";
+        text.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+        text.fontSize = 22;
+        text.alignment = TextAnchor.MiddleCenter;
+        text.color = Color.white;
+        text.raycastTarget = false;
     }
 
 
@@ -203,6 +256,17 @@ public class MainMenuController : MonoBehaviour
         }
     }
 
+    public void QuitToDesktop()
+    {
+        if (Application.isEditor)
+        {
+            Debug.Log("QuitToDesktop requested from editor; application exit suppressed in editor.");
+            return;
+        }
+
+        Application.Quit();
+    }
+
     public void ShowNewGameConfirmation()
     {
         if (newGameConfirmationPanel != null)
@@ -301,7 +365,8 @@ public class MainMenuController : MonoBehaviour
         labelRect.sizeDelta = new Vector2(CompletionLabelWidth, CompletionLabelHeight);
 
         Text label = labelObject.AddComponent<Text>();
-        label.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        Font completionFont = Resources.Load<Font>("Fonts/PressStart2P-Regular");
+        label.font = completionFont != null ? completionFont : Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
         label.fontSize = 24;
         label.fontStyle = FontStyle.Bold;
         label.alignment = TextAnchor.MiddleCenter;

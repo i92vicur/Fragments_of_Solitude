@@ -76,11 +76,9 @@ public class Level0DefeatSequence : MonoBehaviour
 
     private static Font GetFont()
     {
-#if UNITY_EDITOR
-        Font font = UnityEditor.AssetDatabase.LoadAssetAtPath<Font>("Assets/Fonts/PressStart2P-Regular.ttf");
+        Font font = Resources.Load<Font>("Fonts/PressStart2P-Regular");
         if (font != null)
             return font;
-#endif
 
         return Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
     }

@@ -63,13 +63,25 @@ public class MainMenuHoverPreview : MonoBehaviour, IPointerEnterHandler, IPointe
 
     private void LoadFramesForButton()
     {
+        if (frames != null && frames.Length > 0)
+        {
+            if (previewImage != null)
+                previewImage.sprite = frames[0];
+
+            if (previewRect != null)
+                previewRect.gameObject.SetActive(false);
+            return;
+        }
+
         string assetPath = GetSpriteAssetPathForButton();
         if (string.IsNullOrEmpty(assetPath))
             return;
 
+#if UNITY_EDITOR
         frames = LoadFramesFromAssetPath(assetPath);
         if (frames.Length > 0 && previewImage != null)
             previewImage.sprite = frames[0];
+#endif
 
         if (previewRect != null)
             previewRect.gameObject.SetActive(false);

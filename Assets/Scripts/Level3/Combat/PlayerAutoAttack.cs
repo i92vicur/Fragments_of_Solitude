@@ -1,18 +1,18 @@
 /*
 PlayerAutoAttack.cs
 
-Purpose: Minimal automatic ranged attack system that periodically finds the nearest enemy and
-fires a projectile.
+Purpose: Minimal automatic ranged attack system that periodically fires a projectile toward the
+mouse cursor.
 
 Design decisions:
-- Uses Physics2D.OverlapCircleAll to locate nearby enemy candidates efficiently for a small prototype.
-- Keeps regular fire simple: one projectile toward the nearest valid target per cooldown.
+- Keeps regular fire simple: one projectile toward the mouse aim direction per cooldown.
 - Reuse-friendly API: exposes the currently configured projectile prefab and current projectile
-  damage bonus so other player combat systems (such as the boss mega attack) can reuse the same
-  projectile content without duplicating prefab references or upgrade state.
+    damage bonus so other player combat systems (such as the boss mega attack) can reuse the same
+    projectile content without duplicating prefab references or upgrade state.
 */
 
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [DisallowMultipleComponent]
 public class PlayerAutoAttack : MonoBehaviour
@@ -56,10 +56,6 @@ public class PlayerAutoAttack : MonoBehaviour
         if (attackInterval <= 0f) attackInterval = 0.1f;
         if (attackRange <= 0f) attackRange = 1f;
 
-        if (targetLayerMask == 0)
-        {
-            Debug.LogWarning("PlayerAutoAttack: targetLayerMask is empty. No targets will be found until you select the Enemy layer in the mask.", this);
-        }
     }
 
     void Update()
@@ -72,37 +68,17 @@ public class PlayerAutoAttack : MonoBehaviour
             return;
         }
 
-        Vector2 origin = (projectileSpawnPoint != null) ? (Vector2)projectileSpawnPoint.position : (Vector2)transform.position;
-
-        Collider2D[] hits = Physics2D.OverlapCircleAll(origin, attackRange, targetLayerMask);
-        if (hits == null || hits.Length == 0) return;
-
-        Collider2D nearest = null;
-        float bestSqr = float.MaxValue;
-
-        foreach (var c in hits)
-        {
-            if (c == null || !c.gameObject.activeInHierarchy) continue;
-            if (!string.IsNullOrEmpty(requiredTargetTag) && !c.CompareTag(requiredTargetTag)) continue;
-
-            var health = c.GetComponent<Health>() ?? c.GetComponentInParent<Health>();
-            if (health == null || health.IsDead) continue;
-
-            float sqr = ((Vector2)c.transform.position - origin).sqrMagnitude;
-            if (sqr < bestSqr)
-            {
-                bestSqr = sqr;
-                nearest = c;
-            }
-        }
-
-        if (nearest == null) return;
-
-        var targetHealth = nearest.GetComponent<Health>() ?? nearest.GetComponentInParent<Health>();
-        if (targetHealth == null || targetHealth.IsDead) return;
-
         Vector2 spawnPos = (projectileSpawnPoint != null) ? (Vector2)projectileSpawnPoint.position : (Vector2)transform.position;
-        Vector2 dir = (Vector2)nearest.transform.position - spawnPos;
+        Vector2 dir = transform.right;
+        Camera mainCamera = Camera.main;
+        Mouse mouse = Mouse.current;
+        if (mainCamera != null && mouse != null)
+        {
+            Vector3 mouseScreenPos = mouse.position.ReadValue();
+            mouseScreenPos.z = Mathf.Abs(mainCamera.transform.position.z - transform.position.z);
+            Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(mouseScreenPos);
+            dir = (Vector2)mouseWorldPos - (Vector2)transform.position;
+        }
         if (dir.sqrMagnitude <= 0f) dir = transform.right;
         dir.Normalize();
 

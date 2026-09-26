@@ -13,9 +13,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
 [DisallowMultipleComponent]
 public class Phase2VictoryMenu : MonoBehaviour
@@ -116,11 +113,9 @@ public class Phase2VictoryMenu : MonoBehaviour
 
     private static Font GetVictoryMenuFont()
     {
-#if UNITY_EDITOR
-        Font font = AssetDatabase.LoadAssetAtPath<Font>("Assets/Fonts/PressStart2P-Regular.ttf");
+        Font font = Resources.Load<Font>("Fonts/PressStart2P-Regular");
         if (font != null)
             return font;
-#endif
 
         return Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
     }
