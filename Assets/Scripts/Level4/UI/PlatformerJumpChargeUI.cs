@@ -1,13 +1,13 @@
 /*
 PlatformerJumpChargeUI.cs
 
-Purpose: Display the current jump charge as a runtime-created uGUI fill bar.
+Purpose:
+- Controls the platformer jump charge u i flow for the platforming flow, movement, hazards, camera behavior, and phase transitions.
 
 Design decisions:
-- The bar reads NormalizedJumpCharge from PlatformerJumpController and is visible only while a grounded
-    charge is active, keeping presentation derived from the controller's state.
-- Canvas and Image setup is self-contained for prototype scenes; this component does not decide jump force
-    or consume input.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

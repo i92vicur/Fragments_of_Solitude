@@ -2,22 +2,12 @@
 MainMenuController.cs
 
 Purpose:
-- Handle main menu UI interactions and delegate scene loading to SceneLoader.
-- Exists only as a thin UI bridge; no loading logic lives here.
+- Controls the main menu controller flow for shared UI, scene flow, settings, and cross-scene runtime systems.
 
 Design decisions:
-- Delegates all scene loading to SceneLoader to avoid duplicated SceneManager calls.
-- SceneLoader is expected to be on the same GameObject or anywhere in the MainMenu scene.
-- No singleton, no persistence, no save data.
-
-Usage:
-- Attach to Canvas or any menu root.
-- Assign SceneLoader reference in Inspector (auto-found on Start if not assigned).
-- Wire button onClick to PlayLevel3().
-
-Future levels:
-- Add PlayLevel4() etc. here and wire to new buttons. Each calls sceneLoader.LoadScene with the appropriate name.
-  Alternatively move to a general LoadLevel(string name) approach with buttons passing the name via UnityEvent.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

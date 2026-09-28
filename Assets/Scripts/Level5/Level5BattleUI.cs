@@ -2,34 +2,12 @@
 Level5BattleUI.cs
 
 Purpose:
-- Drive the Level 5 battle Canvas: show whose turn it is, and let the player end a player turn by picking
-  one of the three actions (Attack, Defend, Use Item).
+- Controls the level5 battle u i flow for the turn-based battle loop, combatants, battle UI, and encounter rules.
 
 Design decisions:
-- Listeners are wired once in Awake, never per turn, so repeated turn changes cannot stack duplicates.
-- The UI only reads Level5BattleController and Combatant; it never mutates combat state beyond calling
-  EndCurrentTurn().
-- Actions have effect for ATTACK, DEFEND, USE ITEM and MAGIC. ATTACK asks the controller to resolve
-  damage; DEFEND applies Combatant's temporary Defend bonus; USE ITEM heals the acting character via
-  Combatant.Heal (Support heals for more than the other three); MAGIC deals the controller's fixed
-  MagicDamage straight to the enemy. All four then end the turn the same way. MAGIC and Support's larger
-  heal are the only character-specific behaviours so far; Warrior and Tank have none yet.
-- MAGIC is only interactable while mageCombatant is the current combatant; ChooseAction also re-checks
-  this so the button cannot be triggered for another actor by a stale click.
-- Buttons are enabled strictly from Level5BattleController.IsPlayerTurn, so they are non-interactable on
-  the Final Enemy's turn (and would be on a dead combatant's turn, which the controller already skips).
-- Once Level5BattleController reaches BattleState.Victory or BattleState.Defeat, OnBattleEnded fires
-  exactly once: the message banner shows "VICTORY!" or "DEFEAT" and the three action buttons are disabled
-  for good. No scene transition, reward, experience, restart, game-over screen or animation is handled here.
-- The Final Enemy's attack is resolved entirely by Level5BattleController (via its temporary enemy-turn
-  button); this UI only listens to OnEnemyAttack to show the resulting message, the same way it shows the
-  player's own attack line.
-- Each character slot shows "{Name}\nHP {current} / {max}", read straight from its Combatant every time
-  Refresh() runs (after any turn change, attack or battle end), so it can never go stale after damage. No
-  HP bar, animation, floating numbers or death UI: the slot text is the only display.
-
-Usage:
-- Placed on BattleCanvas in Level5.unity with all references assigned by the SetupLevel5ActionUI tool.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

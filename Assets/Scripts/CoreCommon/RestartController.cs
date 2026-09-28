@@ -1,16 +1,13 @@
 /*
 RestartController.cs
 
-Purpose and design (minimal restart foundation):
-- Provide a small, explicit way to return the game to a clean starting state during Play Mode for prototype testing.
-- Delegates the actual scene reload to SceneLoader so there is no duplicated loading logic.
-- This controller is responsible only for reading the keyboard shortcut and calling SceneLoader.ReloadCurrentScene().
-- This input logic is explicitly temporary and should be removed when a proper UI button is implemented.
+Purpose:
+- Controls the restart controller flow for shared UI, scene flow, settings, and cross-scene runtime systems.
 
-Usage:
-- Attach this component to the same GameObject as SceneLoader (or any scene object).
-- During Play Mode press the configured key (default: R) to restart the active scene.
-- The implementation is intentionally small and safe to remove or replace later.
+Design decisions:
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

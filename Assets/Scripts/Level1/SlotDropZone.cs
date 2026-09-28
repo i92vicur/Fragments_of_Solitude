@@ -1,10 +1,13 @@
 /*
 SlotDropZone.cs
 
-Drop handler for ConstraintPuzzle_New slots with support for:
-- Basic drop (slot empty)
-- Swap/Exchange (slot occupied)
-- State manager integration
+Purpose:
+- Controls the slot drop zone flow for the constraint and path-based puzzle systems and their drag-and-drop interactions.
+
+Design decisions:
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

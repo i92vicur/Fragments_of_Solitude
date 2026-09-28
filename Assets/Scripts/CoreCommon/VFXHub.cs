@@ -1,10 +1,13 @@
 /*
 VFXHub.cs
 
-Minimal visual-effects hub for the prototype.
-- Central place to assign small VFX prefabs (ParticleSystem-based prefabs) for common gameplay events.
-- Provides SpawnXxx(...) methods that instantiate the assigned prefab at a world position and automatically destroy it after a configurable lifetime.
-- Designed to be small and replaceable. Playback is event-driven and optional (no-ops if prefabs are not assigned).
+Purpose:
+- Controls the v f x hub flow for shared UI, scene flow, settings, and cross-scene runtime systems.
+
+Design decisions:
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

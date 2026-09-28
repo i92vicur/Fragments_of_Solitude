@@ -1,14 +1,13 @@
 /*
 BalancePlatform.cs
 
-Purpose: Rotate a kinematic platform according to the horizontal position of the player standing on it.
+Purpose:
+- Controls the balance platform flow for the platforming flow, movement, hazards, camera behavior, and phase transitions.
 
 Design decisions:
-- Position is locked while rotation remains free, so the platform cannot drift when it tilts.
-- The target angle uses the player's local X offset divided by the BoxCollider2D width, making the response
-    independent of world position and usable with scaled platforms.
-- Collision callbacks track the standing player and a short grace period prevents contact flicker from
-    causing abrupt target changes. Rotation is clamped unless full rotation while occupied is enabled.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

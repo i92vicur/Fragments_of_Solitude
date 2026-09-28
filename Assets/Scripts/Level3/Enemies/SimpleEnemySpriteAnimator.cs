@@ -1,13 +1,13 @@
 /*
 SimpleEnemySpriteAnimator.cs
 
-Purpose: Animate enemies by swapping SpriteRenderer frames without requiring an Animator Controller.
+Purpose:
+- Controls the simple enemy sprite animator flow for the roguelite combat loop, enemy behaviors, progression, and procedural map generation.
 
 Design decisions:
-- Separate run, attack and hit arrays are selected from Rigidbody2D velocity, EnemyContactDamage and Health.
-- Hit has priority over attack, and each active frame sequence loops at framesPerSecond with immediate state
-    changes rather than blended transitions.
-- Empty frame arrays are tolerated, allowing the component to be used incrementally during prototyping.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

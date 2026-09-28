@@ -1,32 +1,13 @@
 /*
 ChestController.cs
 
-Purpose: Reusable chest that gives the player a random reward when touched, then removes itself.
+Purpose:
+- Controls the chest controller flow for the roguelite combat loop, enemy behaviors, progression, and procedural map generation.
 
 Design decisions:
-- Trigger-based: Uses OnTriggerEnter2D to detect the Player (tag "Player").
-- One-time activation: A 'consumed' flag prevents re-triggering if physics fires the callback twice.
-- 50/50 reward: Random.value < 0.5f selects between HealthRecovery and BossAttackPiece.
-  Additional reward types can be added to ChestReward and a new case in ApplyReward without
-  touching the detection or destruction logic.
-- Reward isolation: ApplyReward is separate from detection so rewards can be tested independently.
-- No unique scripts per chest: One prefab, one script; every chest instance is independent.
-- Self-destruction: gameObject is destroyed after reward is applied so the chest cannot trigger again
-  even if the collected flag somehow failed.
-
-Configuration:
-- healthHealAmount: HP restored for the HealthRecovery reward (default 3, configurable in Inspector).
-
-Prefab setup (do manually in Unity):
-1. Create a new 2D GameObject with a visible sprite.
-2. Add BoxCollider2D, set isTrigger = true.
-3. Add Rigidbody2D, Body Type: Kinematic, Gravity Scale: 0.
-4. Attach this ChestController component.
-5. Save as Assets/Prefabs/Chest.prefab.
-
-Usage:
-- Place Chest.prefab instances in the scene.
-- Player must have Health and PlayerBossAttackPieces components.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

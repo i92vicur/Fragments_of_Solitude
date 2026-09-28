@@ -2,42 +2,12 @@
 SceneLoader.cs
 
 Purpose:
-- Centralise all scene-transition calls in one small, reusable component.
-- Expose public methods suitable for direct wiring to UI Button onClick events.
-- Replace the scene-loading code scattered across MainMenuController and RestartController.
+- Controls the scene loader flow for shared UI, scene flow, settings, and cross-scene runtime systems.
 
 Design decisions:
-- No singleton. The component is placed on any convenient scene object and referenced by UI or
-  other components in the same scene. This avoids global state and keeps the prototype simple.
-- Scene names are configurable Inspector fields (not hard-coded strings in multiple scripts).
-  Changing a scene name therefore only requires updating the Inspector, not hunting across files.
-- No async loading or loading screens: a single synchronous LoadScene call is sufficient for
-  a small prototype where levels are tiny and load in milliseconds.
-- Time.timeScale is always reset to 1 before loading. This prevents the game staying paused
-  if the player restarts from a paused or death state.
-
-Functionality:
-- LoadGameplay()           – Loads the gameplay scene (Main). Called by the Play button in MainMenu.
-- LoadMainMenu()           – Loads the main menu scene. Called by UI buttons on death, victory, or pause.
-- ReloadCurrentScene()     – Reloads the active scene. Called by the restart shortcut (RestartController)
-                             or a retry button.
-
-Configuration:
-- Gameplay Scene Name      – Must match the scene name exactly (default: "Main").
-- Main Menu Scene Name     – Must match the scene name exactly (default: "MainMenu").
-
-Usage:
-- Add this component to a scene root object (e.g. "SceneLoader" or "Core").
-- Wire UI Button onClick events to call the desired method.
-- RestartController calls ReloadCurrentScene() instead of duplicating reload logic.
-
-Future levels:
-- To add Level 4, add a new [SerializeField] string level4SceneName and a LoadLevel4() method.
-  Wire a new button to it. No other changes needed.
-
-Known limitations:
-- Scene names must be registered in Build Settings or loading will silently fail with an error.
-- No transition effects. Add a crossfade or fade-to-black layer here if desired later.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

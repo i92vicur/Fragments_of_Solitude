@@ -1,33 +1,13 @@
 /*
 EnemyContactDamage.cs
 
-Purpose: Apply periodic damage to the Player when an enemy makes contact.
+Purpose:
+- Controls the enemy contact damage flow for the roguelite combat loop, enemy behaviors, progression, and procedural map generation.
 
 Design decisions:
-- Collision detection: Supports both OnCollision and OnTrigger callbacks so this component works with either collider setup (trigger or physics-based).
-- Target filtering: Uses a configurable targetTag (default "Player") to restrict damage to the player only, avoiding friendly fire.
-- Health lookup: On first contact, caches the Health component via GetComponent or GetComponentInParent once, then reuses it to avoid repeated searches.
-- Damage timing:
-  - Immediate damage on contact enter.
-  - Subsequent damage only after damageInterval (in seconds) to prevent single-frame instant kills.
-  - Timer resets each time damage is applied while in contact.
-- Separation of concerns: Keeps damage logic off EnemyMovement; does not handle knockback, invincibility frames, or other side effects.
-- Safety: Validates damageInterval in OnValidate; fails gracefully if target lacks Health (logs warning once, does not throw).
-- Simplicity: No armor, damage types, or mitigation—just direct periodic damage.
-
-Configuration:
-- damageAmount: Damage per hit (typical 1–5, depending on enemy type).
-- damageInterval: Seconds between damage applications (typical 1.0).
-- targetTag: Tag to identify the Player (default "Player").
-
-Usage:
-- Attach to any enemy GameObject.
-- Ensure the player has a Health component and the "Player" tag.
-- Ensure colliders are set up (trigger or non-trigger) so contact is detected.
-
-Notes:
-- If the player is invulnerable or has shields (future features), this component should not apply damage anyway; check Health.IsDead or other guards if needed.
-- For multi-hit scenarios (stacked enemies), the damageInterval spacing prevents instant death; each enemy damages separately.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using System;

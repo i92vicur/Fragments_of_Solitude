@@ -1,35 +1,13 @@
 /*
 PauseManager.cs
 
-Purpose: Centralized, multi-reason pause state manager for the prototype.
+Purpose:
+- Controls the pause manager flow for shared UI, scene flow, settings, and cross-scene runtime systems.
 
 Design decisions:
-- Multi-reason system: Maintains a HashSet of active PauseReasons (LevelUp, Death, Victory, Debug) so that pausing for one reason does not unpause when another remains active.
-  Example: If paused for LevelUp and then Death occurs, the game stays paused until both reasons are cleared.
-- Time.timeScale control: Automatically applies timeScale 0 when any reason is active, 1 when all reasons are cleared. This is the single authoritative source of pause state.
-- Singleton pattern: Provides a static Instance property that auto-creates a PauseManager GameObject if none exists in the scene. This avoids requiring manual scene setup while keeping the API convenient.
-- Event system: OnPauseStateChanged(HashSet<PauseReason>) notifies listeners when pause state changes, providing the current active reasons.
-- Queryable API:
-  - Pause(reason): Add a reason; applies timeScale 0.
-  - Unpause(reason): Remove a reason; clears timeScale 1 only if no reasons remain.
-  - IsPaused: True if any reason is active.
-  - IsPausedFor(reason): True if a specific reason is active.
-  - GetActiveReasons(): Returns a copy of active reasons for inspection.
-
-Configuration:
-- No manual configuration required if auto-created.
-- If placed in scene, ensure only one instance exists (DisallowMultipleComponent enforces this).
-
-Usage:
-- LevelUpController pauses for LevelUp when level-up pending.
-- PlayerDeath pauses for Death.
-- Victory conditions pause for Victory.
-- UI can subscribe to OnPauseStateChanged to show/hide pause screens accordingly.
-
-Notes:
-- PauseReason.Debug can be used for manual testing.
-- Time.timeScale is the only pause mechanism; no input blocking or UI handling here.
-- Game should check Time.deltaTime > 0 in physics or animation systems to respect pause.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using System;

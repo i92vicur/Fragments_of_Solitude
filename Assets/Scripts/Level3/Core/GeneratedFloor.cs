@@ -2,19 +2,12 @@
 GeneratedFloor.cs
 
 Purpose:
-- Build the visual floor, upper wall and roof layers for the main arena at runtime.
-- Recreate the collision geometry that defines the playable map when complete-map mode is enabled.
+- Controls the generated floor flow for the roguelite combat loop, enemy behaviors, progression, and procedural map generation.
 
 Design decisions:
-- Tile selection is deterministic for a given randomSeed, so visual variation does not change the map shape.
-- Complete-map mode uses the hard-coded polygon and interior regions below instead of a rectangle. Those
-    coordinates are level art data and must stay in sync with the scene.
-- Generation is destructive: GenerateFloor clears previously generated roots before rebuilding them. It can
-    run on Start or manually through the ContextMenu.
-
-Configuration:
-- floorTiles are required; wall and roof arrays are optional according to their generation toggles.
-- Disable complete-map mode to use mapBounds as the generation rectangle instead.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using System.Collections.Generic;

@@ -1,18 +1,13 @@
 /*
 Phase2MovementController.cs
 
-Purpose: Handle platformer Phase 2 movement independently from Phase 1's jump-based controller.
-Phase 2 has no jump, continuous fall, and horizontal movement only.
+Purpose:
+- Controls the phase2 movement controller flow for the platforming flow, movement, hazards, camera behavior, and phase transitions.
 
 Design decisions:
-- Completely independent from PlatformerJumpController; no shared state.
-- Horizontal movement is frame-independent via FixedUpdate with smooth acceleration/deceleration.
-- Gravity is handled by the Rigidbody2D gravityScale; this controller applies optional fall speed clamp.
-- Input is simple: horizontal axis (A/D or arrow keys) maps to horizontal velocity.
-- Acceleration and deceleration give the control responsive but non-floaty feel.
-- No jump input; fall is automatic and continuous.
-- Dash availability is prepared but not active initially; will be enabled later.
-- Collision detection relies on Rigidbody2D and platform colliders; no special landing logic.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

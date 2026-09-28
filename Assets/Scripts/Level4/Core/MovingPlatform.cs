@@ -1,15 +1,13 @@
 /*
 MovingPlatform.cs
 
-Purpose: Shuttle a kinematic platform between two local-space endpoints and carry players standing on it.
+Purpose:
+- Controls the moving platform flow for the platforming flow, movement, hazards, camera behavior, and phase transitions.
 
 Design decisions:
-- Endpoints are offsets from the initial local position, so the platform hierarchy can move or be reused
-    without rewriting world coordinates.
-- Riders are tracked from collision callbacks and receive the platform movement delta as velocity; they are
-    not parented, so normal Rigidbody2D physics remains in control.
-- Endpoint pauses use an internal timer. The component does not pathfind or rotate, and riders need a
-    Rigidbody2D to be carried.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using System.Collections.Generic;

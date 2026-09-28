@@ -1,30 +1,13 @@
 /*
 ChestSpawner.cs
 
-Purpose: Randomly place a configurable number of Chest prefab instances at valid positions
-every time a run begins.
+Purpose:
+- Controls the chest spawner flow for the roguelite combat loop, enemy behaviors, progression, and procedural map generation.
 
 Design decisions:
-- Lifecycle: Called from Start() so it runs once when the scene loads (including after a
-  scene-reload restart). A full scene reload destroys all objects automatically, so there
-  is never a risk of old chests surviving into a new run.
-- Instance tracking: Maintains a list of every spawned chest GameObject. If SpawnRunChests()
-  is called more than once in the same scene lifetime (e.g. via ContextMenu in Editor), any
-  still-living instances from the previous call are destroyed before the new batch is created.
-- Position validation order: inside arena → clear of player start → clear of boss spawn →
-  no environment obstacle → no other chest nearby. Validity is the priority; randomness
-  is secondary.
-- Arena bounds: auto-detected from Arena_Bounds/Wall_* colliders (same pattern as
-  EnemySpawner). Falls back to inspector-configured arenaMin/arenaMax values.
-- Debug gizmos: OnDrawGizmosSelected draws the valid spawn area rect and last-run chest
-  positions in the Scene view. No runtime overhead; gizmos are editor-only.
-- No pooling: Chests are few (default 5) and instantiated once per run. Pooling is
-  unnecessary overhead here.
-
-Usage:
-- Attach to any scene object in Main.
-- Assign chestPrefab in the Inspector.
-- Arena bounds, PlayerStart, and BossSpawnPoint are found automatically if present in scene.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using System.Collections.Generic;

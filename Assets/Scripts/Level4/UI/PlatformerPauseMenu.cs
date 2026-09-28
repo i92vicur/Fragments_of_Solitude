@@ -1,13 +1,13 @@
 /*
 PlatformerPauseMenu.cs
 
-Purpose: Provide the platformer's pause toggle and runtime-created Resume/Main Menu controls.
+Purpose:
+- Controls the platformer pause menu flow for the platforming flow, movement, hazards, camera behavior, and phase transitions.
 
 Design decisions:
-- PauseManager remains the owner of time-scale and pause reasons; this UI requests the PlatformerMenu reason
-    and mirrors the resulting state instead of changing time directly.
-- The menu ensures an EventSystem exists so generated buttons work in a minimal scene, and delegates scene
-    navigation to SceneLoader when returning to the main menu.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;
@@ -41,6 +41,25 @@ public class PlatformerPauseMenu : MonoBehaviour
         PauseManager.Instance?.Unpause(PauseManager.PauseReason.PlatformerMenu);
     }
 
+    private Sprite ResolveMenuFrame()
+    {
+        if (menuFrame != null)
+            return menuFrame;
+
+#if UNITY_EDITOR
+        menuFrame = UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Art/Shared/Menus/menu_frame.png");
+#endif
+
+        if (menuFrame == null)
+        {
+            menuFrame = Resources.Load<Sprite>("menu_frame");
+            if (menuFrame == null)
+                menuFrame = Resources.Load<Sprite>("Art/menu_frame");
+        }
+
+        return menuFrame;
+    }
+
     private void BuildUi()
     {
         EnsureEventSystem();
@@ -72,7 +91,8 @@ public class PlatformerPauseMenu : MonoBehaviour
         panelRect.sizeDelta = new Vector2(750f, 650f);
 
         Image background = panel.AddComponent<Image>();
-        background.sprite = menuFrame;
+        var resolvedMenuFrame = ResolveMenuFrame();
+        background.sprite = resolvedMenuFrame != null ? resolvedMenuFrame : menuFrame;
         background.type = Image.Type.Simple;
         background.color = Color.white;
 

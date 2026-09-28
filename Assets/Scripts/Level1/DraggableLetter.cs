@@ -1,10 +1,13 @@
 /*
 DraggableLetter.cs
 
-Minimal draggable component for ConstraintPuzzle_New letters.
-Implements basic drag handlers: IBeginDragHandler, IDragHandler, IEndDragHandler
+Purpose:
+- Controls the draggable letter flow for the constraint and path-based puzzle systems and their drag-and-drop interactions.
 
-This is a minimal test - only Letter_A will have this component initially.
+Design decisions:
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

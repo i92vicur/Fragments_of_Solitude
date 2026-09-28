@@ -1,40 +1,13 @@
 /*
 LevelUpController.cs
 
-Purpose: Coordinate the level-up flow (pause, queue pending level-ups, select upgrades, apply buffs).
+Purpose:
+- Controls the level up controller flow for the roguelite combat loop, enemy behaviors, progression, and procedural map generation.
 
 Design decisions:
-- Event-driven queuing: Subscribes to PlayerExperience.OnLevelUp(newLevel) events. Each level-up increments pendingLevelUps counter so multiple level-ups from a single experience award are preserved.
-- Pause coordination: When a level-up is pending, pauses the game via PauseManager.Pause(PauseReason.LevelUp).
-  - Time.timeScale set to 0 so physics, animations, and enemies pause.
-  - Only resumes when all pending level-ups are consumed AND the player is still alive (checks Health.IsDead).
-- Upgrade selection: Three simple upgrade types (defined in UpgradeType enum):
-  1. MovementSpeed: Increases player moveSpeed by configurable amount.
-  2. AttackSpeed: Reduces attack interval by configurable amount (faster attacks).
-  3. ProjectileDamage: Increases projectile damage by configurable amount.
-- Upgrade application: Modifies target components via explicit public methods (e.g., PlayerMovement.SetMoveSpeed, PlayerAutoAttack.SetAttackInterval) rather than exposing fields.
-- Temporary testing input: Keyboard 1/2/3 to select upgrades while paused. Explicitly marked temporary; should be removed when UI is added.
-- Component caching: Finds PlayerExperience, PlayerMovement, PlayerAutoAttack, and Health on Awake/Start so selections are fast.
-- Safety: Disables itself if PlayerExperience is missing; defensive null checks before applying upgrades.
-- Event for UI: OnPendingLevelUpsChanged(count) notifies UI of pending level-ups for display.
-
-Configuration:
-- playerExperience: Optional (auto-finds on Player if not assigned).
-- movementSpeedIncrease: Bonus per upgrade (default 1.0 unit/sec).
-- attackIntervalReduction: Reduction in attack cooldown per upgrade (default 0.1 sec).
-- projectileDamageIncrease: Damage bonus per upgrade (default 1).
-
-Upgrade flow example:
-1. Player gains 15 XP and levels up → pendingLevelUps = 1.
-2. LevelUpController pauses and waits for SelectUpgrade call.
-3. Player presses 1 (or UI button) → SelectUpgrade(UpgradeType.MovementSpeed).
-4. Movement speed increased, pendingLevelUps decremented to 0.
-5. All pending resolved and player alive → game unpauses.
-
-Notes:
-- Keep this controller minimal. Complex upgrade effects belong in separate upgrade systems later.
-- Replace keyboard input with UI event handlers when HUD upgrades UI is added.
-- The ContextMenu test helper is temporary and should be removed.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using System;

@@ -1,12 +1,13 @@
 /*
 BossAnimationController.cs
 
-Purpose: Select the boss Animator state from movement, contact-attack and recent damage state.
+Purpose:
+- Controls the boss animation controller flow for the roguelite combat loop, enemy behaviors, progression, and procedural map generation.
 
 Design decisions:
-- Health.OnHealthChanged starts a short hurt window; hurt takes priority over attack and run until it expires.
-- EnemyContactDamage supplies the attack state, while this component only translates gameplay state into
-    animation names and does not apply damage or movement.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

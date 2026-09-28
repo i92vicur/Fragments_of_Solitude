@@ -1,20 +1,13 @@
 /*
 PlayerBossMegaAttack.cs
 
-Purpose: Player-only special attack that spends 3 Boss Attack Pieces during an active boss fight
-and emits a multi-layer radial projectile burst from the player's current position.
+Purpose:
+- Controls the player boss mega attack flow for the roguelite combat loop, enemy behaviors, progression, and procedural map generation.
 
 Design decisions:
-- Boss restriction: Queries EnemySpawner.IsBossEncounterActive rather than checking for a boss GameObject.
-- One key press = one activation: Uses Input.GetKeyDown so holding U does not repeat.
-- Piece spending: Consumes exactly 3 pieces at activation time via PlayerBossAttackPieces.
-  HUD updates immediately through the existing OnPiecesChanged event subscription.
-- Radial pattern: Each layer distributes projectiles evenly across 360 degrees. Later layers
-  receive an angular offset so the rings do not align at the exact same angles.
-- Reuse: Uses the existing PlayerProjectile prefab and PlayerProjectile component. No new
-  projectile prefab and no pooling system are introduced.
-- Snapshot origin: Captures the player's current position once at activation time so the full
-  burst is centered on where the mega attack was triggered.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using System.Collections;

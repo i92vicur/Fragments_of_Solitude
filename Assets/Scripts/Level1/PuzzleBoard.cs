@@ -1,14 +1,13 @@
 /*
 PuzzleBoard.cs
 
-Purpose: Run the sliding-tile puzzle on a configurable rectangular grid with one empty cell.
+Purpose:
+- Controls the puzzle board flow for the constraint and path-based puzzle systems and their drag-and-drop interactions.
 
 Design decisions:
-- Tile positions are stored in a one-dimensional array; a move is legal only when the selected tile is
-    orthogonally adjacent to the empty cell.
-- Shuffle uses repeated legal moves rather than arbitrary permutations, guaranteeing solvability.
-- Visual movement is animated by a coroutine, while completion is determined from the logical array and
-    exposed through PuzzleCompleted for the HUD.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using System.Collections;

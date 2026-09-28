@@ -1,14 +1,13 @@
 /*
 DisappearingPlatform.cs
 
-Purpose: Cycle a platform between solid, warning/countdown and hidden states after a trigger.
+Purpose:
+- Controls the disappearing platform flow for the platforming flow, movement, hazards, camera behavior, and phase transitions.
 
 Design decisions:
-- The collider and renderer are controlled together so a hidden platform cannot still block movement.
-- With triggerOnLanding enabled, only a descending player contact from above starts the countdown; otherwise
-    any accepted contact can trigger it. Trigger() remains available for external systems.
-- The warning phase changes the sprite color before hiding, then waits before restoring the platform. The
-    state machine is reset when the component is enabled.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

@@ -1,14 +1,13 @@
 /*
 Phase2DeathController.cs
 
-Purpose: Detect when the player falls behind the descending camera or out of bounds in Phase 2.
+Purpose:
+- Controls the phase2 death controller flow for the platforming flow, movement, hazards, camera behavior, and phase transitions.
 
 Design decisions:
-- Monitors player position relative to camera.
-- Triggers death when player is below the camera's kill threshold.
-- Uses SceneLoader to reload the scene (consistent with Phase 1 restart).
-- Works with Phase2CameraScroller to determine the death boundary.
-- One-shot guard prevents repeated reload requests.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

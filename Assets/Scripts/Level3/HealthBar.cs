@@ -1,15 +1,13 @@
 /*
 HealthBar.cs
 
-Tiny on-screen health bar for the prototype (temporary).
-- Purpose: Provide a minimal, easy-to-replace visual for the Player's Health using Unity's IMGUI (OnGUI).
-- Reason: IMGUI avoids requiring Unity UI setup and is extremely small and safe for early prototyping.
-- Behavior:
-  - Subscribes to a Health component's OnHealthChanged event to receive updates (no polling).
-  - If no Health is assigned in the Inspector, attempts to find the Player by tag and uses its Health.
-  - Draws a simple background rectangle and a filled foreground representing (current/max).
-  - Optional text shows numeric health.
-- Temporary: This is explicitly a prototype helper. Replace with a proper Canvas + Image-based HUD when ready.
+Purpose:
+- Controls the health bar flow for the roguelite combat loop, enemy behaviors, progression, and procedural map generation.
+
+Design decisions:
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

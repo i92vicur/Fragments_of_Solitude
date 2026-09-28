@@ -1,18 +1,13 @@
 /*
 Phase2GoalController.cs
 
-Purpose: Detect when the player reaches the existing goal platform in Phase 2 and end the level.
+Purpose:
+- Controls the phase2 goal controller flow for the platforming flow, movement, hazards, camera behavior, and phase transitions.
 
 Design decisions:
-- Uses the existing goal platform collider already present in the scene (Platform_Meta); no new
-    platform or trigger volume is added.
-- Detects arrival by proximity (bounds check) rather than waiting for a physics contact, since
-    IsTouching can lag a frame behind the death check's own position read and still let the player die.
-- Stops Phase2CameraScroller's descent so the player is never left falling past the goal.
-- Also disables Phase2DeathController and runs before it (DefaultExecutionOrder) so a death check
-    already queued for this frame cannot fire after the goal has been reached.
-- Only flips the victory state on; it does not transition scenes itself. Phase2VictoryMenu owns the
-    Restart/Main Menu choice and the actual scene navigation, reusing SceneLoader/RestartController.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

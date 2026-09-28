@@ -1,38 +1,13 @@
 /*
 HudController.cs
 
-Purpose: Minimal runtime HUD that displays player status, experience, pause state, and boss health.
+Purpose:
+- Controls the hud controller flow for shared UI, scene flow, settings, and cross-scene runtime systems.
 
 Design decisions:
-- Runtime creation: If no Canvas exists in the scene and createIfMissing is true, automatically creates a Canvas and UI elements to avoid manual setup.
-- Event-driven updates: Subscribes to:
-  - Health.OnHealthChanged: Updates player health bar and text.
-  - PlayerExperience.OnExperienceChanged/OnLevelUp: Updates level and experience display.
-  - PauseManager.OnPauseStateChanged: Shows pause state text (e.g., "PAUSED: LevelUp, Death").
-- Player detection: Attempts to find Player by tag at startup. If not found, the HUD remains inactive until SetupForPlayer is called.
-- Layout: Simple text + bar UI anchored at top-left corner with:
-  - Health bar (graphical fill + numeric text).
-  - Level/XP display ("Lv X  EXP: cur/req").
-  - Pause indicator (shown when paused, lists active pause reasons).
-  - Boss health bar (hidden by default; shown via ShowBossHealth() API).
-- IMGUI fallback handling: If an old HealthBar component exists, it is disabled to avoid duplicate displays.
-- Temporary input: Pressing P (configurable) toggles Debug pause reason for quick testing; marked temporary and should be removed when full UI is added.
-- Font fallback: Uses Resources.Load to find fonts; falls back to Arial if needed.
-
-Configuration:
-- createIfMissing: If true, auto-create Canvas when missing.
-- enablePauseToggle: If true, allow P key to toggle debug pause (temporary).
-- pauseToggleKey: Key to use (default KeyCode.P).
-
-Usage:
-- Attach to any GameObject or let it auto-create when first called.
-- Other systems call ShowBossHealth(bossHealth) to display boss bar during boss fights.
-- HideBossHealth() to hide the boss bar after boss defeat.
-
-Notes:
-- All UI colors are simple defaults (white text, green health bar); customize by editing the CreateCanvas method.
-- No animation; updates are instant on state changes.
-- Boss bar is separate and optional, allowing for clean UI without intrusive elements during regular gameplay.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using System;
@@ -123,13 +98,32 @@ public class HudController : MonoBehaviour
             healIndicatorDuration = 0.1f;
     }
 
+    private Sprite ResolveMenuFrame()
+    {
+        if (menuFrame != null)
+            return menuFrame;
+
+        #if UNITY_EDITOR
+        menuFrame = UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Art/Shared/Menus/menu_frame.png");
+        #endif
+
+        if (menuFrame == null)
+        {
+            menuFrame = Resources.Load<Sprite>("menu_frame");
+            if (menuFrame == null)
+                menuFrame = Resources.Load<Sprite>("Art/menu_frame");
+        }
+
+        return menuFrame;
+    }
+
     private Sprite ResolveUpgradeMenuFrame()
     {
         if (upgradeMenuFrame != null)
             return upgradeMenuFrame;
 
         #if UNITY_EDITOR
-        upgradeMenuFrame = UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Art/upgrade_menu_frame.png");
+        upgradeMenuFrame = UnityEditor.AssetDatabase.LoadAssetAtPath<Sprite>("Assets/Art/Shared/Menus/upgrade_menu_frame.png");
         #endif
 
         if (upgradeMenuFrame == null)
@@ -753,7 +747,8 @@ public class HudController : MonoBehaviour
         var pauseBG = new GameObject("Pause_BG");
         pauseBG.transform.SetParent(pausePanel.transform, false);
         var pauseBGImage = pauseBG.AddComponent<Image>();
-        pauseBGImage.sprite = menuFrame;
+        var resolvedMenuFrame = ResolveMenuFrame();
+        pauseBGImage.sprite = resolvedMenuFrame != null ? resolvedMenuFrame : menuFrame;
         pauseBGImage.type = Image.Type.Simple;
         pauseBGImage.color = Color.white;
         var pauseBGRT = pauseBG.GetComponent<RectTransform>();

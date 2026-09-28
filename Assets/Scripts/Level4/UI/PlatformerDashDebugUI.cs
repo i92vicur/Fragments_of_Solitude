@@ -1,3 +1,15 @@
+/*
+PlatformerDashDebugUI.cs
+
+Purpose:
+- Controls the platformer dash debug u i flow for the platforming flow, movement, hazards, camera behavior, and phase transitions.
+
+Design decisions:
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
+*/
+
 using UnityEngine;
 using UnityEngine.UI;
 /*

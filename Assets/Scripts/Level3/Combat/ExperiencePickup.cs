@@ -1,37 +1,13 @@
 /*
 ExperiencePickup.cs
 
-Purpose: A simple collectible that awards experience to the Player when touched, then self-destructs.
+Purpose:
+- Controls the experience pickup flow for the roguelite combat loop, enemy behaviors, progression, and procedural map generation.
 
 Design decisions:
-- Trigger-based collection: Uses OnTriggerEnter2D for collision detection. Expects the Player to have a Rigidbody2D; the pickup itself typically uses a kinematic Rigidbody2D.
-- One-time award: Tracks collection state with a collected flag so experience is awarded only once per pickup.
-- Player detection: On trigger enter, checks if collider is tagged "Player" to avoid accidental awards to enemies or other objects.
-- Experience lookup: Finds PlayerExperience via GetComponent or GetComponentInParent to handle both direct attachment and parent-based patterns.
-- Safety:
-  - Validates amount is > 0 in OnValidate (clamped to 1 if invalid).
-  - Logs a clear warning if PlayerExperience is not found but does not throw repeated errors.
-  - Returns early if collected flag is set, preventing multi-trigger awards.
-- Simplicity: No magnetism (player must touch to collect), no animation, no pooling—just collision and destruction.
-- Extensibility: Amount is configurable per pickup instance, allowing for difficulty scaling or bonus drops later.
-
-Configuration:
-- amount: Experience awarded (default 5). Set per-instance or per-prefab.
-
-Prefab setup:
-- Create a GameObject with a small sprite (visual representation).
-- Add BoxCollider2D or CircleCollider2D, set isTrigger = true.
-- Attach a Rigidbody2D (Body Type: Kinematic, no gravity).
-- Attach this ExperiencePickup component, configure amount.
-- Save as prefab.
-
-Usage:
-- EnemyDeath spawns this prefab when enemies die.
-- Player moves into pickup collision → OnTriggerEnter2D → AddExperience called → pickup destroyed.
-
-Notes:
-- Pickup spawning position is validated by EnemyDeath to avoid placing pickups inside walls (see EnemyDeath for details).
-- No visual feedback on collection; future versions can add particles or sound via hubs.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

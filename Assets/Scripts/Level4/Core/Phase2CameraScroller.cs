@@ -1,13 +1,13 @@
 /*
 Phase2CameraScroller.cs
 
-Purpose: Implement an autonomous descending camera for Phase 2 platformer.
+Purpose:
+- Controls the phase2 camera scroller flow for the platforming flow, movement, hazards, camera behavior, and phase transitions.
 
 Design decisions:
-- The camera descends independently from the player's position.
-- Horizontal position is fixed (like Phase 1's camera but independent).
-- The camera descends at a configured speed to maintain challenge (player must keep up).
-- No dependency on Phase 1's PlatformerCameraFollow; completely independent system.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

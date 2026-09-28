@@ -1,14 +1,13 @@
 /*
 PlatformerJumpController.cs
 
-Purpose: Implement charge-to-jump input, horizontal air control, one dash per jump and landing bounce.
+Purpose:
+- Controls the platformer jump controller flow for the platforming flow, movement, hazards, camera behavior, and phase transitions.
 
 Design decisions:
-- Space accumulates charge while grounded; releasing maps it to a vertical force between the configured
-    limits and can add horizontal launch from the last movement input.
-- PlatformerPlayerController supplies grounded, airborne and restarting state, keeping jump eligibility shared.
-- Air control changes horizontal velocity within a cap, dash availability resets on landing, and a minimum
-    impact threshold prevents tiny physics corrections from causing repeated micro-bounces.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

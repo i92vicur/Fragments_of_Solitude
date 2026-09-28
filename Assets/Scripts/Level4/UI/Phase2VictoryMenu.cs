@@ -1,12 +1,13 @@
 /*
 Phase2VictoryMenu.cs
 
-Purpose: Show the Phase 2 level-complete panel (Restart / Main Menu) once Phase2GoalController reaches the goal.
+Purpose:
+- Controls the phase2 victory menu flow for the platforming flow, movement, hazards, camera behavior, and phase transitions.
 
 Design decisions:
-- Mirrors PlatformerPauseMenu's runtime-built UI approach so no extra prefabs/assets are required.
-- Reuses PauseManager's existing Victory reason to freeze gameplay instead of a bespoke pause flag.
-- Delegates scene navigation to SceneLoader/RestartController, matching every other menu in the project.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

@@ -1,12 +1,13 @@
 /*
 PlatformerCameraFollow.cs
 
-Purpose: Follow the platformer player vertically while keeping the camera's horizontal position fixed.
+Purpose:
+- Controls the platformer camera follow flow for the platforming flow, movement, hazards, camera behavior, and phase transitions.
 
 Design decisions:
-- A vertical dead zone prevents small jumps and landings from constantly moving the camera.
-- SmoothDamp moves toward the target outside that zone; the starting Y can be used as a lower bound.
-- The target is snapped during startup, then followed in LateUpdate after the physics step to reduce jitter.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

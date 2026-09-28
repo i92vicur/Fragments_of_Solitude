@@ -1,26 +1,13 @@
 /*
 PlayerMovement.cs
 
-Purpose: Handle player character locomotion in a top-down arena using keyboard input and Rigidbody2D velocity.
+Purpose:
+- Controls the player movement flow for the roguelite combat loop, enemy behaviors, progression, and procedural map generation.
 
 Design decisions:
-- Input system: Uses Unity's new Input System (KeyCode-based) to read WASD or arrow keys in Update.
-- Physics: Applies velocity directly to a Rigidbody2D in FixedUpdate to keep movement deterministic and framerate-independent.
-- Movement style: Continuous 8-directional movement (cardinal + diagonals) at a fixed speed with no acceleration/deceleration.
-- Rotation: Freezes Rigidbody2D rotation to prevent camera spin and physics-induced tumbling in a top-down game.
-
-Functionality:
-- Reads keyboard input (WASD or arrow keys) and normalizes movement input.
-- Applies moveSpeed * normalized direction as Rigidbody2D.velocity each FixedUpdate.
-- No animation or visual feedback beyond sprite movement; other systems handle that.
-
-Configuration:
-- moveSpeed: Units per second. Typical range 4–7 for an arena game.
-
-Notes:
-- Requires Rigidbody2D on the same GameObject (added at Awake if missing).
-- Movement is independent of frame rate due to FixedUpdate and velocity application.
-- No dashing, sprinting, or momentum—just direct speed control.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

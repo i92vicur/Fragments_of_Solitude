@@ -1,3 +1,15 @@
+/*
+ConstraintPuzzleManager.cs
+
+Purpose:
+- Controls the constraint puzzle manager flow for the constraint and path-based puzzle systems and their drag-and-drop interactions.
+
+Design decisions:
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
+*/
+
 using System;
 using System.Collections.Generic;
 using System.Linq;

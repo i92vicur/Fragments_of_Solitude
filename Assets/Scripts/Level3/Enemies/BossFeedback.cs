@@ -1,27 +1,13 @@
 /*
 BossFeedback.cs
 
-Purpose: Provide audio and visual feedback when a boss takes damage or dies.
+Purpose:
+- Controls the boss feedback flow for the roguelite combat loop, enemy behaviors, progression, and procedural map generation.
 
 Design decisions:
-- Event-driven: Subscribes to boss Health.OnHealthChanged and OnZeroHealth to track state changes without per-frame polling.
-- Damage detection: Tracks lastHealth to detect damage (current < lastHealth) and triggers hit feedback.
-- Dual audio/VFX: On each hit, plays boss-specific audio (PlayBossHit) and visual effect (SpawnBossHit).
-- Death sequence: When boss health reaches zero, plays boss-death audio and VFX plus a victory cue (PlayVictory) to celebrate the win.
-- Automatic attachment: EnemySpawner adds this component to boss instances at spawn time.
-- Safety: Defensive checks for null AudioHub/VFXHub so missing systems do not crash gameplay.
-- Simplicity: No damage scaling, no screen shake, no knockout effects—just audio and particles.
-
-Configuration:
-- No public fields; all audio/VFX references managed via AudioHub and VFXHub singletons.
-
-Usage:
-- Automatically added to boss instances by EnemySpawner.
-- Requires AudioHub and VFXHub to be present in the scene (will create fallbacks if missing).
-
-Notes:
-- OnZeroHealth may also trigger EnemyDeath.HandleDeath, which plays additional death effects. Both can coexist (audio/VFX will layer).
-- Victory cue is played so the player hears confirmation that the run is complete.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

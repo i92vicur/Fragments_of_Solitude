@@ -1,17 +1,13 @@
 /*
 PlayerProjectile.cs
 
-Purpose: A simple projectile that travels in a straight line, detects collisions, and applies
-player damage to enemies.
+Purpose:
+- Controls the player projectile flow for the roguelite combat loop, enemy behaviors, progression, and procedural map generation.
 
 Design decisions:
-- Kinematic Rigidbody2D + trigger Collider2D for deterministic 2D projectile behaviour.
-- Spawn-time configuration: damage can already be modified after instantiation; this script now
-  also supports optional speed/lifetime overrides for special attacks like the boss mega attack.
-- Lifetime cleanup: Destroy(gameObject, lifetime) is scheduled in Start. Call Initialize(...) or
-  Initialize(..., overrideSpeed, overrideLifetime) immediately after Instantiate so special values
-  are applied before Start runs.
-- Simplicity: No piercing, no splash damage, no ricochet, no pooling.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

@@ -2,20 +2,12 @@
 GameProgressManager.cs
 
 Purpose:
-- Persist coarse-grained player progress for major playable content.
-- Keep the implementation small, global, and consistent with SettingsManager.
+- Controls the game progress manager flow for shared UI, scene flow, settings, and cross-scene runtime systems.
 
 Design decisions:
-- Singleton pattern: static Instance provides global access.
-- Persistent across scenes: DontDestroyOnLoad keeps a single instance alive.
-- Self-bootstrapping: Instance auto-creates a hidden GameObject if none exists.
-- PlayerPrefs backing store: progress is loaded on Awake and saved immediately on changes.
-- Idempotent marking: re-marking an already completed entry does nothing.
-
-Usage:
-- Read:  GameProgressManager.Instance.Level3Completed
-- Write: GameProgressManager.Instance.MarkLevel3Completed()
-- Reset: GameProgressManager.Instance.StartNewGame()
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

@@ -1,32 +1,13 @@
 /*
 PlayerDeath.cs
 
-Purpose: Handle player death by stopping movement, clearing velocity, logging the event, and pausing the game.
+Purpose:
+- Controls the player death flow for the roguelite combat loop, enemy behaviors, progression, and procedural map generation.
 
 Design decisions:
-- Event-driven trigger: Subscribes to Health.OnZeroHealth to be notified when health reaches zero. Reacts exactly once via hasDied flag.
-- Death sequence:
-  1. Disable PlayerMovement component to stop input processing.
-  2. Zero Rigidbody2D velocity to halt motion immediately.
-  3. Log a debug message for clarity.
-  4. Pause via PauseManager.Pause(PauseReason.Death) to stop the game.
-- Subscription safety: Uses OnEnable/OnDisable to subscribe/unsubscribe from Health.OnZeroHealth, preventing delegate leaks.
-- Pause system integration: Works correctly with PauseManager's multi-reason pause system. If LevelUpController is also paused for LevelUp when player dies, both pause reasons are tracked and the game stays paused.
-- Separation of concerns: Keeps death logic separate from Health. Health only signals the event; PlayerDeath handles consequences.
-- Simple and focused: No respawn logic, no restart handling, no audio/VFX (handled by EnemyDeath-style systems if needed separately).
-
-Configuration:
-- No public fields; automatic detection of Health, PlayerMovement, Rigidbody2D on Awake.
-
-Usage:
-- Attach to the Player GameObject.
-- Ensure Health component exists on the Player.
-- Ensure PlayerMovement and Rigidbody2D are also present.
-
-Notes:
-- Time.timeScale is set to 0 by PauseManager; LevelUpController checks Health.IsDead before resuming to avoid resuming during death.
-- To test, set Player health to 0 via Inspector, enter Play Mode, and observe pause.
-- If Time.timeScale is manually altered, stop Play Mode to reset it to 1.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

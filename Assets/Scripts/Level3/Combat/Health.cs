@@ -1,30 +1,13 @@
 /*
 Health.cs
 
-Purpose: Centralized health state and damage system for any character (player, enemy, boss).
+Purpose:
+- Controls the health flow for the roguelite combat loop, enemy behaviors, progression, and procedural map generation.
 
 Design decisions:
-- State model: Tracks currentHealth and maxHealth as integers. Health is clamped to [0, maxHealth].
-- Events: Exposes two events:
-  - OnZeroHealth: Fired once when health reaches zero (useful for death triggers).
-  - OnHealthChanged(int, int): Fired whenever health changes, transmitting (currentHealth, maxHealth) for UI updates.
-- Event safety: OnZeroHealth only fires once per death state transition (hasInvokedZero flag) to prevent repeated invocations.
-- Damage application: TakeDamage(amount) decrements health by amount. Negative/zero amounts are rejected with a warning. Damage cannot be applied if already dead.
-- Healing capability: Heal(amount) is not exposed in this minimal version; future versions can add it if needed for pickups or buffs.
-- Initialization: Health is set to maxHealth at Awake and OnHealthChanged is immediately notified so UI can initialize.
-- Simplicity: No damage types, armor, or special logic; pure numerical subtraction suitable for a prototype.
-
-Configuration:
-- maxHealth: Must be > 0. Clamped to 1 if set to <= 0.
-
-Usage:
-- Attach to any GameObject (Player, Enemy, Boss).
-- Subscribe to OnZeroHealth for death logic (EnemyDeath, PlayerDeath).
-- Subscribe to OnHealthChanged for HUD or health bar UI.
-
-Notes:
-- Requires all damage sources to find and call GetComponent<Health>().TakeDamage().
-- No healing, shield, or invulnerability mechanics (can be added as upgrade systems later).
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using System;

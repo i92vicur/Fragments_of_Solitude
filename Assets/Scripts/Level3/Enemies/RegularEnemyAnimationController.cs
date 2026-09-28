@@ -1,13 +1,13 @@
 /*
 RegularEnemyAnimationController.cs
 
-Purpose: Drive regular enemy Animator state, horizontal facing and temporary hit feedback.
+Purpose:
+- Controls the regular enemy animation controller flow for the roguelite combat loop, enemy behaviors, progression, and procedural map generation.
 
 Design decisions:
-- Rigidbody2D velocity determines whether the enemy is running; EnemyContactDamage determines attack.
-- Damage events start a hit timer that takes priority over attack and run, and SpriteRenderer.flipX mirrors
-    the horizontal movement without changing the transform.
-- The controller is presentation-only: it observes Health and never changes combat state.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

@@ -1,32 +1,13 @@
 /*
 AudioHub.cs
 
-Purpose: Centralized audio playback for prototype events (shooting, hits, deaths, level-ups, boss events).
+Purpose:
+- Controls the audio hub flow for shared UI, scene flow, settings, and cross-scene runtime systems.
 
 Design decisions:
-- Singleton pattern: Static Instance ensures only one AudioHub exists and can be accessed globally without scene setup.
-- Lazy initialization: If no AudioHub exists in the scene, a fallback AudioSource is created on Awake.
-- AudioSource management: Assigns or creates a single AudioSource on the GameObject hosting the hub. All PlayXxx() methods use PlayOneShot to layer sounds.
-- Clip assignment: Public fields for each event type (playerShootClip, enemyHitClip, enemyDieClip, etc.) are assigned in the Inspector.
-- Safe playback: Each PlayXxx() method checks if the clip exists before calling PlayOneShot. Missing clips result in silent no-ops (no error spam).
-- Volume control: Master volume slider [0–1] scales all playback.
-- Extensibility: New event types simply add a new public AudioClip field and a corresponding PlayXxx() method.
-- Simplicity: No ducking, crossfades, or complex mixing—suitable for prototype.
-
-Configuration:
-- audioSource: Leave empty to auto-create, or assign an existing AudioSource.
-- Clips: Assign audio files for each event in the Inspector.
-- volume: Master volume (0–1).
-
-Usage:
-- Attach to any persistent GameObject (e.g., AudioManager or Player).
-- Systems call AudioHub.Instance.PlayXxx() to trigger sounds (e.g., AudioHub.Instance.PlayPlayerShoot()).
-- Sounds play over each other (PlayOneShot), so rapid events layer properly.
-
-Notes:
-- No 3D spatial audio (all sounds play at camera/listener position).
-- No queuing or priority system (all sounds play immediately).
-- For music or looping ambient sounds, consider a separate system later.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

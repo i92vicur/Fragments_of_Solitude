@@ -1,14 +1,13 @@
 /*
 LevelMapData.cs
 
-Purpose: Store a serializable character-grid description of the Level 3 arena as a ScriptableObject.
+Purpose:
+- Controls the level map data flow for the roguelite combat loop, enemy behaviors, progression, and procedural map generation.
 
 Design decisions:
-- Rows are the authoring format: '.', '#', 'O', 'S' and space represent floor, wall, obstacle, spawn and
-    empty cells. LevelMapGenerator interprets these symbols into scene objects.
-- InitializeDefaultLayout builds the prototype layout procedurally from a silhouette plus interior rules,
-    so the asset can be recreated without hand-editing every row.
-- The asset is data only; it does not instantiate objects or mutate the scene at runtime.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

@@ -2,8 +2,12 @@
 Level5PauseMenu.cs
 
 Purpose:
-- Provide the Level 5 pause toggle and runtime-created Resume/Restart/Main Menu controls.
-- Keep pause state, scene reloads and scene transitions delegated to the existing project systems.
+- Controls the level5 pause menu flow for the turn-based battle loop, combatants, battle UI, and encounter rules.
+
+Design decisions:
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

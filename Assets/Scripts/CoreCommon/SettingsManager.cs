@@ -1,22 +1,13 @@
 /*
 SettingsManager.cs
 
-Purpose: Central storage and management of player preferences (music volume, SFX volume, fullscreen).
+Purpose:
+- Controls the settings manager flow for shared UI, scene flow, settings, and cross-scene runtime systems.
 
 Design decisions:
-- Singleton pattern: Static Instance provides global access from UI and audio systems.
-- Persistent across scenes: DontDestroyOnLoad keeps a single instance alive for the whole session.
-- Self-bootstrapping: Instance auto-creates a hidden GameObject if none exists in the scene, so no scene setup is required.
-- PlayerPrefs backing store: Values are loaded once on Awake and written immediately whenever a setter is called.
-- Defaults on first run: music 1, SFX 1, fullscreen enabled.
-- Mixer access: The shared GameAudioMixer lives under Resources so it can be loaded by code without any scene wiring.
-- Application: MusicVolume and SfxVolume are applied to the mixer's exposed parameters, Fullscreen to Screen.fullScreen.
-
-Usage:
-- Read:  SettingsManager.Instance.MusicVolume
-- Write: SettingsManager.Instance.SetMusicVolume(0.5f)
-- Route an AudioSource to SFX: source.outputAudioMixerGroup = SettingsManager.SfxGroup;
-- Subscribe to OnSettingsChanged to react to any change.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using System;

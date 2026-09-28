@@ -2,31 +2,12 @@
 Level5BattleController.cs
 
 Purpose:
-- Own the turn flow of the Level 5 battle prototype. Nothing else.
+- Controls the level5 battle controller flow for the turn-based battle loop, combatants, battle UI, and encounter rules.
 
 Design decisions:
-- The turn order is a fixed, Inspector-assigned array (Warrior, Tank, Mage, Support, Final Enemy) that
-  cycles forever. There is no speed, initiative or dynamic ordering, and no generic turn framework.
-- Dead combatants are skipped by advancing past any entry whose Combatant.IsAlive is false. This applies
-  equally to a defeated player character and to the Final Enemy: neither is ever set as CurrentCombatant
-  again, so their action buttons (gated by IsPlayerTurn) can never become available, and no death system
-  beyond Combatant.IsAlive was added for the player side.
-- State is a minimal enum (InProgress / Victory / Defeat) so the battle can stop the instant it is won or
-  lost: no more attacks are resolved, no more turns advance, but nothing is destroyed and no victory/game
-  over screen, scene transition or animation is triggered here. That is out of scope for this prototype
-  step. Victory and Defeat are mutually exclusive: state only ever transitions once, away from InProgress,
-  since every state-changing entry point (PerformAttack, TriggerEnemyAttack, EndCurrentTurn) first checks
-  `state != InProgress` and no-ops if the battle already ended.
-- No AI, game-over screen or UI beyond plain combat messages (e.g. "VICTORY!", "DEFEAT" or "Warrior has
-  been defeated!"). The controller only answers "whose turn is it?", "advance to the next turn" and "has
-  the battle ended, and how?".
-
-Usage:
-- Placed on the "BattleController" GameObject in Level5.unity with the five combatants assigned in order.
-- Call EndCurrentTurn() to advance. Player action buttons call it after PerformAttack. The Final Enemy's
-  turn needs no input: LogCurrentTurn calls TriggerEnemyAttack() automatically whenever the newly-current
-  combatant is the living enemy, which resolves the enemy's hit against the first living player in turn
-  order and then ends the turn itself.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

@@ -1,13 +1,13 @@
 /*
 PlatformerFallRestart.cs
 
-Purpose: Restart the active platformer scene when the monitored player falls below a configurable Y limit.
+Purpose:
+- Controls the platformer fall restart flow for the platforming flow, movement, hazards, camera behavior, and phase transitions.
 
 Design decisions:
-- A threshold check works for gaps and for falls outside the camera without requiring a trigger collider.
-- A one-shot guard prevents repeated reload requests while the scene is being replaced.
-- SceneLoader owns the normal reload path; time is restored and a direct scene reload is used only as fallback
-    when no loader is available.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

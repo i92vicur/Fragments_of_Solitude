@@ -1,43 +1,13 @@
 /*
 EnemyMovement.cs
 
-Purpose: Simple Rigidbody2D-based movement for enemies with lightweight local obstacle avoidance.
+Purpose:
+- Controls the enemy movement flow for the roguelite combat loop, enemy behaviors, progression, and procedural map generation.
 
 Design decisions:
-- Movement model: Uses a Rigidbody2D with velocity-based locomotion. Direction is computed in Update and applied as velocity in FixedUpdate for frame-rate independence.
-- Target tracking: Accepts a target Transform assigned via Inspector or SetTarget(Transform) method. If none assigned, performs a one-time GameObject.FindWithTag("Player") lookup so spawned enemies auto-find the player.
-- Direct pursuit: Primary movement is a direct normalized heading toward the target at configurable moveSpeed.
-- Obstacle avoidance (lightweight, greedy approach):
-  - Probes ahead along the direct path using Physics2D.CircleCast with detectionRadius and lookaheadDistance.
-  - If an obstacle is detected, samples avoidanceAngles (cardinal + diagonal) in order, testing each candidate direction via CircleCast.
-    - Uses the first unblocked direction found; if none exist, tries a short perpendicular slide and then stops.
-  - No pathfinding, no flow-field, no memory of past attempts.
-- Physics setup: Freezes Rigidbody2D rotation to prevent spinning due to collisions in top-down view.
-- Safety: If target is null, remains stationary without error spam. Missing obstacleLayerMask defaults to auto-detect Environment layer.
-- Debug visualization: Optional scene-view gizmos show lookahead rays and collision detection circles (debugGizmos flag).
-- Simplicity: Suitable for small prototype; no animation, no complex steering behaviors.
-
-Configuration:
-- moveSpeed: Units per second (typical 2–5 for enemies slower than player).
-- target: Assign Player Transform in Inspector (optional; auto-found if null).
-- Avoidance:
-  - lookaheadDistance: How far ahead to probe (~1.0 typical).
-  - detectionRadius: Circle radius for collision checks (~0.35 for small enemies, 0.5+ for large enemies or boss).
-  - avoidanceAngles: Sample angles in degrees; defaults are [30, -30, 60, -60, 120, -120].
-  - obstacleLayerMask: Environment layer (auto-detected if 0).
-- debugGizmos: Enable to visualize avoidance checks in Scene view.
-
-Usage:
-- Attach to enemy GameObject.
-- Assign target Transform in Inspector or call SetTarget(Transform) from spawner.
-- Ensure Rigidbody2D and Collider2D are present.
-- EnemySpawner handles instantiation and SetTarget call.
-
-Notes:
-- Avoidance is greedy and local; it does not guarantee smooth paths through narrow spaces.
-- Large obstacles may still cause enemies to jam; adjust detectionRadius per enemy size if needed.
-- Avoidance is disabled if obstacleLayerMask is 0 at Awake (no Environment layer found).
-- Boss often needs larger detectionRadius (~0.5–0.7) due to larger collider size.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

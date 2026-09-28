@@ -1,3 +1,15 @@
+/*
+MainMenuHoverPreview.cs
+
+Purpose:
+- Controls the main menu hover preview flow for shared UI, scene flow, settings, and cross-scene runtime systems.
+
+Design decisions:
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
+*/
+
 using System;
 using System.Linq;
 using UnityEngine;
@@ -63,7 +75,9 @@ public class MainMenuHoverPreview : MonoBehaviour, IPointerEnterHandler, IPointe
 
     private void LoadFramesForButton()
     {
-        if (frames != null && frames.Length > 0)
+        bool hasValidFrames = frames != null && frames.Length > 0 && frames.All(sprite => sprite != null);
+
+        if (hasValidFrames)
         {
             if (previewImage != null)
                 previewImage.sprite = frames[0];
@@ -91,7 +105,7 @@ public class MainMenuHoverPreview : MonoBehaviour, IPointerEnterHandler, IPointe
     {
         if (gameObject.name.Contains("Level1", StringComparison.OrdinalIgnoreCase) || 
             gameObject.name.Contains("PuzzleMenu", StringComparison.OrdinalIgnoreCase))
-            return "Assets/Art/Characters/Level1/Menu_animation.png";
+            return "Assets/Art/Shared/Menus/Menu_animation.png";
 
         if (gameObject.name.Contains("Level2", StringComparison.OrdinalIgnoreCase) ||
             gameObject.name.Contains("Level3", StringComparison.OrdinalIgnoreCase))
@@ -101,7 +115,7 @@ public class MainMenuHoverPreview : MonoBehaviour, IPointerEnterHandler, IPointe
             return "Assets/Art/Characters/Level4/Player/Animations/Dash/Dash_right_Down.png";
 
         if (gameObject.name.Contains("Level5", StringComparison.OrdinalIgnoreCase))
-            return "Assets/Art/Level5/main_menu_chest.png";
+            return "Assets/Art/Shared/Menus/main_menu_chest.png";
 
         return string.Empty;
     }

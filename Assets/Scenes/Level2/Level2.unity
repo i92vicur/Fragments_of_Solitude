@@ -244,7 +244,6 @@ MonoBehaviour:
   Name: Test NPC
   dialogue:
   - {fileID: 11400000, guid: 907c039ac3d6d0640bc8ad6c9bafb175, type: 2}
-  - {fileID: 1548950152}
   lineNumber: 0
   nodeNumber: 0
 --- !u!114 &30181355
@@ -8276,21 +8275,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1548950152
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fcfbdc2d573ddb6408a9f3c339a816b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogue:
-  - Con los dedos de la mano, con los dedos de los pies, con mi polla y mis cojones
-    todo suma 23 /end
 --- !u!4 &1559687060 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4375241312129239784, guid: 3424a95c0fa5ae542ba6ebb38a30b280, type: 3}
@@ -10212,8 +10196,8 @@ MonoBehaviour:
   - {fileID: -2484030861835244207, guid: 5ad32b4b040e0194a9fd162bfe42b5c4, type: 3}
   - {fileID: -2826812978284380995, guid: 5ad32b4b040e0194a9fd162bfe42b5c4, type: 3}
   - {fileID: -5506001247669054298, guid: 5ad32b4b040e0194a9fd162bfe42b5c4, type: 3}
-  menuFrame: {fileID: 21300000, guid: fccb834b2f5954f4c922b1f085877056, type: 3}
-  upgradeMenuFrame: {fileID: 21300000, guid: fe4b9c486066fe645b1b510a0320f9d8, type: 3}
+  menuFrame: {fileID: 21300000, guid: 1d8f6835100aa464d888a2d7872ed15e, type: 3}
+  upgradeMenuFrame: {fileID: 21300000, guid: 084c0b1e36c26fa4da230dc3fdd0d857, type: 3}
   hudFont: {fileID: 0}
 --- !u!4 &2113314906
 Transform:

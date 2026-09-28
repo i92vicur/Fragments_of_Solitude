@@ -1,15 +1,13 @@
 /*
 PlatformerCharacterAnimationController.cs
 
-Purpose: Translate platformer motion and facing into the player's Animator states.
+Purpose:
+- Controls the platformer character animation controller flow for the platforming flow, movement, hazards, camera behavior, and phase transitions.
 
 Design decisions:
-- PlatformerPlayerController supplies the motion state, while horizontal velocity chooses left/right facing;
-    this keeps animation aligned with the shared gameplay state instead of reimplementing jump detection.
-- Dash availability events start a short dash animation window, and cached state names avoid repeatedly
-    restarting the same Animator state every frame.
-- Animator state names and sprite orientation are presentation configuration; this component does not apply
-    movement forces or consume platformer input.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

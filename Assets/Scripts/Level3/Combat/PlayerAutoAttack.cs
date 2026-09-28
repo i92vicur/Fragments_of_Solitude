@@ -1,14 +1,13 @@
 /*
 PlayerAutoAttack.cs
 
-Purpose: Minimal automatic ranged attack system that periodically fires a projectile toward the
-mouse cursor.
+Purpose:
+- Controls the player auto attack flow for the roguelite combat loop, enemy behaviors, progression, and procedural map generation.
 
 Design decisions:
-- Keeps regular fire simple: one projectile toward the mouse aim direction per cooldown.
-- Reuse-friendly API: exposes the currently configured projectile prefab and current projectile
-    damage bonus so other player combat systems (such as the boss mega attack) can reuse the same
-    projectile content without duplicating prefab references or upgrade state.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

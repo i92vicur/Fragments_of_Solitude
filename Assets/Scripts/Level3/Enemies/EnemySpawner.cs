@@ -1,20 +1,13 @@
 /*
 EnemySpawner.cs
 
-Design decisions and functionality:
-- Purpose: Spawn enemies around the player at runtime for arena playtests.
-- Spawn strategy: Spawns one enemy per interval at a random angle and random distance between minDistance and maxDistance from the assigned Player Transform.
-- Configuration: enemyPrefab, playerTransform, initialDelay, spawnInterval, minDistance, maxDistance, and maxLiving are configurable in the Inspector with OnValidate ensuring sane defaults.
-- Living tracking: Tracks spawned enemies explicitly by subscribing to EnemyDeath.OnDeath on each instantiated enemy. This avoids scene-wide searches and reliably decrements the living count when a tracked enemy dies.
-- Isolation: Does not count manually placed scene enemies because it only increments livingCount for instantiated enemies.
-- Safety:
-  - If required references are missing, the spawner disables itself with a clear error.
-  - Unsubscribes from tracked enemies on spawner destruction to avoid callbacks to a destroyed spawner.
-- Simplicity: No pooling, no waves, no pathfinding. Suitable for open arena tests.
-- Gizmos: Optionally draws min/max spawn radius around the Player to visualize spawn band in Scene view.
+Purpose:
+- Controls the enemy spawner flow for the roguelite combat loop, enemy behaviors, progression, and procedural map generation.
 
-Notes:
-- Ensure the Enemy prefab contains EnemyDeath and EnemyMovement so it will be tracked and will move toward the assigned Player Transform automatically.
+Design decisions:
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using System.Collections.Generic;

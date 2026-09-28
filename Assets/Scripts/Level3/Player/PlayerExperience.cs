@@ -1,15 +1,13 @@
 /*
 PlayerExperience.cs
 
-Design decisions and functionality:
-- Purpose: Minimal player experience and leveling tracker for the prototype.
-- Data model: Tracks integer Level, CurrentExperience, and ExperienceToNext (ints).
-- Initialization: Starts at Level 1 with zero experience. Base requirement (baseRequirement) is configurable and validated.
-- Level up formula: Uses simple linear scaling: required = baseRequirement * currentLevel. This is predictable and easy to test.
-- Experience application: AddExperience(amount) validates input, adds experience, and loops to handle multiple level-ups in one award. Excess experience carries into the next level.
-- Notifications: Exposes OnLevelUp(newLevel) and OnExperienceChanged(currentExp, expToNext) for UI or other systems to react.
-- Encapsulation: State is exposed through read-only properties; methods are explicit rather than public field writes.
-- Testing: Call AddExperience from Console or pickups to verify level-ups and events.
+Purpose:
+- Controls the player experience flow for the roguelite combat loop, enemy behaviors, progression, and procedural map generation.
+
+Design decisions:
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using System;

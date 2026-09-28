@@ -1,29 +1,13 @@
 /*
 EnemyDeath.cs
 
-Design decisions and functionality:
-- Purpose: Handle enemy death in a minimal, decoupled way suitable for a prototype.
-- Integration with Health: Subscribes to Health.OnZeroHealth and reacts once when health reaches zero.
-- Responsibilities:
-  - Notify listeners via a new OnDeath event (Action<EnemyDeath>) before destruction. This allows external systems such as the EnemySpawner to track and update living counts without scene-wide searches.
-  - Instantiate an optional ExperiencePickup prefab at a valid nearby position (if assigned).
-    - First tests the enemy's death position.
-    - If the position overlaps Environment obstacles, tries small cardinal + diagonal offsets.
-    - Uses the first valid offset or falls back to the original position.
-  - Destroy the enemy GameObject.
-- Execution guarantees:
-  - Uses a hasDied flag so death logic runs only once.
-  - Unsubscribes from Health.OnZeroHealth to avoid leaks.
-  - Wraps OnDeath invocation in try/catch to avoid cascading errors from subscribers.
-- Pickup placement strategy:
-  - Validates pickup spawn position using Physics2D.OverlapCircle against Environment LayerMask.
-  - Samples up to 8 offset directions (approximately 1.0 unit distance) if death position is blocked.
-  - Prioritizes cardinal directions first, then diagonals.
-  - Never enters an infinite loop; limited to ~8 attempts max.
-  - Fallback: if all offsets blocked, spawns at original position anyway (better visible than missing).
-- Decoupling principle: Health remains responsible only for state; EnemyDeath handles spawn/drops and notifications.
-- Testing notes:
-  - Assign the ExperiencePickup prefab on the Enemy prefab to ensure drops occur. Spawner subscribes to OnDeath for tracking spawned instances.
+Purpose:
+- Controls the enemy death flow for the roguelite combat loop, enemy behaviors, progression, and procedural map generation.
+
+Design decisions:
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using System;

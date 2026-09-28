@@ -13,10 +13,10 @@ public static class AssignMainMenuPreviewFrames
 
         var assignments = new Dictionary<string, string>
         {
-            ["Level1Button"] = "Assets/Art/Characters/Level1/Menu_animation.png",
+            ["Level1Button"] = "Assets/Art/Shared/Menus/Menu_animation.png",
             ["Level3Button"] = "Assets/Art/Characters/Level2/Player/Animations/Run/Run_while_shooting_Left.png",
             ["Level4Button"] = "Assets/Art/Characters/Level4/Player/Animations/Dash/Dash_right_Down.png",
-            ["Level5Button"] = "Assets/Art/Level5/main_menu_chest.png"
+            ["Level5Button"] = "Assets/Art/Shared/Menus/main_menu_chest.png"
         };
 
         foreach (var kvp in assignments)

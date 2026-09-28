@@ -1,16 +1,13 @@
 /*
 PlayerAnimationController.cs
 
-Purpose: Drive the player's directional animation cycle with Idle, Run, and Dead states.
+Purpose:
+- Controls the player animation controller flow for the roguelite combat loop, enemy behaviors, progression, and procedural map generation.
 
 Design decisions:
-- Directional movement only: chooses a facing direction from Rigidbody2D velocity.
-- Action + direction are separate: the current action is Idle, Run, or Dead; the current
-  facing direction is one of eight directions.
-- Death is final: once Health reaches zero, the controller stays in Dead and never returns
-  to Idle or Run.
-- Automatic attack is ignored by design so animation does not depend on combat state.
-- Simple Animator usage: plays one of the 24 state names directly; no complex transition graph.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

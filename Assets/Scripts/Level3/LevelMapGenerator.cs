@@ -1,15 +1,13 @@
 /*
 LevelMapGenerator.cs
 
-Purpose: Convert LevelMapData rows into the floor, wall, obstacle and spawn objects used by Level 3.
+Purpose:
+- Controls the level map generator flow for the roguelite combat loop, enemy behaviors, progression, and procedural map generation.
 
 Design decisions:
-- Generation clears objects previously created by this component before rebuilding, making repeated
-    generation deterministic for the same map data and seed.
-- Tile sprites are selected using the local seed; map symbols remain authoritative for object type and
-    collision setup.
-- The generator owns its generated children and exposes MapData for editor tools. It does not create the
-    ScriptableObject itself; that is handled by the editor setup tools.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using System.Collections.Generic;

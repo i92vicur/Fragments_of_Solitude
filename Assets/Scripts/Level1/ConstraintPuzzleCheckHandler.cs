@@ -1,10 +1,13 @@
 /*
 ConstraintPuzzleCheckHandler.cs
 
-Handles the Check button click in ConstraintPuzzle_New.
-Connects the UI button to the validation logic via ConstraintPuzzleIntegration.
+Purpose:
+- Controls the constraint puzzle check handler flow for the constraint and path-based puzzle systems and their drag-and-drop interactions.
 
-Attached to: CheckButton
+Design decisions:
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

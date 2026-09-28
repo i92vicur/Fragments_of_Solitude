@@ -2,28 +2,12 @@
 Combatant.cs
 
 Purpose:
-- Minimal battle data holder for the Level 5 turn-based prototype. One component represents either a
-  playable character or the final enemy.
+- Controls the combatant flow for the turn-based battle loop, combatants, battle UI, and encounter rules.
 
 Design decisions:
-- Self-contained: deliberately does NOT reuse Level3's Health.cs. That component is wired into the
-  roguelite's real-time damage, audio and VFX systems; keeping Level 5 separate avoids coupling the
-  prototype to gameplay that will never run in a battle scene.
-- Plain MonoBehaviour with [SerializeField] values, matching the project's existing data-component style.
-  No ScriptableObject asset: the only ScriptableObject in the project (LevelMapData) is level geometry,
-  not stats, so there is no existing pattern that fits here.
-- Integer stats only. No experience, levels, equipment, mana, crits, status effects or elements.
-- Defense is stored but not applied here. Damage mitigation is a combat-system decision and belongs to
-  the (not yet written) turn system, so TakeDamage applies the amount it is given.
-
-Functionality:
-- CurrentHP starts at MaxHP and is always clamped to [0, MaxHP].
-- TakeDamage(int) returns the amount actually removed, so the future combat system can report it.
-- IsAlive is false once CurrentHP reaches 0.
-
-Usage:
-- Attach to each character placeholder and to the enemy placeholder in Level5.unity, then set
-  Combatant Name / Max HP / Attack / Defense in the Inspector.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

@@ -1,16 +1,13 @@
 /*
 ConstraintPuzzleIntegration.cs
 
-Bridge between visual drag & drop system (SlotDropZone + DraggableLetter)
-and the logical constraint validation system (ConstraintPuzzleManager).
+Purpose:
+- Controls the constraint puzzle integration flow for the constraint and path-based puzzle systems and their drag-and-drop interactions.
 
-This system:
-1. Keeps ConstraintPuzzleManager in sync with slot placements
-2. Enables the Check button to validate the current arrangement
-3. Prevents modification after solve
-4. Does NOT modify the existing drag & drop mechanics
-
-NOT a Singleton. References are set per-scene.
+Design decisions:
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using UnityEngine;

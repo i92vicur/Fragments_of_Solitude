@@ -1,15 +1,13 @@
 /*
 LongestPathPuzzleManager.cs
 
-Purpose: Own the graph and route state for the longest-path puzzle.
+Purpose:
+- Controls the longest path puzzle manager flow for the constraint and path-based puzzle systems and their drag-and-drop interactions.
 
 Design decisions:
-- Nodes and connections are serialized lists so the puzzle can be authored in the Inspector and rendered
-    by a separate board view. Connections may be directional or bidirectional and track use state.
-- A move is valid only when its connection touches the current node; invalid attempts leave route state
-    unchanged, while valid travel updates the current node and accumulated distance.
-- Reaching the end emits completion information, including whether the route is valid and optimal. UI listens
-    to events instead of duplicating graph rules.
+- Keeps each component focused on one responsibility so the scene remains easier to understand and maintain.
+- Favors explicit references, events, and serialized fields over hidden scene-wide lookups or global state.
+- Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
 using System;
