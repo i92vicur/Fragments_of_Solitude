@@ -20,6 +20,7 @@ public class PlatformerPauseMenu : MonoBehaviour
 {
     [SerializeField] private KeyCode pauseKey = KeyCode.P;
     [SerializeField] private Sprite menuFrame;
+    [SerializeField] private GameObject controlHintPanel;
 
     private GameObject panel;
     private GameObject openButton;
@@ -137,6 +138,9 @@ public class PlatformerPauseMenu : MonoBehaviour
 
         if (openButton != null)
             openButton.SetActive(!visible);
+
+        if (controlHintPanel != null)
+            controlHintPanel.SetActive(visible);
     }
 
     private static void EnsureEventSystem()

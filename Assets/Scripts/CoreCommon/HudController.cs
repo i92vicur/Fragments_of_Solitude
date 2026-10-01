@@ -35,6 +35,14 @@ public class HudController : MonoBehaviour
     [SerializeField, Tooltip("How long the temporary healing text remains visible (seconds, unscaled time).")]
     private float healIndicatorDuration = 1.2f;
 
+    [Header("Interaction Hint")]
+    [SerializeField, Tooltip("HUD text group shown when the current NPC detection is active. Assign the existing InteractionHintText object here.")]
+    private CanvasGroup interactionHintCanvasGroup;
+    [SerializeField, Tooltip("Smooth fade speed for the interaction hint.")]
+    private float interactionHintFadeSpeed = 8f;
+    [SerializeField, Tooltip("Existing dialogue trigger used as the proximity source. Reuses DetectPlayer.inRange instead of adding another detection system.")]
+    private DetectPlayer interactionTarget;
+
     [Header("Health Bar")]
     [SerializeField] private Sprite[] healthBarSprites = new Sprite[5];
 
@@ -74,6 +82,7 @@ public class HudController : MonoBehaviour
     private const string PersistentPauseButtonName = "PauseButton";
     private Button pauseButton;
     private GameObject pausePanel;
+    [SerializeField] private GameObject controlHintPanel;
     private Button levelBtnMove;
     private Button levelBtnAttackSpeed;
     private Button levelBtnProjectile;
@@ -185,6 +194,8 @@ public class HudController : MonoBehaviour
         if (pauseButton == null)
             pauseButton = TryFindPauseButtonInScene();
 
+        SetControlHintVisible(false);
+
         if (pauseButton != null)
             WirePauseButton();
 
@@ -201,6 +212,8 @@ public class HudController : MonoBehaviour
         {
             SetupForPlayer(playerGO);
         }
+
+        ResolveInteractionTarget();
     }
 
     void OnEnable()
@@ -240,6 +253,32 @@ public class HudController : MonoBehaviour
         {
             healGainText.gameObject.SetActive(false);
         }
+
+        UpdateInteractionHint();
+    }
+
+    private void ResolveInteractionTarget()
+    {
+        if (interactionTarget != null)
+            return;
+
+        var testNpc = GameObject.Find("TestNPC");
+        if (testNpc != null)
+            interactionTarget = testNpc.GetComponent<DetectPlayer>();
+    }
+
+    private void UpdateInteractionHint()
+    {
+        if (interactionHintCanvasGroup == null)
+            return;
+
+        ResolveInteractionTarget();
+
+        bool shouldShow = interactionTarget != null && interactionTarget.inRange;
+        float targetAlpha = shouldShow ? 1f : 0f;
+        interactionHintCanvasGroup.alpha = Mathf.Lerp(interactionHintCanvasGroup.alpha, targetAlpha, interactionHintFadeSpeed * Time.unscaledDeltaTime);
+        interactionHintCanvasGroup.interactable = shouldShow;
+        interactionHintCanvasGroup.blocksRaycasts = shouldShow;
     }
 
     private void ToggleDebugPause()
@@ -425,6 +464,7 @@ public class HudController : MonoBehaviour
         // Always hide the pause panel first; re-show only if appropriate below
         if (pausePanel != null) pausePanel.SetActive(false);
         if (pauseStateText != null) pauseStateText.gameObject.SetActive(false);
+        SetControlHintVisible(false);
 
         if (reasons == null || reasons.Count == 0)
         {
@@ -461,10 +501,17 @@ public class HudController : MonoBehaviour
         if (reasons.Contains(PauseManager.PauseReason.Debug))
         {
             if (pausePanel != null) pausePanel.SetActive(true);
+            SetControlHintVisible(true);
             return;
         }
 
         // LevelUp or any other reason → LevelUpController manages its own UI; nothing extra here
+    }
+
+    private void SetControlHintVisible(bool visible)
+    {
+        if (controlHintPanel != null)
+            controlHintPanel.SetActive(visible);
     }
 
     private void UpdateHealthUI(int current, int max)

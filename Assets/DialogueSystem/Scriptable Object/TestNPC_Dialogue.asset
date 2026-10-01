@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogue:
   - Hola! Esto es una prueba del sistema de dialogo. /line
-  - Si puedes leer esto, la deteccion del jugador funciona. /line
+  - Si puedes leer esto, la deteccion del jugador funciona. /end

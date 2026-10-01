@@ -94,7 +94,7 @@ public class Level5BattleController : MonoBehaviour
     /// chance and the critical-hit chance, so the enemy's own attack (which calls this with
     /// canMiss: false) is unaffected by either.
     /// </summary>
-    public int PerformAttack(Combatant attacker, Combatant target, out bool missed, out bool critical, bool canMiss = true)
+    public int PerformAttack(Combatant attacker, Combatant target, out bool missed, out bool critical, bool canMiss = true, float damageMultiplier = 1f)
     {
         missed = false;
         critical = false;
@@ -117,7 +117,8 @@ public class Level5BattleController : MonoBehaviour
             return 0;
         }
 
-        int damage = Mathf.Max(1, attacker.Attack - target.EffectiveDefense);
+        int baseDamage = Mathf.Max(1, attacker.Attack - target.EffectiveDefense);
+        int damage = Mathf.Max(1, Mathf.RoundToInt(baseDamage * damageMultiplier));
         target.ClearDefendBonus();
 
         if (canMiss && RollCritical())
@@ -223,8 +224,17 @@ public class Level5BattleController : MonoBehaviour
         ResolveEnemyHit(enemy);
 
         // At most one extra attack, and only if the first one didn't already end the battle.
-        if (state == BattleState.InProgress && Random.value < SecondAttackChance)
-            ResolveEnemyHit(enemy);
+        if (state == BattleState.InProgress)
+        {
+            float enemyHpPercent = enemy.MaxHP > 0 ? ((float)enemy.CurrentHP / enemy.MaxHP) * 100f : 0f;
+            float secondAttackChance = SecondAttackChance;
+
+            if (enemyHpPercent <= 70f && enemyHpPercent >= 30f)
+                secondAttackChance = 0.65f;
+
+            if (Random.value < secondAttackChance)
+                ResolveEnemyHit(enemy);
+        }
 
         EndCurrentTurn();
     }
@@ -248,7 +258,10 @@ public class Level5BattleController : MonoBehaviour
             return;
         }
 
-        int damage = PerformAttack(enemy, target, out _, out _, canMiss: false);
+        float enemyHpPercent = enemy.MaxHP > 0 ? ((float)enemy.CurrentHP / enemy.MaxHP) * 100f : 0f;
+        float damageMultiplier = enemyHpPercent < 50f ? 1.2f : 1f;
+
+        int damage = PerformAttack(enemy, target, out _, out _, canMiss: false, damageMultiplier: damageMultiplier);
         string message = $"{enemy.CombatantName} attacks {target.CombatantName} for {damage} damage!";
         if (!target.IsAlive)
             message += $" {target.CombatantName} has been defeated!";
@@ -324,7 +337,20 @@ public class Level5BattleController : MonoBehaviour
         if (livingPlayers.Count == 0)
             return null;
 
-        return livingPlayers[Random.Range(0, livingPlayers.Count)];
+        if (livingPlayers.Count == 1)
+            return livingPlayers[0];
+
+        var weightedTargets = new System.Collections.Generic.List<Combatant>();
+        foreach (var player in livingPlayers)
+        {
+            float hpPercent = player.MaxHP > 0 ? ((float)player.CurrentHP / player.MaxHP) * 100f : 0f;
+            int weight = hpPercent < 50f ? 2 : 1;
+
+            for (int i = 0; i < weight; i++)
+                weightedTargets.Add(player);
+        }
+
+        return weightedTargets[Random.Range(0, weightedTargets.Count)];
     }
 
     /// <summary>
