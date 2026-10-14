@@ -24,9 +24,10 @@ public class PuzzleLogicTests
     public void LongestPathPuzzleManager_ValidAndInvalidMoves_BehaveAsExpected()
     {
         LongestPathPuzzleManager manager = CreateComponent<LongestPathPuzzleManager>("LongestPathTest");
-
-        Assert.That(manager.IsPuzzleFinished, Is.False);
+        manager.ResetPuzzle();
         Assert.That(manager.CurrentNodeId, Is.EqualTo("A"));
+        Assert.That(manager.TotalDistance, Is.EqualTo(0f));
+        Assert.That(manager.IsPuzzleFinished, Is.False);
         Assert.That(manager.IsValidMove("A_N1"), Is.True);
         Assert.That(manager.IsValidMove("N1_N2"), Is.False);
 

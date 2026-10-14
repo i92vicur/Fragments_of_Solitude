@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Reflection;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -10,17 +11,23 @@ public class CoreLogicTests
     [SetUp]
     public void SetUp()
     {
+        PlayerPrefs.DeleteAll();
         originalTimeScale = Time.timeScale;
         Time.timeScale = 1f;
         ClearDialogueGate();
         ClearPauseManager();
+        ResetSettingsManager();
+        ResetGameProgressManager();
     }
 
     [TearDown]
     public void TearDown()
     {
+        PlayerPrefs.DeleteAll();
         ClearDialogueGate();
         ClearPauseManager();
+        ResetSettingsManager();
+        ResetGameProgressManager();
 
         foreach (GameObject spawned in spawnedObjects)
         {
@@ -37,7 +44,7 @@ public class CoreLogicTests
     [Test]
     public void Health_TakeDamage_ReducesHealthAndClampsAtZero()
     {
-        Health health = CreateComponent<Health>("HealthDamageTest");
+        Health health = CreateFreshHealth("HealthDamageTest");
 
         Assert.That(health.CurrentHealth, Is.EqualTo(10));
         Assert.That(health.TakeDamage(3), Is.True);
@@ -52,7 +59,7 @@ public class CoreLogicTests
     [TestCase(-5)]
     public void Health_TakeDamage_WithNonPositiveAmount_IsRejected(int amount)
     {
-        Health health = CreateComponent<Health>("HealthInvalidDamageTest");
+        Health health = CreateFreshHealth("HealthInvalidDamageTest");
 
         Assert.That(health.TakeDamage(amount), Is.False);
         Assert.That(health.CurrentHealth, Is.EqualTo(10));
@@ -62,7 +69,7 @@ public class CoreLogicTests
     [Test]
     public void Health_TakeDamage_ExactZero_FiresZeroHealthOnce()
     {
-        Health health = CreateComponent<Health>("HealthZeroTest");
+        Health health = CreateFreshHealth("HealthZeroTest");
         int zeroHealthCount = 0;
         int healthChangedCount = 0;
 
@@ -82,7 +89,7 @@ public class CoreLogicTests
     [Test]
     public void Health_Heal_RestoresHealthAndClampsToMax()
     {
-        Health health = CreateComponent<Health>("HealthHealTest");
+        Health health = CreateFreshHealth("HealthHealTest");
 
         Assert.That(health.TakeDamage(5), Is.True);
         Assert.That(health.CurrentHealth, Is.EqualTo(5));
@@ -98,7 +105,7 @@ public class CoreLogicTests
     [TestCase(-2)]
     public void Health_Heal_WithNonPositiveAmount_IsRejected(int amount)
     {
-        Health health = CreateComponent<Health>("HealthInvalidHealTest");
+        Health health = CreateFreshHealth("HealthInvalidHealTest");
 
         Assert.That(health.Heal(amount), Is.False);
         Assert.That(health.CurrentHealth, Is.EqualTo(10));
@@ -107,7 +114,7 @@ public class CoreLogicTests
     [Test]
     public void PlayerExperience_AddExperience_WithoutLevelUp_UpdatesCurrentExperience()
     {
-        PlayerExperience experience = CreateComponent<PlayerExperience>("ExperienceNoLevelUpTest");
+        PlayerExperience experience = CreateFreshPlayerExperience("ExperienceNoLevelUpTest");
 
         int levelUpCount = 0;
         experience.OnLevelUp += _ => levelUpCount++;
@@ -122,7 +129,7 @@ public class CoreLogicTests
     [Test]
     public void PlayerExperience_AddExperience_ExactThreshold_LevelsUpOnce()
     {
-        PlayerExperience experience = CreateComponent<PlayerExperience>("ExperienceExactThresholdTest");
+        PlayerExperience experience = CreateFreshPlayerExperience("ExperienceExactThresholdTest");
 
         int newLevel = 0;
         experience.OnLevelUp += level => newLevel = level;
@@ -137,7 +144,7 @@ public class CoreLogicTests
     [Test]
     public void PlayerExperience_AddExperience_CarriesExcessAndCanLevelUpMultipleTimes()
     {
-        PlayerExperience experience = CreateComponent<PlayerExperience>("ExperienceMultiLevelTest");
+        PlayerExperience experience = CreateFreshPlayerExperience("ExperienceMultiLevelTest");
 
         List<int> levels = new List<int>();
         experience.OnLevelUp += level => levels.Add(level);
@@ -296,10 +303,419 @@ public class CoreLogicTests
         Assert.That(DialogueGate.IsDialogueActive, Is.False);
     }
 
+    [Test]
+    public void SettingsManager_SetMusicVolume_ClampsAndPersists()
+    {
+        ResetSettingsManager();
+        SettingsManager settings = SettingsManager.Instance;
+
+        settings.SetMusicVolume(0.2f);
+        Assert.That(settings.MusicVolume, Is.EqualTo(0.2f));
+        Assert.That(PlayerPrefs.GetFloat(SettingsManager.MusicVolumeKey), Is.EqualTo(0.2f));
+
+        settings.SetMusicVolume(3f);
+        Assert.That(settings.MusicVolume, Is.EqualTo(1f));
+        Assert.That(PlayerPrefs.GetFloat(SettingsManager.MusicVolumeKey), Is.EqualTo(1f));
+    }
+
+    [Test]
+    public void SettingsManager_SetSfxVolume_ClampsAndPersists()
+    {
+        ResetSettingsManager();
+        SettingsManager settings = SettingsManager.Instance;
+
+        settings.SetSfxVolume(-1f);
+        Assert.That(settings.SfxVolume, Is.EqualTo(0f));
+        Assert.That(PlayerPrefs.GetFloat(SettingsManager.SfxVolumeKey), Is.EqualTo(0f));
+
+        settings.SetSfxVolume(0.75f);
+        Assert.That(settings.SfxVolume, Is.EqualTo(0.75f));
+        Assert.That(PlayerPrefs.GetFloat(SettingsManager.SfxVolumeKey), Is.EqualTo(0.75f));
+    }
+
+    [Test]
+    public void SettingsManager_SetFullscreen_TogglesAndPersists()
+    {
+        ResetSettingsManager();
+        SettingsManager settings = SettingsManager.Instance;
+
+        settings.SetFullscreen(false);
+        Assert.That(settings.Fullscreen, Is.False);
+        Assert.That(PlayerPrefs.GetInt(SettingsManager.FullscreenKey), Is.EqualTo(0));
+
+        settings.SetFullscreen(true);
+        Assert.That(settings.Fullscreen, Is.True);
+        Assert.That(PlayerPrefs.GetInt(SettingsManager.FullscreenKey), Is.EqualTo(1));
+    }
+
+    [Test]
+    public void SettingsManager_LinearToDecibels_UsesExpectedScaling()
+    {
+        Assert.That(SettingsManager.LinearToDecibels(0f), Is.EqualTo(-80f));
+        Assert.That(SettingsManager.LinearToDecibels(1f), Is.EqualTo(0f));
+        Assert.That(SettingsManager.LinearToDecibels(0.5f), Is.LessThan(0f));
+    }
+
+    [Test]
+    public void GameProgressManager_MarkProgress_TracksCompletionFlags()
+    {
+        ResetGameProgressManager();
+        GameProgressManager manager = GameProgressManager.Instance;
+
+        manager.MarkLevel3Completed();
+        manager.MarkLongestPathCompleted();
+        manager.MarkConstraintPuzzleCompleted();
+
+        Assert.That(manager.Level3Completed, Is.True);
+        Assert.That(manager.LongestPathCompleted, Is.True);
+        Assert.That(manager.ConstraintPuzzleCompleted, Is.True);
+        Assert.That(manager.SlidingPuzzleCompleted, Is.False);
+    }
+
+    [Test]
+    public void GameProgressManager_StartNewGame_ResetsAllProgressFlags()
+    {
+        ResetGameProgressManager();
+        GameProgressManager manager = GameProgressManager.Instance;
+
+        manager.MarkLevel4Completed();
+        manager.MarkLevel5Completed();
+        manager.MarkSlidingPuzzleCompleted();
+        manager.StartNewGame();
+
+        Assert.That(manager.Level4Completed, Is.False);
+        Assert.That(manager.Level5Completed, Is.False);
+        Assert.That(manager.SlidingPuzzleCompleted, Is.False);
+        Assert.That(PlayerPrefs.GetInt(GameProgressManager.Level4CompletedKey), Is.EqualTo(0));
+    }
+
+    [Test]
+    public void GameProgressManager_Load_UsesPersistedValues()
+    {
+        ResetGameProgressManager();
+        PlayerPrefs.SetInt(GameProgressManager.Level3CompletedKey, 1);
+        PlayerPrefs.SetInt(GameProgressManager.LongestPathCompletedKey, 1);
+        PlayerPrefs.Save();
+
+        GameProgressManager manager = new GameObject("GameProgressManager_Load").AddComponent<GameProgressManager>();
+        typeof(GameProgressManager)
+            .GetMethod("Load", BindingFlags.Instance | BindingFlags.NonPublic)
+            .Invoke(manager, null);
+
+        Assert.That(manager.Level3Completed, Is.True);
+        Assert.That(manager.LongestPathCompleted, Is.True);
+    }
+
+    [Test]
+    public void PauseManager_DuplicatePauseReason_IsTrackedOnce()
+    {
+        PauseManager pauseManager = PauseManager.Instance;
+
+        pauseManager.Pause(PauseManager.PauseReason.Debug);
+        pauseManager.Pause(PauseManager.PauseReason.Debug);
+
+        Assert.That(pauseManager.IsPaused, Is.True);
+        Assert.That(pauseManager.ActiveReasons.Count, Is.EqualTo(1));
+        Assert.That(pauseManager.IsPausedFor(PauseManager.PauseReason.Debug), Is.True);
+
+        pauseManager.Unpause(PauseManager.PauseReason.Debug);
+        Assert.That(pauseManager.IsPaused, Is.False);
+        Assert.That(pauseManager.ActiveReasons.Count, Is.EqualTo(0));
+    }
+
+    [Test]
+    public void SettingsManager_ResetToDefaults_RestoresDefaultValuesAndPersistsThem()
+    {
+        ResetSettingsManager();
+        SettingsManager settings = SettingsManager.Instance;
+
+        settings.SetMusicVolume(0.2f);
+        settings.SetSfxVolume(0.6f);
+        settings.SetFullscreen(false);
+
+        settings.ResetToDefaults();
+
+        Assert.That(settings.MusicVolume, Is.EqualTo(SettingsManager.DefaultMusicVolume));
+        Assert.That(settings.SfxVolume, Is.EqualTo(SettingsManager.DefaultSfxVolume));
+        Assert.That(settings.Fullscreen, Is.EqualTo(SettingsManager.DefaultFullscreen));
+        Assert.That(PlayerPrefs.GetFloat(SettingsManager.MusicVolumeKey), Is.EqualTo(SettingsManager.DefaultMusicVolume));
+        Assert.That(PlayerPrefs.GetFloat(SettingsManager.SfxVolumeKey), Is.EqualTo(SettingsManager.DefaultSfxVolume));
+        Assert.That(PlayerPrefs.GetInt(SettingsManager.FullscreenKey), Is.EqualTo(SettingsManager.DefaultFullscreen ? 1 : 0));
+    }
+
+    [Test]
+    public void GameProgressManager_RepeatedMarks_AreIdempotent()
+    {
+        ResetGameProgressManager();
+        GameProgressManager manager = GameProgressManager.Instance;
+
+        manager.MarkLevel3Completed();
+        manager.MarkLevel3Completed();
+        manager.MarkLongestPathCompleted();
+        manager.MarkLongestPathCompleted();
+
+        Assert.That(manager.Level3Completed, Is.True);
+        Assert.That(manager.LongestPathCompleted, Is.True);
+        Assert.That(PlayerPrefs.GetInt(GameProgressManager.Level3CompletedKey), Is.EqualTo(1));
+        Assert.That(PlayerPrefs.GetInt(GameProgressManager.LongestPathCompletedKey), Is.EqualTo(1));
+    }
+
+    [Test]
+    public void Combatant_TakeDamage_OnlyAppliesLivingDamage()
+    {
+        Combatant combatant = CreateCombatant("TestCombatant", false, 20, 8, 2);
+
+        Assert.That(combatant.TakeDamage(5), Is.EqualTo(5));
+        Assert.That(combatant.CurrentHP, Is.EqualTo(15));
+
+        Assert.That(combatant.TakeDamage(100), Is.EqualTo(15));
+        Assert.That(combatant.IsAlive, Is.False);
+        Assert.That(combatant.TakeDamage(1), Is.EqualTo(0));
+    }
+
+    [Test]
+    public void Combatant_Heal_StopsAtMaxHP()
+    {
+        Combatant combatant = CreateCombatant("Healer", false, 10, 5, 1);
+        combatant.TakeDamage(6);
+
+        Assert.That(combatant.Heal(5), Is.EqualTo(5));
+        Assert.That(combatant.CurrentHP, Is.EqualTo(9));
+
+        Assert.That(combatant.Heal(1), Is.EqualTo(1));
+        Assert.That(combatant.CurrentHP, Is.EqualTo(10));
+
+        Assert.That(combatant.Heal(1), Is.EqualTo(0));
+        Assert.That(combatant.CurrentHP, Is.EqualTo(10));
+    }
+
+    [Test]
+    public void Combatant_DefendBonus_ReplacesPreviousValue()
+    {
+        Combatant combatant = CreateCombatant("Defender", false, 20, 5, 3);
+
+        combatant.ApplyDefendBonus(5);
+        Assert.That(combatant.EffectiveDefense, Is.EqualTo(8));
+
+        combatant.ApplyDefendBonus(12);
+        Assert.That(combatant.EffectiveDefense, Is.EqualTo(15));
+
+        combatant.ClearDefendBonus();
+        Assert.That(combatant.EffectiveDefense, Is.EqualTo(3));
+    }
+
+    [Test]
+    public void Level5BattleController_PerformAttack_UsesDefenseAndCanKillTarget()
+    {
+        Combatant warrior = CreateCombatant("Warrior", false, 50, 25, 2);
+        Combatant enemy = CreateCombatant("Enemy", true, 20, 8, 5);
+        Level5BattleController controller = CreateBattleController(warrior, enemy);
+
+        bool missed;
+        bool critical;
+        int damage = controller.PerformAttack(warrior, enemy, out missed, out critical, canMiss: false);
+
+        Assert.That(missed, Is.False);
+        Assert.That(critical, Is.False);
+        Assert.That(damage, Is.EqualTo(20));
+        Assert.That(enemy.CurrentHP, Is.EqualTo(0));
+        Assert.That(controller.State, Is.EqualTo(Level5BattleController.BattleState.Victory));
+    }
+
+    [Test]
+    public void Level5BattleController_EndCurrentTurn_AdvancesToNextAliveCombatant()
+    {
+        Combatant warrior = CreateCombatant("Warrior", false, 50, 10, 0);
+        Combatant enemy = CreateCombatant("Enemy", true, 20, 0, 0);
+        Combatant supporter = CreateCombatant("Support", false, 50, 10, 0);
+        Level5BattleController controller = CreateBattleController(warrior, enemy, supporter);
+
+        SetPrivateField(controller, "currentIndex", 0);
+        controller.EndCurrentTurn();
+        Assert.That(controller.CurrentCombatant, Is.EqualTo(enemy));
+
+        controller.EndCurrentTurn();
+        Assert.That(controller.CurrentCombatant, Is.EqualTo(supporter));
+    }
+
+    [Test]
+    public void Level5BattleController_EnemyTurn_CanDefeatPlayerWhenAllPlayersDie()
+    {
+        Combatant warrior = CreateCombatant("Warrior", false, 10, 1, 0);
+        Combatant support = CreateCombatant("Support", false, 10, 1, 0);
+        Combatant enemy = CreateCombatant("Enemy", true, 50, 30, 0);
+        Level5BattleController controller = CreateBattleController(warrior, support, enemy);
+
+        // Force current turn to enemy and ensure players have 1 hp so one attack defeats them.
+        warrior.TakeDamage(9);
+        support.TakeDamage(9);
+        SetPrivateField(controller, "currentIndex", 2);
+
+        controller.TriggerEnemyAttack();
+        Assert.That(controller.State, Is.EqualTo(Level5BattleController.BattleState.Defeat));
+    }
+
+    [Test]
+    public void Level5BattleController_Start_UsesFirstAliveCombatant()
+    {
+        Combatant warrior = CreateCombatant("Warrior", false, 0, 0, 0);
+        Combatant enemy = CreateCombatant("Enemy", true, 20, 0, 0);
+        Combatant support = CreateCombatant("Support", false, 30, 0, 0);
+
+        Level5BattleController controller = CreateBattleController(warrior, enemy, support);
+
+        // Support should be the first alive actor because Warrior is dead.
+        SetPrivateField(controller, "currentIndex", 0);
+        var nextAlive = FindNextLivingCombatantIndex(controller, 0);
+        Assert.That(nextAlive, Is.EqualTo(2));
+        Assert.That(controller.CurrentCombatant, Is.EqualTo(warrior));
+    }
+
+    [Test]
+    public void GameProgressManager_LoadsAndResetsProgressForMultipleKeys()
+    {
+        ResetGameProgressManager();
+        PlayerPrefs.SetInt(GameProgressManager.Level3CompletedKey, 1);
+        PlayerPrefs.SetInt(GameProgressManager.Level4CompletedKey, 1);
+        PlayerPrefs.SetInt(GameProgressManager.Level5CompletedKey, 1);
+        PlayerPrefs.Save();
+
+        GameProgressManager manager = new GameObject("GameProgressManager_MultiLoad").AddComponent<GameProgressManager>();
+        typeof(GameProgressManager)
+            .GetMethod("Load", BindingFlags.Instance | BindingFlags.NonPublic)
+            .Invoke(manager, null);
+
+        Assert.That(manager.Level3Completed, Is.True);
+        Assert.That(manager.Level4Completed, Is.True);
+        Assert.That(manager.Level5Completed, Is.True);
+
+        manager.StartNewGame();
+        Assert.That(manager.Level3Completed, Is.False);
+        Assert.That(manager.Level4Completed, Is.False);
+        Assert.That(manager.Level5Completed, Is.False);
+    }
+
     private static T CreateComponent<T>(string objectName) where T : Component
     {
         GameObject go = new GameObject(objectName);
         return go.AddComponent<T>();
+    }
+
+    private static Health CreateFreshHealth(string objectName)
+    {
+        Health health = CreateComponent<Health>(objectName);
+        SetPrivateField(health, "currentHealth", 10);
+        SetPrivateField(health, "hasInvokedZero", false);
+        return health;
+    }
+
+    private static PlayerExperience CreateFreshPlayerExperience(string objectName)
+    {
+        PlayerExperience experience = CreateComponent<PlayerExperience>(objectName);
+        experience.ResetExperience();
+        return experience;
+    }
+
+    private static Combatant CreateCombatant(string name, bool isEnemy, int maxHp, int attack, int defense)
+    {
+        GameObject go = new GameObject(name);
+        Combatant combatant = go.AddComponent<Combatant>();
+        SetPrivateField(combatant, "combatantName", name);
+        SetPrivateField(combatant, "isEnemy", isEnemy);
+        SetPrivateField(combatant, "maxHP", maxHp);
+        SetPrivateField(combatant, "attack", attack);
+        SetPrivateField(combatant, "defense", defense);
+        combatant.ResetToFullHP();
+        return combatant;
+    }
+
+    private static Level5BattleController CreateBattleController(params Combatant[] combatants)
+    {
+        GameObject go = new GameObject("BattleController");
+        Level5BattleController controller = go.AddComponent<Level5BattleController>();
+        SetPrivateField(controller, "turnOrder", combatants);
+        SetPrivateField(controller, "currentIndex", 0);
+        return controller;
+    }
+
+    private static int FindNextLivingCombatantIndex(Level5BattleController controller, int fromIndex)
+    {
+        FieldInfo field = typeof(Level5BattleController).GetField("turnOrder", BindingFlags.Instance | BindingFlags.NonPublic);
+        Combatant[] turnOrder = (Combatant[])field.GetValue(controller);
+
+        for (int step = 1; step <= turnOrder.Length; step++)
+        {
+            int candidate = (fromIndex + step) % turnOrder.Length;
+            if (turnOrder[candidate] != null && turnOrder[candidate].IsAlive)
+                return candidate;
+        }
+
+        return -1;
+    }
+
+    private static void SetPrivateField(object target, string fieldName, object value)
+    {
+        FieldInfo field = target.GetType().GetField(fieldName, BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+        if (field == null)
+            return;
+
+        field.SetValue(target, value);
+    }
+
+    private static void ResetSettingsManager()
+    {
+        var instanceField = typeof(SettingsManager).GetField("instance", BindingFlags.Static | BindingFlags.NonPublic);
+        instanceField?.SetValue(null, null);
+
+        var mixerField = typeof(SettingsManager).GetField("mixer", BindingFlags.Static | BindingFlags.NonPublic);
+        mixerField?.SetValue(null, null);
+
+        var musicGroupField = typeof(SettingsManager).GetField("musicGroup", BindingFlags.Static | BindingFlags.NonPublic);
+        musicGroupField?.SetValue(null, null);
+
+        var sfxGroupField = typeof(SettingsManager).GetField("sfxGroup", BindingFlags.Static | BindingFlags.NonPublic);
+        sfxGroupField?.SetValue(null, null);
+
+        foreach (string key in new[]
+        {
+            SettingsManager.MusicVolumeKey,
+            SettingsManager.SfxVolumeKey,
+            SettingsManager.FullscreenKey
+        })
+        {
+            PlayerPrefs.DeleteKey(key);
+        }
+
+        SettingsManager existing = Object.FindAnyObjectByType<SettingsManager>();
+        if (existing != null)
+        {
+            Object.DestroyImmediate(existing.gameObject);
+        }
+    }
+
+    private static void ResetGameProgressManager()
+    {
+        var instanceField = typeof(GameProgressManager).GetField("instance", BindingFlags.Static | BindingFlags.NonPublic);
+        instanceField?.SetValue(null, null);
+
+        foreach (string key in new[]
+        {
+            GameProgressManager.SlidingPuzzleCompletedKey,
+            GameProgressManager.LongestPathCompletedKey,
+            GameProgressManager.ConstraintPuzzleCompletedKey,
+            GameProgressManager.Level3CompletedKey,
+            GameProgressManager.Level4CompletedKey,
+            GameProgressManager.Level5CompletedKey
+        })
+        {
+            PlayerPrefs.DeleteKey(key);
+        }
+
+        GameProgressManager existing = Object.FindAnyObjectByType<GameProgressManager>();
+        if (existing != null)
+        {
+            Object.DestroyImmediate(existing.gameObject);
+        }
     }
 
     private void ClearPauseManager()
@@ -323,3 +739,4 @@ public class CoreLogicTests
         }
     }
 }
+
