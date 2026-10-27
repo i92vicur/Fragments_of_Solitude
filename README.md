@@ -73,11 +73,11 @@ El repositorio contiene el proyecto de Unity y sus recursos. Entre sus directori
 
 ## Créditos y licencia
 
-Fragments of Solitude es un proyecto desarrollado como Trabajo de Fin de Grado de Ingeniería Informática en la Universidad de Córdoba (UCO).
+Licencia y recursos de terceros
 
-Los recursos externos utilizados en el proyecto pertenecen a sus respectivos autores y están sujetos a las licencias y condiciones de uso correspondientes. Su utilización no implica la transferencia de sus derechos de autor.
+Fragments of Solitude es un proyecto académico desarrollado como Trabajo de Fin de Grado, sin finalidad comercial ni intención de distribución pública como producto. La entrega del prototipo se realiza mediante los canales académicos establecidos.
 
-Salvo que se indique expresamente lo contrario, no se concede ninguna licencia general para reproducir, modificar o redistribuir el código y los materiales originales del proyecto. Los derechos sobre los recursos de terceros permanecen sujetos a sus respectivas licencias.
+Los permisos aplicables al código y a los recursos originales del proyecto no se extienden a los materiales de terceros incorporados, que conservan sus respectivas condiciones de uso y derechos de autor. El acceso al repositorio no implica autorización para redistribuir dichos materiales ni reutilizarlos de forma independiente.
 
 ## Versión
 
