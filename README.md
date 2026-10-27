@@ -4,6 +4,8 @@
 
 El proyecto explora temas relacionados con la soledad, el rechazo y la depresión mediante una experiencia interactiva que combina combate, resolución de puzles y toma de decisiones. Su propuesta visual se basa principalmente en pixel art 2D, con variaciones estéticas y mecánicas a lo largo de sus niveles.
 
+La versión jugable incluye varias experiencias diferenciadas que abarcan desde el combate con ataques a distancia y el enfrentamiento contra jefes hasta puzles lógicos, desafíos de plataformas y combates por turnos. También incorpora sistemas de progresión, habilidades y gestión de ajustes y partidas. 
+
 ## Requisitos
 
 - **Motor:** Unity `6000.0.55f1`.
