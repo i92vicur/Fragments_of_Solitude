@@ -10,6 +10,7 @@ Design decisions:
 - Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -19,11 +20,21 @@ using UnityEngine.UI;
 public class Phase2VictoryMenu : MonoBehaviour
 {
     private GameObject panel;
+    private readonly List<Button> panelButtons = new List<Button>();
+    private readonly GamepadHoverBridge gamepadHover = new GamepadHoverBridge();
+    private bool navLatched;
 
     private void Awake()
     {
+        GamepadMenuNavigation.EnsureGameInput();
         BuildUi();
         SetVisible(false);
+    }
+
+    private void Update()
+    {
+        if (panel != null && panel.activeSelf)
+            HandleMenuInput();
     }
 
     private void OnDestroy()
@@ -67,8 +78,22 @@ public class Phase2VictoryMenu : MonoBehaviour
         background.color = new Color(0f, 0f, 0f, 0.82f);
 
         CreateText("Title", panel.transform, "LEVEL COMPLETE!", new Vector2(0f, 110f), 34, FontStyle.Bold);
-        CreateButton("Restart", panel.transform, "RESTART", new Vector2(0f, -5f), Restart);
-        CreateButton("MainMenu", panel.transform, "MAIN MENU", new Vector2(0f, -95f), GoToMainMenu);
+        panelButtons.Add(CreateButton("Restart", panel.transform, "RESTART", new Vector2(0f, -5f), Restart).GetComponent<Button>());
+        panelButtons.Add(CreateButton("MainMenu", panel.transform, "MAIN MENU", new Vector2(0f, -95f), GoToMainMenu).GetComponent<Button>());
+
+        foreach (Button button in panelButtons)
+            GamepadMenuNavigation.ApplySelectionStyle(button);
+    }
+
+    // Arriba/abajo mueve la selección y A activa el botón (mismo esquema que Level5ResultPanel).
+    private void HandleMenuInput()
+    {
+        EventSystem es = EventSystem.current;
+        Button selected = GamepadMenuNavigation.UpdateSelection(es, panelButtons, ref navLatched);
+        gamepadHover.Tick(es, selected);
+
+        if (selected != null && GameInput.Submit.Pressed)
+            GamepadMenuNavigation.Submit(es, selected);
     }
 
     private void Restart()
@@ -100,16 +125,25 @@ public class Phase2VictoryMenu : MonoBehaviour
     {
         if (panel != null)
             panel.SetActive(visible);
+
+        navLatched = false;
+        GamepadMenuNavigation.ClearSelection(EventSystem.current);
+
+        if (GameInput.IsInitialized)
+            GameInput.SetContext(visible || PauseManager.Instance.IsPaused ? GameInputContext.Menu : GameInputContext.Gameplay);
     }
 
+    // Desactiva la navegación y Submit legacy del StandaloneInputModule para no duplicar activaciones con GameInput.
     private static void EnsureEventSystem()
     {
-        if (FindAnyObjectByType<EventSystem>() != null)
-            return;
+        if (FindAnyObjectByType<EventSystem>() == null)
+        {
+            GameObject eventSystemObject = new GameObject("EventSystem");
+            eventSystemObject.AddComponent<EventSystem>();
+            eventSystemObject.AddComponent<StandaloneInputModule>();
+        }
 
-        GameObject eventSystemObject = new GameObject("EventSystem");
-        eventSystemObject.AddComponent<EventSystem>();
-        eventSystemObject.AddComponent<StandaloneInputModule>();
+        FindAnyObjectByType<EventSystem>().sendNavigationEvents = false;
     }
 
     private static Font GetVictoryMenuFont()

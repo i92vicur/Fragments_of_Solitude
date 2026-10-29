@@ -19,6 +19,7 @@ public class SettingsPanelController : MonoBehaviour
     [SerializeField] private Slider musicVolumeSlider;
     [SerializeField] private Slider sfxVolumeSlider;
     [SerializeField] private Toggle fullscreenToggle;
+    [SerializeField] private Dropdown windowSizeDropdown;
 
     private void Awake()
     {
@@ -33,6 +34,12 @@ public class SettingsPanelController : MonoBehaviour
 
         if (fullscreenToggle != null)
             fullscreenToggle.onValueChanged.AddListener(OnFullscreenChanged);
+
+        if (windowSizeDropdown != null)
+        {
+            PopulateWindowSizeOptions();
+            windowSizeDropdown.onValueChanged.AddListener(OnWindowSizeChanged);
+        }
     }
 
     private void OnEnable()
@@ -50,6 +57,9 @@ public class SettingsPanelController : MonoBehaviour
 
         if (fullscreenToggle != null)
             fullscreenToggle.onValueChanged.RemoveListener(OnFullscreenChanged);
+
+        if (windowSizeDropdown != null)
+            windowSizeDropdown.onValueChanged.RemoveListener(OnWindowSizeChanged);
     }
 
     public void RefreshFromSettings()
@@ -64,6 +74,12 @@ public class SettingsPanelController : MonoBehaviour
 
         if (fullscreenToggle != null)
             fullscreenToggle.SetIsOnWithoutNotify(settings.Fullscreen);
+
+        if (windowSizeDropdown != null)
+        {
+            windowSizeDropdown.SetValueWithoutNotify(FindWindowSizeIndex(settings.WindowSize));
+            windowSizeDropdown.interactable = !settings.Fullscreen;
+        }
     }
 
     private static void ConfigureSlider(Slider slider)
@@ -73,6 +89,26 @@ public class SettingsPanelController : MonoBehaviour
         slider.minValue = 0f;
         slider.maxValue = 1f;
         slider.wholeNumbers = false;
+    }
+
+    private void PopulateWindowSizeOptions()
+    {
+        windowSizeDropdown.ClearOptions();
+
+        var labels = new System.Collections.Generic.List<string>();
+        foreach (Vector2Int size in SettingsManager.AllowedWindowSizes)
+            labels.Add($"{size.x} × {size.y}");
+
+        windowSizeDropdown.AddOptions(labels);
+    }
+
+    private static int FindWindowSizeIndex(Vector2Int size)
+    {
+        for (int i = 0; i < SettingsManager.AllowedWindowSizes.Length; i++)
+        {
+            if (SettingsManager.AllowedWindowSizes[i] == size) return i;
+        }
+        return 0;
     }
 
     private void OnMusicVolumeChanged(float value)
@@ -88,5 +124,16 @@ public class SettingsPanelController : MonoBehaviour
     private void OnFullscreenChanged(bool value)
     {
         SettingsManager.Instance.SetFullscreen(value);
+
+        if (windowSizeDropdown != null)
+            windowSizeDropdown.interactable = !value;
+    }
+
+    private void OnWindowSizeChanged(int index)
+    {
+        if (index < 0 || index >= SettingsManager.AllowedWindowSizes.Length) return;
+
+        Vector2Int size = SettingsManager.AllowedWindowSizes[index];
+        SettingsManager.Instance.SetWindowSize(size.x, size.y);
     }
 }

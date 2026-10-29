@@ -86,11 +86,26 @@ public class HudController : MonoBehaviour
     private Button levelBtnMove;
     private Button levelBtnAttackSpeed;
     private Button levelBtnProjectile;
+    private Button pauseResumeBtn;
+    private Button pauseMainMenuBtn;
+    // Gamepad menu navigation: edge-triggered stick/D-pad movement
+    private bool menuNavLatched;
+
+    // [DIAG] temporal: registra el estado de UpdateMenuNavigation solo cuando cambia.
+    private string diagNavState = "";
+
+    private void DiagNav(string state)
+    {
+        if (state == diagNavState) return;
+        diagNavState = state;
+        Debug.Log($"[DIAG Nav] {state}", this);
+    }
 
     // End-state UI (Victory / Defeat)
     private GameObject endStatePanel;
     private Text endStateTitleText;
     private Button endStateRestartButton;
+    private Button endStateMenuButton;
 
     // Internal cached values
     private int lastHealth = -1;
@@ -167,8 +182,11 @@ public class HudController : MonoBehaviour
         if (allEventSystems.Length == 0)
         {
             var esGO = new GameObject("EventSystem");
-            esGO.AddComponent<EventSystem>();
+            var eventSystem = esGO.AddComponent<EventSystem>();
             esGO.AddComponent<StandaloneInputModule>();
+            // Navigation and submit come from GameInput in menus; the legacy module would otherwise
+            // duplicate them (its Submit axis includes joystick button 0 = A). Mouse input is unaffected.
+            eventSystem.sendNavigationEvents = false;
         }
         // Try to find an existing Canvas in scene
         var existing = UnityEngine.Object.FindAnyObjectByType<Canvas>();
@@ -245,9 +263,14 @@ public class HudController : MonoBehaviour
 
     void Update()
     {
-        // Temporary pause toggle using PauseReason.Debug bound to a key (P by default)
-        if (enablePauseToggle && Input.GetKeyDown(pauseToggleKey))
+        // Temporary pause toggle using PauseReason.Debug (P key, or Start on gamepad).
+        // Both sources are OR-ed so one press produces exactly one toggle.
+        bool pauseRequested = (enablePauseToggle && Input.GetKeyDown(pauseToggleKey))
+            || (GameInput.IsInitialized && GameInput.Pause.Pressed);
+        if (pauseRequested)
             ToggleDebugPause();
+
+        UpdateMenuNavigation();
 
         if (healGainText != null && healGainText.gameObject.activeSelf && Time.unscaledTime >= healIndicatorHideAtUnscaled)
         {
@@ -287,6 +310,144 @@ public class HudController : MonoBehaviour
             PauseManager.Instance.Unpause(PauseManager.PauseReason.Debug);
         else if (!PauseManager.Instance.IsPaused)
             PauseManager.Instance.Pause(PauseManager.PauseReason.Debug);
+    }
+
+    private void UpdateMenuNavigation()
+    {
+        SyncMenuContextWithVisiblePanels();
+
+        var es = EventSystem.current;
+        if (es == null)
+        {
+            DiagNav("sale: EventSystem.current es null");
+            return;
+        }
+
+        if (!GameInput.IsInitialized || GameInput.Context != GameInputContext.Menu)
+        {
+            DiagNav($"sale: contexto={GameInput.Context} inicializado={GameInput.IsInitialized}");
+            ClearMenuSelection(es);
+            return;
+        }
+
+        var buttons = GetActiveMenuButtons(out bool isLevelUpMenu);
+        if (buttons.Count == 0)
+        {
+            DiagNav("sale: 0 botones activos");
+            ClearMenuSelection(es);
+            menuNavLatched = false;
+            return;
+        }
+
+        DiagNav($"procesa: ctx={GameInput.Context} botones={buttons.Count} levelUpMenu={isLevelUpMenu}");
+
+        int index = -1;
+        var current = es.currentSelectedGameObject;
+        for (int i = 0; i < buttons.Count; i++)
+        {
+            if (buttons[i].gameObject == current)
+            {
+                index = i;
+                break;
+            }
+        }
+
+        // No valid selection (menu just opened or selection belonged to a hidden menu): start at the first option
+        if (index < 0)
+        {
+            index = 0;
+            es.SetSelectedGameObject(buttons[index].gameObject);
+        }
+
+        Vector2 nav = GameInput.Navigate;
+        bool navActive = nav.sqrMagnitude > 0.25f;
+        if (navActive && !menuNavLatched)
+        {
+            Debug.Log($"[DIAG Nav] Navigate={nav}", this); // [DIAG] temporal, solo en flanco de subida
+            // Up/Left = previous, Down/Right = next; dominant axis decides
+            int step;
+            if (Mathf.Abs(nav.y) >= Mathf.Abs(nav.x))
+                step = nav.y > 0f ? -1 : 1;
+            else
+                step = nav.x < 0f ? -1 : 1;
+
+            index = (index + step + buttons.Count) % buttons.Count;
+            es.SetSelectedGameObject(buttons[index].gameObject);
+        }
+        menuNavLatched = navActive;
+
+        if (GameInput.Submit.Pressed || GameInput.Cancel.Pressed)
+            Debug.Log($"[DIAG Nav] Submit.Pressed={GameInput.Submit.Pressed} Cancel.Pressed={GameInput.Cancel.Pressed} ctx={GameInput.Context}", this); // [DIAG] temporal
+
+        if (GameInput.Submit.Pressed)
+        {
+            ExecuteEvents.Execute(buttons[index].gameObject, new BaseEventData(es), ExecuteEvents.submitHandler);
+        }
+        else if (GameInput.Cancel.Pressed && !isLevelUpMenu && pausePanel != null && pausePanel.activeInHierarchy && pauseResumeBtn != null)
+        {
+            // B on the pause menu resumes the game, same as its Resume button
+            ExecuteEvents.Execute(pauseResumeBtn.gameObject, new BaseEventData(es), ExecuteEvents.submitHandler);
+        }
+    }
+
+    // The PauseManager event can be missed (e.g. subscription order), so a visible menu must own input.
+    // Gameplay is restored only when no pause reason remains.
+    private void SyncMenuContextWithVisiblePanels()
+    {
+        if (!GameInput.IsInitialized) return;
+
+        bool menuVisible = (pausePanel != null && pausePanel.activeInHierarchy)
+            || (levelUpPanel != null && levelUpPanel.activeInHierarchy)
+            || (endStatePanel != null && endStatePanel.activeInHierarchy);
+
+        if (menuVisible && GameInput.Context != GameInputContext.Menu)
+            GameInput.SetContext(GameInputContext.Menu);
+        else if (!menuVisible && GameInput.Context == GameInputContext.Menu && !PauseManager.Instance.IsPaused)
+            GameInput.SetContext(GameInputContext.Gameplay);
+    }
+
+    private System.Collections.Generic.List<Button> GetActiveMenuButtons(out bool isLevelUpMenu)
+    {
+        var list = new System.Collections.Generic.List<Button>();
+        isLevelUpMenu = levelUpPanel != null && levelUpPanel.activeSelf;
+
+        if (endStatePanel != null && endStatePanel.activeSelf)
+        {
+            AddActiveButton(list, endStateRestartButton);
+            AddActiveButton(list, endStateMenuButton);
+        }
+        else if (isLevelUpMenu)
+        {
+            AddActiveButton(list, levelBtnMove);
+            AddActiveButton(list, levelBtnAttackSpeed);
+            AddActiveButton(list, levelBtnProjectile);
+        }
+        else if (pausePanel != null && pausePanel.activeSelf)
+        {
+            AddActiveButton(list, pauseResumeBtn);
+            AddActiveButton(list, pauseMainMenuBtn);
+        }
+        return list;
+    }
+
+    private static void AddActiveButton(System.Collections.Generic.List<Button> list, Button button)
+    {
+        if (button != null && button.gameObject.activeInHierarchy)
+            list.Add(button);
+    }
+
+    private static void ClearMenuSelection(EventSystem es)
+    {
+        if (es.currentSelectedGameObject != null)
+            es.SetSelectedGameObject(null);
+    }
+
+    private void SyncGameInputContext(System.Collections.Generic.HashSet<PauseManager.PauseReason> reasons)
+    {
+        if (!GameInput.IsInitialized) return;
+
+        bool paused = reasons != null && reasons.Count > 0;
+        GameInput.SetContext(paused ? GameInputContext.Menu : GameInputContext.Gameplay);
     }
 
     private void WirePauseButton()
@@ -461,6 +622,8 @@ public class HudController : MonoBehaviour
 
     private void OnPauseStateChanged(System.Collections.Generic.HashSet<PauseManager.PauseReason> reasons)
     {
+        SyncGameInputContext(reasons);
+
         // Always hide the pause panel first; re-show only if appropriate below
         if (pausePanel != null) pausePanel.SetActive(false);
         if (pauseStateText != null) pauseStateText.gameObject.SetActive(false);
@@ -557,11 +720,22 @@ public class HudController : MonoBehaviour
     // --- UI creation helpers ---
     private void CreateCanvasAndElements()
     {
-        var go = new GameObject("HUD_Canvas");
-        hudCanvas = go.AddComponent<Canvas>();
-        hudCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
-        go.AddComponent<CanvasScaler>();
-        go.AddComponent<GraphicRaycaster>();
+        GameObject go;
+        if (hudCanvas != null)
+        {
+            // Reuse the scene Canvas found in Awake so the HUD inherits its CanvasScaler.
+            go = hudCanvas.gameObject;
+            if (go.GetComponent<GraphicRaycaster>() == null)
+                go.AddComponent<GraphicRaycaster>();
+        }
+        else
+        {
+            go = new GameObject("HUD_Canvas");
+            hudCanvas = go.AddComponent<Canvas>();
+            hudCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            go.AddComponent<CanvasScaler>();
+            go.AddComponent<GraphicRaycaster>();
+        }
 
         // Root layer that fills the screen and groups the persistent HUD pieces
         var persistentGO = new GameObject("HUD_Persistent");
@@ -758,6 +932,7 @@ public class HudController : MonoBehaviour
 
         // Restart button
         endStateRestartButton = CreateButton("End_Restart", endStatePanel.transform, new Vector2(0, -40), new Vector2(220, 48), "Restart");
+        ApplyMenuSelectionStyle(endStateRestartButton);
         endStateRestartButton.onClick.RemoveAllListeners();
         endStateRestartButton.onClick.AddListener(() => {
             var rc = UnityEngine.Object.FindAnyObjectByType<RestartController>();
@@ -766,8 +941,9 @@ public class HudController : MonoBehaviour
         });
 
         // Return to Main Menu button — SceneLoader resets timeScale before loading
-        var endMenuButton = CreateButton("End_MainMenu", endStatePanel.transform, new Vector2(0, -110), new Vector2(220, 48), "Return to Main Menu");
-        endMenuButton.onClick.AddListener(() => {
+        endStateMenuButton = CreateButton("End_MainMenu", endStatePanel.transform, new Vector2(0, -110), new Vector2(220, 48), "Return to Main Menu");
+        ApplyMenuSelectionStyle(endStateMenuButton);
+        endStateMenuButton.onClick.AddListener(() => {
             var loader = UnityEngine.Object.FindAnyObjectByType<SceneLoader>();
             if (loader != null)
                 loader.LoadMainMenu();
@@ -822,6 +998,8 @@ public class HudController : MonoBehaviour
 
         // Resume button — same as pressing P again
         var resumeBtn = CreateButton("Pause_Resume", pausePanel.transform, new Vector2(0, 0), new Vector2(240, 50), "Resume (P)");
+        ApplyMenuSelectionStyle(resumeBtn);
+        pauseResumeBtn = resumeBtn;
         resumeBtn.onClick.AddListener(() => {
             if (PauseManager.Instance != null)
                 PauseManager.Instance.Unpause(PauseManager.PauseReason.Debug);
@@ -829,6 +1007,8 @@ public class HudController : MonoBehaviour
 
         // Return to Main Menu button — SceneLoader resets timeScale before loading
         var menuBtn = CreateButton("Pause_MainMenu", pausePanel.transform, new Vector2(0, -70), new Vector2(240, 50), "Return to Main Menu");
+        ApplyMenuSelectionStyle(menuBtn);
+        pauseMainMenuBtn = menuBtn;
         menuBtn.onClick.AddListener(() => {
             var loader = UnityEngine.Object.FindAnyObjectByType<SceneLoader>();
             if (loader != null)
@@ -885,8 +1065,11 @@ public class HudController : MonoBehaviour
 
         // Buttons
         levelBtnMove = CreateButton("MoveSpeed", levelUpPanel.transform, new Vector2(-150, -30), new Vector2(140, 40), "Increase Speed");
+        ApplyMenuSelectionStyle(levelBtnMove);
         levelBtnAttackSpeed = CreateButton("AttackSpeed", levelUpPanel.transform, new Vector2(0, -30), new Vector2(140, 40), "Faster Attack");
+        ApplyMenuSelectionStyle(levelBtnAttackSpeed);
         levelBtnProjectile = CreateButton("ProjectileDamage", levelUpPanel.transform, new Vector2(150, -30), new Vector2(140, 40), "Stronger Projectiles");
+        ApplyMenuSelectionStyle(levelBtnProjectile);
 
         levelUpPanel.SetActive(false);
 
@@ -937,6 +1120,11 @@ public class HudController : MonoBehaviour
         txt.text = label;
 
         return btn;
+    }
+
+    private static void ApplyMenuSelectionStyle(Button btn)
+    {
+        GamepadMenuNavigation.ApplySelectionStyle(btn);
     }
 
     private Button TryFindPauseButtonInScene()

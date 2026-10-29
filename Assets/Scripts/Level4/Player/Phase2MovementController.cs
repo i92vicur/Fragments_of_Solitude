@@ -109,7 +109,8 @@ public class Phase2MovementController : MonoBehaviour
         if (horizontalDirection != 0)
             lastHorizontalDirection = horizontalDirection;
 
-        if (dashEnabled && dashAvailable && Input.GetKeyDown(dashKey))
+        bool paused = PauseManager.Instance != null && PauseManager.Instance.IsPaused;
+        if (dashEnabled && dashAvailable && (Input.GetKeyDown(dashKey) || (!paused && Level4GamepadInput.DashPressedThisFrame())))
             dashQueued = true;
     }
 
@@ -123,8 +124,8 @@ public class Phase2MovementController : MonoBehaviour
         if (isGrounded && !wasGrounded)
             dashAvailable = true;
 
-        // Read horizontal input
-        float horizontalInput = Input.GetAxis("Horizontal");
+        // Read horizontal input (teclado o mando, solo eje X)
+        float horizontalInput = ReadHorizontalAxis(Input.GetAxis("Horizontal"));
 
         // Calculate target horizontal velocity
         float targetHorizontalVelocity = horizontalInput * horizontalSpeed;
@@ -210,11 +211,18 @@ public class Phase2MovementController : MonoBehaviour
 
     private static int ReadHorizontalDirection()
     {
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float horizontalInput = ReadHorizontalAxis(Input.GetAxisRaw("Horizontal"));
         if (Mathf.Abs(horizontalInput) <= 0.01f)
             return 0;
 
         return horizontalInput > 0f ? 1 : -1;
+    }
+
+    // Usa el mayor valor entre el eje legacy (teclado) y el X del stick izquierdo (mando).
+    private static float ReadHorizontalAxis(float legacyAxis)
+    {
+        float padX = GameInput.IsInitialized ? GameInput.Move.x : 0f;
+        return Mathf.Abs(padX) > Mathf.Abs(legacyAxis) ? padX : legacyAxis;
     }
 
     // === Public API ===

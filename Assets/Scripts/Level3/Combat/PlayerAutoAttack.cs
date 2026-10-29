@@ -42,6 +42,38 @@ public class PlayerAutoAttack : MonoBehaviour
 
     private bool fatalErrorDisabled = false;
 
+    private const float MouseMoveThresholdSqr = 1f;
+    private Vector2 lastPadAim = Vector2.right;
+    private bool aimingWithPad = false;
+    private bool mouseUsedThisSession = false;
+
+    // [DIAG] temporal: registra solo cambios de estado y una muestra cada 0.5 s con el stick inclinado.
+    private bool diagStickActive;
+    private bool diagAimingWithPad;
+    private bool diagMouseUsed;
+    private int diagPadCount = -1;
+    private float diagNextSampleTime;
+
+    private void DiagLogAim(Vector2 stick)
+    {
+        bool stickActive = stick != Vector2.zero;
+        int pads = Gamepad.all.Count;
+        bool changed = stickActive != diagStickActive || aimingWithPad != diagAimingWithPad
+            || mouseUsedThisSession != diagMouseUsed || pads != diagPadCount;
+        bool sample = stickActive && Time.unscaledTime >= diagNextSampleTime;
+
+        if (changed || sample)
+        {
+            Debug.Log($"[DIAG Aim] stick={stick} mag={stick.magnitude:F2} pads={pads} aimingWithPad={aimingWithPad} mouseUsed={mouseUsedThisSession} lastPadAim={lastPadAim}", this);
+            diagNextSampleTime = Time.unscaledTime + 0.5f;
+        }
+
+        diagStickActive = stickActive;
+        diagAimingWithPad = aimingWithPad;
+        diagMouseUsed = mouseUsedThisSession;
+        diagPadCount = pads;
+    }
+
     void Awake()
     {
         if (projectilePrefab == null)
@@ -61,6 +93,11 @@ public class PlayerAutoAttack : MonoBehaviour
     {
         if (fatalErrorDisabled) return;
 
+        // Checked before the cooldown so mouse movement during a cooldown is not missed.
+        Mouse mouse = Mouse.current;
+        UpdateAimSource(mouse);
+        DiagLogAim(GameInput.Aim); // [DIAG] temporal
+
         if (cooldownTimer > 0f)
         {
             cooldownTimer -= Time.deltaTime;
@@ -69,14 +106,20 @@ public class PlayerAutoAttack : MonoBehaviour
 
         Vector2 spawnPos = (projectileSpawnPoint != null) ? (Vector2)projectileSpawnPoint.position : (Vector2)transform.position;
         Vector2 dir = transform.right;
-        Camera mainCamera = Camera.main;
-        Mouse mouse = Mouse.current;
-        if (mainCamera != null && mouse != null)
+        if (aimingWithPad)
         {
-            Vector3 mouseScreenPos = mouse.position.ReadValue();
-            mouseScreenPos.z = Mathf.Abs(mainCamera.transform.position.z - transform.position.z);
-            Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(mouseScreenPos);
-            dir = (Vector2)mouseWorldPos - (Vector2)transform.position;
+            dir = lastPadAim;
+        }
+        else
+        {
+            Camera mainCamera = Camera.main;
+            if (mainCamera != null && mouse != null)
+            {
+                Vector3 mouseScreenPos = mouse.position.ReadValue();
+                mouseScreenPos.z = Mathf.Abs(mainCamera.transform.position.z - transform.position.z);
+                Vector3 mouseWorldPos = mainCamera.ScreenToWorldPoint(mouseScreenPos);
+                dir = (Vector2)mouseWorldPos - (Vector2)transform.position;
+            }
         }
         if (dir.sqrMagnitude <= 0f) dir = transform.right;
         dir.Normalize();
@@ -106,6 +149,34 @@ public class PlayerAutoAttack : MonoBehaviour
             AudioHub.Instance.PlayPlayerShoot();
 
         cooldownTimer = attackInterval;
+    }
+
+    // A deflected stick takes priority. Mouse movement or clicks switch back to mouse aim.
+    // Until the mouse is used, a connected gamepad is the default aim source, so an idle cursor cannot override it.
+    private void UpdateAimSource(Mouse mouse)
+    {
+        Vector2 stick = GameInput.Aim;
+        if (stick != Vector2.zero)
+        {
+            lastPadAim = stick.normalized;
+            aimingWithPad = true;
+            return;
+        }
+
+        bool mouseActive = mouse != null &&
+            (mouse.delta.ReadValue().sqrMagnitude > MouseMoveThresholdSqr ||
+             mouse.leftButton.wasPressedThisFrame ||
+             mouse.rightButton.wasPressedThisFrame);
+
+        if (mouseActive)
+        {
+            mouseUsedThisSession = true;
+            aimingWithPad = false;
+        }
+        else if (!mouseUsedThisSession)
+        {
+            aimingWithPad = Gamepad.all.Count > 0;
+        }
     }
 
     public void IncreaseProjectileDamage(int amount)

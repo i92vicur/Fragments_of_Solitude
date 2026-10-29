@@ -10,7 +10,9 @@ Design decisions:
 - Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -58,6 +60,111 @@ public class MainMenuController : MonoBehaviour
 
     [SerializeField, Tooltip("Fallback scene name used if SceneLoader is not present.")]
     private string fallbackPuzzleMenuSceneName = "PuzzleMenu";
+
+    private readonly GamepadHoverBridge gamepadHover = new GamepadHoverBridge();
+    private readonly List<Button> activeButtons = new List<Button>();
+    private GameObject activeListKey;
+    private bool pendingDefaultSelection;
+    private bool navLatched;
+    private GameObject settingsPanel;
+
+    private void Awake()
+    {
+        // La navegación legacy del StandaloneInputModule no lee el D-pad ni el stick; la sustituye GameInput.
+        // Sin esto, el módulo también dispararía Submit por su cuenta y se duplicarían activaciones.
+        GamepadMenuNavigation.EnsureGameInput();
+        GameInput.SetContext(GameInputContext.Menu);
+
+        EventSystem es = FindAnyObjectByType<EventSystem>();
+        if (es != null)
+            es.sendNavigationEvents = false;
+    }
+
+    private void Update()
+    {
+        EventSystem es = EventSystem.current;
+        if (es == null)
+            return;
+
+        BuildActiveButtonList();
+        GameObject listKey = GetActiveListKey();
+        if (listKey != activeListKey)
+        {
+            activeListKey = listKey;
+            pendingDefaultSelection = true;
+        }
+
+        Button selected = null;
+        if (activeButtons.Count > 0)
+        {
+            if (pendingDefaultSelection)
+            {
+                pendingDefaultSelection = false;
+                es.SetSelectedGameObject(activeButtons[0].gameObject);
+            }
+
+            // Sin selección y sin navegación (p. ej. clic en zona vacía) no se reselecciona automáticamente.
+            if (es.currentSelectedGameObject != null || GamepadMenuNavigation.NavigateActive)
+                selected = GamepadMenuNavigation.UpdateSelection(es, activeButtons, ref navLatched);
+        }
+        else
+        {
+            navLatched = false;
+        }
+
+        if (selected != null && GameInput.Submit.Pressed)
+            GamepadMenuNavigation.Submit(es, selected);
+
+        gamepadHover.Tick(es, selected);
+    }
+
+    // Prioridad: confirmación de nueva partida > panel de ajustes > botones principales.
+    private GameObject GetActiveListKey()
+    {
+        if (newGameConfirmationPanel != null && newGameConfirmationPanel.activeInHierarchy)
+            return newGameConfirmationPanel;
+
+        if (settingsPanel == null)
+            settingsPanel = FindInactiveChild("SettingsPanel");
+
+        if (settingsPanel != null && settingsPanel.activeInHierarchy)
+            return settingsPanel;
+
+        Transform buttonsPanel = transform.Find(ButtonsPanelPath);
+        return buttonsPanel != null ? buttonsPanel.gameObject : null;
+    }
+
+    private void BuildActiveButtonList()
+    {
+        activeButtons.Clear();
+
+        GameObject key = GetActiveListKey();
+        if (key == null)
+            return;
+
+        Button[] buttons = key.GetComponentsInChildren<Button>();
+
+        foreach (Button button in buttons)
+        {
+            if (button.interactable)
+                activeButtons.Add(button);
+        }
+
+        // Cancel primero: una pulsación accidental de A tras abrir la confirmación no inicia la partida.
+        if (key == newGameConfirmationPanel)
+            activeButtons.Sort((a, b) => (b.name.Contains("Cancel") ? 1 : 0) - (a.name.Contains("Cancel") ? 1 : 0));
+    }
+
+    private GameObject FindInactiveChild(string objectName)
+    {
+        foreach (Transform child in transform.GetComponentsInChildren<Transform>(true))
+        {
+            if (child.name == objectName)
+                return child.gameObject;
+        }
+
+        return null;
+    }
 
     private void Start()
     {

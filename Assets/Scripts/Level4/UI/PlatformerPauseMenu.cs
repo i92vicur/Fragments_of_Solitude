@@ -10,6 +10,7 @@ Design decisions:
 - Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -24,17 +25,27 @@ public class PlatformerPauseMenu : MonoBehaviour
 
     private GameObject panel;
     private GameObject openButton;
+    private readonly List<Button> panelButtons = new List<Button>();
+    private readonly GamepadHoverBridge gamepadHover = new GamepadHoverBridge();
+    private bool navLatched;
 
     private void Awake()
     {
+        GamepadMenuNavigation.EnsureGameInput();
         BuildUi();
         SetVisible(false);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(pauseKey))
+        bool togglePressed = Input.GetKeyDown(pauseKey)
+            || (GameInput.IsInitialized && GameInput.Pause.Pressed);
+
+        if (togglePressed)
             TogglePause();
+
+        if (panel != null && panel.activeSelf)
+            HandleMenuInput();
     }
 
     private void OnDestroy()
@@ -98,8 +109,22 @@ public class PlatformerPauseMenu : MonoBehaviour
         background.color = Color.white;
 
         CreateText("Title", panel.transform, "PAUSE MENU", new Vector2(0f, 100f), 34, FontStyle.Normal);
-        CreateButton("Continue", panel.transform, "Resume", new Vector2(0f, -5f), Continue);
-        CreateButton("MainMenu", panel.transform, "Main Menu", new Vector2(0f, -110f), ReturnToMainMenu);
+        panelButtons.Add(CreateButton("Continue", panel.transform, "Resume", new Vector2(0f, -5f), Continue).GetComponent<Button>());
+        panelButtons.Add(CreateButton("MainMenu", panel.transform, "Main Menu", new Vector2(0f, -110f), ReturnToMainMenu).GetComponent<Button>());
+
+        foreach (Button button in panelButtons)
+            GamepadMenuNavigation.ApplySelectionStyle(button);
+    }
+
+    // Arriba/abajo mueve la selección y A activa el botón (mismo esquema que Level5PauseMenu).
+    private void HandleMenuInput()
+    {
+        EventSystem es = EventSystem.current;
+        Button selected = GamepadMenuNavigation.UpdateSelection(es, panelButtons, ref navLatched);
+        gamepadHover.Tick(es, selected);
+
+        if (selected != null && GameInput.Submit.Pressed)
+            GamepadMenuNavigation.Submit(es, selected);
     }
 
     private void TogglePause()
@@ -141,16 +166,25 @@ public class PlatformerPauseMenu : MonoBehaviour
 
         if (controlHintPanel != null)
             controlHintPanel.SetActive(visible);
+
+        navLatched = false;
+        GamepadMenuNavigation.ClearSelection(EventSystem.current);
+
+        if (GameInput.IsInitialized)
+            GameInput.SetContext(visible || PauseManager.Instance.IsPaused ? GameInputContext.Menu : GameInputContext.Gameplay);
     }
 
+    // Desactiva la navegación y Submit legacy del StandaloneInputModule para no duplicar activaciones con GameInput.
     private static void EnsureEventSystem()
     {
-        if (FindAnyObjectByType<EventSystem>() != null)
-            return;
+        if (FindAnyObjectByType<EventSystem>() == null)
+        {
+            GameObject eventSystemObject = new GameObject("EventSystem");
+            eventSystemObject.AddComponent<EventSystem>();
+            eventSystemObject.AddComponent<StandaloneInputModule>();
+        }
 
-        GameObject eventSystemObject = new GameObject("EventSystem");
-        eventSystemObject.AddComponent<EventSystem>();
-        eventSystemObject.AddComponent<StandaloneInputModule>();
+        FindAnyObjectByType<EventSystem>().sendNavigationEvents = false;
     }
 
     private static Font GetPauseMenuFont()

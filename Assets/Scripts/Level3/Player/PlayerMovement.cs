@@ -27,24 +27,29 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         // Ensure the Rigidbody2D does not rotate during physics
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+        EnsureGameplayInput();
     }
 
     void Update()
     {
-        // Read input via the new Input System (Keyboard)
-        moveInput = Vector2.zero;
-        var kb = Keyboard.current;
-        if (kb != null)
-        {
-            if (kb.wKey.isPressed || kb.upArrowKey.isPressed) moveInput.y += 1f;
-            if (kb.sKey.isPressed || kb.downArrowKey.isPressed) moveInput.y -= 1f;
-            if (kb.aKey.isPressed || kb.leftArrowKey.isPressed) moveInput.x -= 1f;
-            if (kb.dKey.isPressed || kb.rightArrowKey.isPressed) moveInput.x += 1f;
-        }
+        // Movement from GameInput: keyboard (WASD and arrows) and the gamepad left stick
+        moveInput = GameInput.Move;
 
         // Normalize diagonal movement so speed is consistent in all directions
         if (moveInput.sqrMagnitude > 1f)
             moveInput = moveInput.normalized;
+    }
+
+    // Initializes GameInput once with the project's actions asset and enables the gameplay map.
+    private static void EnsureGameplayInput()
+    {
+        if (!GameInput.IsInitialized)
+        {
+            GameInput.Initialize(InputSystem.actions);
+        }
+
+        GameInput.SetContext(GameInputContext.Gameplay);
     }
 
     void FixedUpdate()

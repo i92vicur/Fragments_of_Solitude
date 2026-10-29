@@ -16,10 +16,6 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class PlayerBossMegaAttack : MonoBehaviour
 {
-    [Header("Input")]
-    [SerializeField, Tooltip("Key used to activate the boss mega attack.")]
-    private KeyCode activationKey = KeyCode.U;
-
     [Header("Radial Burst")]
     [SerializeField, Tooltip("Number of radial layers to emit.")]
     private int radialLayerCount = 3;
@@ -46,7 +42,6 @@ public class PlayerBossMegaAttack : MonoBehaviour
 
     private void OnValidate()
     {
-        if (activationKey == KeyCode.None) activationKey = KeyCode.U;
         if (radialLayerCount < 1) radialLayerCount = 1;
         if (projectileSpeed <= 0f) projectileSpeed = 0.1f;
         if (delayBetweenLayers < 0f) delayBetweenLayers = 0f;
@@ -92,31 +87,42 @@ public class PlayerBossMegaAttack : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(activationKey))
+        // Pressed solo es true en el fotograma de la pulsación, así que mantener el botón no repite el ataque.
+        if (GameInput.Special.Pressed)
+        {
+            Debug.Log($"[DIAG Special] Special.Pressed=true ctx={GameInput.Context}", this); // [DIAG] temporal
             TryActivateMegaAttack();
+        }
+    }
+
+    // [DIAG] temporal: registra la condición que impide la activación.
+    private bool DiagFail(string reason)
+    {
+        Debug.Log($"[DIAG Special] activación bloqueada: {reason}", this);
+        return false;
     }
 
     public bool TryActivateMegaAttack()
     {
-        if (activeBurstCoroutine != null) return false;
-        if (bossAttackPieces == null || autoAttack == null) return false;
+        if (activeBurstCoroutine != null) return DiagFail("ráfaga ya activa");
+        if (bossAttackPieces == null || autoAttack == null) return DiagFail("falta PlayerBossAttackPieces o PlayerAutoAttack");
 
         if (enemySpawner == null)
             enemySpawner = FindAnyObjectByType<EnemySpawner>();
 
-        if (enemySpawner == null || !enemySpawner.IsBossEncounterActive)
-            return false;
+        if (enemySpawner == null) return DiagFail("EnemySpawner no encontrado");
+        if (!enemySpawner.IsBossEncounterActive) return DiagFail("IsBossEncounterActive = false");
 
         GameObject projectilePrefab = autoAttack.GetProjectilePrefab();
         if (projectilePrefab == null)
         {
             Debug.LogWarning("PlayerBossMegaAttack: Player projectile prefab is missing, cannot activate mega attack.", this);
-            return false;
+            return DiagFail("prefab de proyectil nulo");
         }
 
         bool consumed = bossAttackPieces.TryConsumePieces(PlayerBossAttackPieces.RequiredPiecesForMegaAttack);
         if (!consumed)
-            return false;
+            return DiagFail($"TryConsumePieces({PlayerBossAttackPieces.RequiredPiecesForMegaAttack}) falló (piezas insuficientes)");
 
         Vector2 burstOrigin = transform.position;
         activeBurstCoroutine = StartCoroutine(FireBurstRoutine(burstOrigin, projectilePrefab, autoAttack.GetAdditionalProjectileDamage()));

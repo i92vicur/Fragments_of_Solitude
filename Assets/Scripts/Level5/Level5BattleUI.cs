@@ -11,6 +11,8 @@ Design decisions:
 */
 
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 [DisallowMultipleComponent]
@@ -72,6 +74,14 @@ public class Level5BattleUI : MonoBehaviour
         if (defendButton != null) defendButton.onClick.AddListener(() => ChooseAction(DefendAction));
         if (itemButton != null) itemButton.onClick.AddListener(() => ChooseAction(UseItemAction));
         if (magicButton != null) magicButton.onClick.AddListener(() => ChooseAction(MagicAction));
+
+        GamepadMenuNavigation.EnsureGameInput();
+
+        // Evita que el botón A (Submit legacy) ejecute también el botón de combate seleccionado.
+        // El ratón sigue funcionando porque depende de eventos de puntero, no de navegación.
+        EventSystem eventSystem = FindAnyObjectByType<EventSystem>();
+        if (eventSystem != null)
+            eventSystem.sendNavigationEvents = false;
     }
 
     private void OnEnable()
@@ -101,6 +111,34 @@ public class Level5BattleUI : MonoBehaviour
     private void Start()
     {
         Refresh();
+    }
+
+    private void Update()
+    {
+        HandleGamepadCombatInput();
+    }
+
+    // B = Attack, X = Defend, A = Use Item, Y = Magic. Solo se procesa un botón por fotograma.
+    // Pasa por ChooseAction, igual que el clic, así que las comprobaciones de turno y pausa se mantienen.
+    private void HandleGamepadCombatInput()
+    {
+        string actionName = null;
+        Button button = null;
+
+        foreach (Gamepad pad in Gamepad.all)
+        {
+            if (pad.buttonEast.wasPressedThisFrame) { actionName = AttackAction; button = attackButton; }
+            else if (pad.buttonWest.wasPressedThisFrame) { actionName = DefendAction; button = defendButton; }
+            else if (pad.buttonSouth.wasPressedThisFrame) { actionName = UseItemAction; button = itemButton; }
+            else if (pad.buttonNorth.wasPressedThisFrame) { actionName = MagicAction; button = magicButton; }
+
+            if (actionName != null)
+                break;
+        }
+
+        // Un botón no interactuable (p. ej. MAGIC fuera del turno del Mago) no hace nada, igual que con el ratón
+        if (actionName != null && button != null && button.interactable)
+            ChooseAction(actionName);
     }
 
     private void ChooseAction(string actionName)

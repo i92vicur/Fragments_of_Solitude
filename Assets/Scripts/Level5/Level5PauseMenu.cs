@@ -10,6 +10,7 @@ Design decisions:
 - Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -22,17 +23,28 @@ public class Level5PauseMenu : MonoBehaviour
 
     private GameObject panel;
     private GameObject openButton;
+    private Level5BattleController battleController;
+    private readonly List<Button> panelButtons = new List<Button>();
+    private bool navLatched;
 
     private void Awake()
     {
+        GamepadMenuNavigation.EnsureGameInput();
+        battleController = FindAnyObjectByType<Level5BattleController>();
         BuildUi();
         SetVisible(false);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(pauseKey))
+        bool togglePressed = Input.GetKeyDown(pauseKey)
+            || (GameInput.IsInitialized && GameInput.Pause.Pressed);
+
+        if (togglePressed)
             TogglePause();
+
+        if (panel != null && panel.activeSelf)
+            HandleMenuInput();
     }
 
     private void OnDestroy()
@@ -74,13 +86,31 @@ public class Level5PauseMenu : MonoBehaviour
         background.color = new Color(0f, 0f, 0f, 0.82f);
 
         CreateText("Title", panel.transform, "PAUSE MENU", new Vector2(0f, 130f), 34, FontStyle.Bold);
-        CreateButton("Resume", panel.transform, "RESUME", new Vector2(0f, 35f), Resume);
-        CreateButton("Restart", panel.transform, "RESTART", new Vector2(0f, -55f), Restart);
-        CreateButton("MainMenu", panel.transform, "MAIN MENU", new Vector2(0f, -145f), ReturnToMainMenu);
+        panelButtons.Add(CreateButton("Resume", panel.transform, "RESUME", new Vector2(0f, 35f), Resume).GetComponent<Button>());
+        panelButtons.Add(CreateButton("Restart", panel.transform, "RESTART", new Vector2(0f, -55f), Restart).GetComponent<Button>());
+        panelButtons.Add(CreateButton("MainMenu", panel.transform, "MAIN MENU", new Vector2(0f, -145f), ReturnToMainMenu).GetComponent<Button>());
+
+        foreach (Button button in panelButtons)
+            GamepadMenuNavigation.ApplySelectionStyle(button);
+    }
+
+    // Arriba/abajo mueve la selección, A la activa y B reanuda (como en el nivel 2).
+    private void HandleMenuInput()
+    {
+        EventSystem es = EventSystem.current;
+        Button selected = GamepadMenuNavigation.UpdateSelection(es, panelButtons, ref navLatched);
+
+        if (GameInput.Submit.Pressed && selected != null)
+            GamepadMenuNavigation.Submit(es, selected);
+        else if (GameInput.Cancel.Pressed)
+            Resume();
     }
 
     private void TogglePause()
     {
+        if (battleController != null && battleController.State != Level5BattleController.BattleState.InProgress)
+            return;
+
         if (PauseManager.Instance.IsPausedFor(PauseManager.PauseReason.Level5Menu))
             Resume();
         else if (!PauseManager.Instance.IsPaused)
@@ -134,6 +164,12 @@ public class Level5PauseMenu : MonoBehaviour
 
         if (openButton != null)
             openButton.SetActive(!visible);
+
+        navLatched = false;
+        GamepadMenuNavigation.ClearSelection(EventSystem.current);
+
+        if (GameInput.IsInitialized)
+            GameInput.SetContext(visible || PauseManager.Instance.IsPaused ? GameInputContext.Menu : GameInputContext.Gameplay);
     }
 
     private static void EnsureEventSystem()

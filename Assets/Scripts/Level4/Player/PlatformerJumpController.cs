@@ -57,6 +57,8 @@ public class PlatformerJumpController : MonoBehaviour
     private PlatformerPlayerController playerState;
 
     private bool spaceHeldLastFrame;
+    private bool padJumpBlockedUntilRelease;
+    private bool pauseActiveLastFrame;
     private bool chargeReleaseQueued;
     private float chargeTimer;
     private bool charging;
@@ -136,8 +138,22 @@ public class PlatformerJumpController : MonoBehaviour
         if (playerState != null && playerState.JustLanded)
             SetDashUsedThisJump(false);
 
-        bool spaceHeld = Input.GetKey(KeyCode.Space);
+        bool paused = PauseManager.Instance != null && PauseManager.Instance.IsPaused;
+        bool padJumpPressed = Level4GamepadInput.IsJumpHeld();
+
+        // Una A mantenida al reanudar (p. ej. al elegir Resume) no debe iniciar una carga.
+        if (pauseActiveLastFrame && !paused && padJumpPressed)
+            padJumpBlockedUntilRelease = true;
+        if (!padJumpPressed)
+            padJumpBlockedUntilRelease = false;
+        pauseActiveLastFrame = paused;
+
+        bool padJumpHeld = padJumpPressed && !padJumpBlockedUntilRelease && (charging || !paused);
+        bool spaceHeld = Input.GetKey(KeyCode.Space) || padJumpHeld;
+
         if (Input.GetKeyDown(dashKey) && CanDash)
+            dashQueued = true;
+        if (!paused && Level4GamepadInput.DashPressedThisFrame() && CanDash)
             dashQueued = true;
 
         int currentHorizontalDirection = ReadHorizontalDirection();
@@ -290,8 +306,9 @@ public class PlatformerJumpController : MonoBehaviour
 
     private int ReadHorizontalDirection()
     {
-        bool leftHeld = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
-        bool rightHeld = Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);
+        float padX = GameInput.IsInitialized ? GameInput.Move.x : 0f;
+        bool leftHeld = Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow) || padX < -0.5f;
+        bool rightHeld = Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow) || padX > 0.5f;
 
         if (leftHeld == rightHeld)
             return 0;

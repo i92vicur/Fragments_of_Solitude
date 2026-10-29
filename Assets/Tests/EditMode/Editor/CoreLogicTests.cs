@@ -304,6 +304,96 @@ public class CoreLogicTests
     }
 
     [Test]
+    public void SettingsManager_SetWindowSize_AcceptsAllowedSizesAndPersists()
+    {
+        ResetSettingsManager();
+        SettingsManager settings = SettingsManager.Instance;
+
+        foreach (Vector2Int size in SettingsManager.AllowedWindowSizes)
+        {
+            Assert.That(settings.SetWindowSize(size.x, size.y), Is.True);
+            Assert.That(settings.WindowSize, Is.EqualTo(size));
+            Assert.That(PlayerPrefs.GetInt(SettingsManager.WindowWidthKey), Is.EqualTo(size.x));
+            Assert.That(PlayerPrefs.GetInt(SettingsManager.WindowHeightKey), Is.EqualTo(size.y));
+        }
+    }
+
+    [Test]
+    public void SettingsManager_SetWindowSize_RejectsUnknownNegativeAndZeroSizes()
+    {
+        ResetSettingsManager();
+        SettingsManager settings = SettingsManager.Instance;
+        Vector2Int before = settings.WindowSize;
+
+        Assert.That(settings.SetWindowSize(800, 600), Is.False);
+        Assert.That(settings.SetWindowSize(-960, 540), Is.False);
+        Assert.That(settings.SetWindowSize(0, 0), Is.False);
+        Assert.That(settings.SetWindowSize(1920, 0), Is.False);
+        Assert.That(settings.WindowSize, Is.EqualTo(before));
+        Assert.That(PlayerPrefs.HasKey(SettingsManager.WindowWidthKey), Is.False);
+    }
+
+    [Test]
+    public void SettingsManager_WindowSize_SurvivesReload()
+    {
+        ResetSettingsManager();
+        SettingsManager.Instance.SetWindowSize(1280, 720);
+
+        RestartSettingsManager();
+
+        Assert.That(SettingsManager.Instance.WindowSize, Is.EqualTo(new Vector2Int(1280, 720)));
+    }
+
+    [Test]
+    public void SettingsManager_Fullscreen_DoesNotAlterPreferredWindowSize()
+    {
+        ResetSettingsManager();
+        SettingsManager settings = SettingsManager.Instance;
+        settings.SetWindowSize(960, 540);
+
+        settings.SetFullscreen(true);
+        Assert.That(settings.WindowSize, Is.EqualTo(new Vector2Int(960, 540)));
+        Assert.That(PlayerPrefs.GetInt(SettingsManager.WindowWidthKey), Is.EqualTo(960));
+
+        RestartSettingsManager();
+        Assert.That(SettingsManager.Instance.Fullscreen, Is.True);
+        Assert.That(SettingsManager.Instance.WindowSize, Is.EqualTo(new Vector2Int(960, 540)));
+    }
+
+    [Test]
+    public void SettingsManager_MissingOrInvalidWindowSize_FallsBackToDefault()
+    {
+        ResetSettingsManager();
+        Assert.That(SettingsManager.Instance.WindowSize, Is.EqualTo(SettingsManager.DefaultWindowSize));
+
+        PlayerPrefs.SetInt(SettingsManager.WindowWidthKey, 999);
+        PlayerPrefs.SetInt(SettingsManager.WindowHeightKey, 777);
+        RestartSettingsManager();
+        Assert.That(SettingsManager.Instance.WindowSize, Is.EqualTo(SettingsManager.DefaultWindowSize));
+
+        PlayerPrefs.SetInt(SettingsManager.WindowWidthKey, 1280);
+        PlayerPrefs.DeleteKey(SettingsManager.WindowHeightKey);
+        RestartSettingsManager();
+        Assert.That(SettingsManager.Instance.WindowSize, Is.EqualTo(SettingsManager.DefaultWindowSize));
+    }
+
+    [Test]
+    public void SettingsManager_WindowSizeChanges_DoNotAlterAudioSettings()
+    {
+        ResetSettingsManager();
+        SettingsManager settings = SettingsManager.Instance;
+        settings.SetMusicVolume(0.3f);
+        settings.SetSfxVolume(0.6f);
+
+        settings.SetWindowSize(1366, 768);
+
+        Assert.That(settings.MusicVolume, Is.EqualTo(0.3f));
+        Assert.That(settings.SfxVolume, Is.EqualTo(0.6f));
+        Assert.That(PlayerPrefs.GetFloat(SettingsManager.MusicVolumeKey), Is.EqualTo(0.3f));
+        Assert.That(PlayerPrefs.GetFloat(SettingsManager.SfxVolumeKey), Is.EqualTo(0.6f));
+    }
+
+    [Test]
     public void SettingsManager_SetMusicVolume_ClampsAndPersists()
     {
         ResetSettingsManager();
@@ -680,7 +770,9 @@ public class CoreLogicTests
         {
             SettingsManager.MusicVolumeKey,
             SettingsManager.SfxVolumeKey,
-            SettingsManager.FullscreenKey
+            SettingsManager.FullscreenKey,
+            SettingsManager.WindowWidthKey,
+            SettingsManager.WindowHeightKey
         })
         {
             PlayerPrefs.DeleteKey(key);
@@ -691,6 +783,24 @@ public class CoreLogicTests
         {
             Object.DestroyImmediate(existing.gameObject);
         }
+    }
+
+    /// <summary>Simulates an application restart: drops the live manager but keeps PlayerPrefs so it reloads from them.</summary>
+    private static void RestartSettingsManager()
+    {
+        var instanceField = typeof(SettingsManager).GetField("instance", BindingFlags.Static | BindingFlags.NonPublic);
+        instanceField?.SetValue(null, null);
+
+        SettingsManager existing = Object.FindAnyObjectByType<SettingsManager>();
+        if (existing != null)
+        {
+            Object.DestroyImmediate(existing.gameObject);
+        }
+
+        // Awake does not run for AddComponent in EditMode, so invoke the load step explicitly.
+        SettingsManager restarted = SettingsManager.Instance;
+        var load = typeof(SettingsManager).GetMethod("Load", BindingFlags.Instance | BindingFlags.NonPublic);
+        load?.Invoke(restarted, null);
     }
 
     private static void ResetGameProgressManager()

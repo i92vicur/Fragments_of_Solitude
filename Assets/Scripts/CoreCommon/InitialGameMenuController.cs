@@ -39,6 +39,8 @@ public class InitialGameMenuController : MonoBehaviour
     private RectTransform crystalRightRect;
     private Image crystalLeftImage;
     private Image crystalRightImage;
+    private readonly GamepadHoverBridge gamepadHover = new GamepadHoverBridge();
+    private bool pendingDefaultSelection;
 
     private const string Level0SceneName = "Level0";
     private const string MainMenuSceneName = "MainMenu";
@@ -58,11 +60,42 @@ public class InitialGameMenuController : MonoBehaviour
         WireButtons();
         BindHoverCrystalEvents();
         UpdateLoadGameButtonState();
+        pendingDefaultSelection = true;
     }
 
     private void OnDisable()
     {
         UnwireButtons();
+        pendingDefaultSelection = false;
+    }
+
+    private void Update()
+    {
+        EventSystem es = EventSystem.current;
+        if (es == null)
+            return;
+
+        if (pendingDefaultSelection)
+        {
+            pendingDefaultSelection = false;
+            SelectDefaultButton(es);
+        }
+
+        Button selectedButton = es.currentSelectedGameObject != null
+            ? es.currentSelectedGameObject.GetComponent<Button>()
+            : null;
+        if (selectedButton != newGameButton && selectedButton != loadGameButton)
+            selectedButton = null;
+
+        gamepadHover.Tick(es, selectedButton);
+    }
+
+    private void SelectDefaultButton(EventSystem es)
+    {
+        if (newGameButton != null && newGameButton.interactable)
+            es.SetSelectedGameObject(newGameButton.gameObject);
+        else if (loadGameButton != null && loadGameButton.interactable)
+            es.SetSelectedGameObject(loadGameButton.gameObject);
     }
 
     private void CacheReferences()

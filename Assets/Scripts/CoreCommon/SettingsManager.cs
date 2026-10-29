@@ -20,10 +20,22 @@ public class SettingsManager : MonoBehaviour
     public const string MusicVolumeKey = "Settings.MusicVolume";
     public const string SfxVolumeKey = "Settings.SfxVolume";
     public const string FullscreenKey = "Settings.Fullscreen";
+    public const string WindowWidthKey = "Settings.WindowWidth";
+    public const string WindowHeightKey = "Settings.WindowHeight";
 
     public const float DefaultMusicVolume = 1f;
     public const float DefaultSfxVolume = 1f;
     public const bool DefaultFullscreen = true;
+    public static readonly Vector2Int DefaultWindowSize = new Vector2Int(1920, 1080);
+
+    /// <summary>Explicit list of windowed sizes the player can choose (all 16:9).</summary>
+    public static readonly Vector2Int[] AllowedWindowSizes =
+    {
+        new Vector2Int(960, 540),
+        new Vector2Int(1280, 720),
+        new Vector2Int(1366, 768),
+        new Vector2Int(1920, 1080)
+    };
 
     public const string MixerResourcePath = "Audio/GameAudioMixer";
     public const string MusicVolumeParameter = "MusicVolume";
@@ -103,10 +115,29 @@ public class SettingsManager : MonoBehaviour
     private float musicVolume = DefaultMusicVolume;
     private float sfxVolume = DefaultSfxVolume;
     private bool fullscreen = DefaultFullscreen;
+    private Vector2Int windowSize = DefaultWindowSize;
 
     public float MusicVolume => musicVolume;
     public float SfxVolume => sfxVolume;
     public bool Fullscreen => fullscreen;
+    public Vector2Int WindowSize => windowSize;
+
+    /// <summary>Starts the manager before the first scene loads so saved display settings apply from the start.</summary>
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    private static void InitializeBeforeFirstScene()
+    {
+        _ = Instance;
+    }
+
+    /// <summary>True when the width and height form one of the allowed window sizes.</summary>
+    public static bool IsAllowedWindowSize(int width, int height)
+    {
+        foreach (Vector2Int size in AllowedWindowSizes)
+        {
+            if (size.x == width && size.y == height) return true;
+        }
+        return false;
+    }
 
     private void Awake()
     {
@@ -177,12 +208,30 @@ public class SettingsManager : MonoBehaviour
         OnSettingsChanged?.Invoke();
     }
 
+    /// <summary>Validates and persists a windowed size, applying it immediately when not in fullscreen. Returns false if the size is not allowed.</summary>
+    public bool SetWindowSize(int width, int height)
+    {
+        if (!IsAllowedWindowSize(width, height)) return false;
+
+        var size = new Vector2Int(width, height);
+        if (windowSize == size) return true;
+
+        windowSize = size;
+        PlayerPrefs.SetInt(WindowWidthKey, windowSize.x);
+        PlayerPrefs.SetInt(WindowHeightKey, windowSize.y);
+        PlayerPrefs.Save();
+        if (!fullscreen) ApplyWindowSize();
+        OnSettingsChanged?.Invoke();
+        return true;
+    }
+
     /// <summary>Restores the default values and persists them.</summary>
     public void ResetToDefaults()
     {
         musicVolume = DefaultMusicVolume;
         sfxVolume = DefaultSfxVolume;
         fullscreen = DefaultFullscreen;
+        windowSize = DefaultWindowSize;
         Save();
         ApplyMusicVolume();
         ApplySfxVolume();
@@ -215,7 +264,21 @@ public class SettingsManager : MonoBehaviour
 
     private void ApplyFullscreen()
     {
-        if (Screen.fullScreen != fullscreen) Screen.fullScreen = fullscreen;
+        if (fullscreen)
+        {
+            if (!Screen.fullScreen) Screen.fullScreen = true;
+            return;
+        }
+
+        ApplyWindowSize();
+    }
+
+    /// <summary>Sets the stored window size in windowed mode. Skips the call when the window already matches.</summary>
+    private void ApplyWindowSize()
+    {
+        if (!Screen.fullScreen && Screen.width == windowSize.x && Screen.height == windowSize.y) return;
+
+        Screen.SetResolution(windowSize.x, windowSize.y, FullScreenMode.Windowed);
     }
 
     private void Load()
@@ -223,6 +286,17 @@ public class SettingsManager : MonoBehaviour
         musicVolume = Mathf.Clamp01(PlayerPrefs.GetFloat(MusicVolumeKey, DefaultMusicVolume));
         sfxVolume = Mathf.Clamp01(PlayerPrefs.GetFloat(SfxVolumeKey, DefaultSfxVolume));
         fullscreen = PlayerPrefs.GetInt(FullscreenKey, DefaultFullscreen ? 1 : 0) != 0;
+        windowSize = LoadWindowSize();
+    }
+
+    /// <summary>Returns the saved window size, or the default when the saved pair is missing or not allowed.</summary>
+    private static Vector2Int LoadWindowSize()
+    {
+        if (!PlayerPrefs.HasKey(WindowWidthKey) || !PlayerPrefs.HasKey(WindowHeightKey)) return DefaultWindowSize;
+
+        int width = PlayerPrefs.GetInt(WindowWidthKey);
+        int height = PlayerPrefs.GetInt(WindowHeightKey);
+        return IsAllowedWindowSize(width, height) ? new Vector2Int(width, height) : DefaultWindowSize;
     }
 
     private void Save()
@@ -230,6 +304,8 @@ public class SettingsManager : MonoBehaviour
         PlayerPrefs.SetFloat(MusicVolumeKey, musicVolume);
         PlayerPrefs.SetFloat(SfxVolumeKey, sfxVolume);
         PlayerPrefs.SetInt(FullscreenKey, fullscreen ? 1 : 0);
+        PlayerPrefs.SetInt(WindowWidthKey, windowSize.x);
+        PlayerPrefs.SetInt(WindowHeightKey, windowSize.y);
         PlayerPrefs.Save();
     }
 }
