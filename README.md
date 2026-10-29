@@ -2,7 +2,7 @@
 
 **Fragments of Solitude** es un videojuego desarrollado en Unity como Trabajo de Fin de Grado de Ingeniería Informática en la Universidad de Córdoba (UCO).
 
-El proyecto explora temas relacionados con la soledad, el rechazo y la depresión mediante una experiencia interactiva que combina combate, resolución de puzles y toma de decisiones. Su propuesta visual se basa principalmente en pixel art 2D, con variaciones estéticas y mecánicas a lo largo de sus niveles.
+El proyecto explora temas relacionados con la soledad, la culpa y la depresión mediante una experiencia interactiva que combina acción, puzzles, combates por turnos y plataformas, con variaciones estéticas y mecánicas a lo largo de sus niveles.
 
 La versión jugable incluye varias experiencias diferenciadas que abarcan desde el combate con ataques a distancia y el enfrentamiento contra jefes hasta puzles lógicos, desafíos de plataformas y combates por turnos. También incorpora sistemas de progresión, habilidades y gestión de ajustes y partidas. 
 
