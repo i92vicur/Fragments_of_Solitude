@@ -620,12 +620,32 @@ public class CoreLogicTests
         Combatant supporter = CreateCombatant("Support", false, 50, 10, 0);
         Level5BattleController controller = CreateBattleController(warrior, enemy, supporter);
 
+        var turnSequence = new List<Combatant>();
+        controller.OnTurnChanged += turnSequence.Add;
+
         SetPrivateField(controller, "currentIndex", 0);
+
+        // The Final Enemy's turn runs automatically, so it ends straight into the Support turn.
         controller.EndCurrentTurn();
-        Assert.That(controller.CurrentCombatant, Is.EqualTo(enemy));
+        Assert.That(turnSequence, Is.EqualTo(new List<Combatant> { enemy, supporter }));
+        Assert.That(controller.CurrentCombatant, Is.EqualTo(supporter));
 
         controller.EndCurrentTurn();
+        Assert.That(controller.CurrentCombatant, Is.EqualTo(warrior));
+    }
+
+    [Test]
+    public void Level5BattleController_EndCurrentTurn_SkipsDeadCombatants()
+    {
+        Combatant warrior = CreateCombatant("Warrior", false, 50, 10, 0);
+        Combatant tank = CreateCombatant("Tank", false, 0, 0, 0);
+        Combatant supporter = CreateCombatant("Support", false, 50, 10, 0);
+        Level5BattleController controller = CreateBattleController(warrior, tank, supporter);
+
+        controller.EndCurrentTurn();
+
         Assert.That(controller.CurrentCombatant, Is.EqualTo(supporter));
+        Assert.That(controller.CurrentTurnIndex, Is.EqualTo(2));
     }
 
     [Test]
@@ -636,9 +656,10 @@ public class CoreLogicTests
         Combatant enemy = CreateCombatant("Enemy", true, 50, 30, 0);
         Level5BattleController controller = CreateBattleController(warrior, support, enemy);
 
-        // Force current turn to enemy and ensure players have 1 hp so one attack defeats them.
-        warrior.TakeDamage(9);
-        support.TakeDamage(9);
+        // Keep only one living player at 1 hp. The enemy's targeting and second attack are random, so with two
+        // living players the outcome would depend on the roll. With one, the first hit always ends the battle.
+        support.TakeDamage(support.MaxHP);
+        warrior.TakeDamage(warrior.MaxHP - 1);
         SetPrivateField(controller, "currentIndex", 2);
 
         controller.TriggerEnemyAttack();
@@ -648,17 +669,18 @@ public class CoreLogicTests
     [Test]
     public void Level5BattleController_Start_UsesFirstAliveCombatant()
     {
+        // Turn order matches the game: the Final Enemy acts last.
         Combatant warrior = CreateCombatant("Warrior", false, 0, 0, 0);
-        Combatant enemy = CreateCombatant("Enemy", true, 20, 0, 0);
         Combatant support = CreateCombatant("Support", false, 30, 0, 0);
+        Combatant enemy = CreateCombatant("Enemy", true, 20, 0, 0);
 
-        Level5BattleController controller = CreateBattleController(warrior, enemy, support);
+        Level5BattleController controller = CreateBattleController(warrior, support, enemy);
 
-        // Support should be the first alive actor because Warrior is dead.
-        SetPrivateField(controller, "currentIndex", 0);
-        var nextAlive = FindNextLivingCombatantIndex(controller, 0);
-        Assert.That(nextAlive, Is.EqualTo(2));
-        Assert.That(controller.CurrentCombatant, Is.EqualTo(warrior));
+        // Warrior is dead, so Start should move the battle to Support.
+        InvokeStart(controller);
+
+        Assert.That(controller.CurrentTurnIndex, Is.EqualTo(1));
+        Assert.That(controller.CurrentCombatant, Is.EqualTo(support));
     }
 
     [Test]
@@ -728,19 +750,10 @@ public class CoreLogicTests
         return controller;
     }
 
-    private static int FindNextLivingCombatantIndex(Level5BattleController controller, int fromIndex)
+    private static void InvokeStart(Level5BattleController controller)
     {
-        FieldInfo field = typeof(Level5BattleController).GetField("turnOrder", BindingFlags.Instance | BindingFlags.NonPublic);
-        Combatant[] turnOrder = (Combatant[])field.GetValue(controller);
-
-        for (int step = 1; step <= turnOrder.Length; step++)
-        {
-            int candidate = (fromIndex + step) % turnOrder.Length;
-            if (turnOrder[candidate] != null && turnOrder[candidate].IsAlive)
-                return candidate;
-        }
-
-        return -1;
+        MethodInfo start = typeof(Level5BattleController).GetMethod("Start", BindingFlags.Instance | BindingFlags.NonPublic);
+        start.Invoke(controller, null);
     }
 
     private static void SetPrivateField(object target, string fieldName, object value)

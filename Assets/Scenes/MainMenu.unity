@@ -2647,18 +2647,16 @@ MonoBehaviour:
   previewImage: {fileID: 0}
   previewRect: {fileID: 0}
   frames:
-  - {fileID: 9215497060195832391, guid: 13ea4276d6437fe408cf1dfed1d5e6ac, type: 3}
-  - {fileID: 2397229323152904840, guid: 13ea4276d6437fe408cf1dfed1d5e6ac, type: 3}
-  - {fileID: -5816693370927719492, guid: 13ea4276d6437fe408cf1dfed1d5e6ac, type: 3}
-  - {fileID: 5214506512873817652, guid: 13ea4276d6437fe408cf1dfed1d5e6ac, type: 3}
-  - {fileID: 8151181463101421841, guid: 13ea4276d6437fe408cf1dfed1d5e6ac, type: 3}
-  - {fileID: 8190537748934254004, guid: 13ea4276d6437fe408cf1dfed1d5e6ac, type: 3}
-  - {fileID: -796752930247036420, guid: 13ea4276d6437fe408cf1dfed1d5e6ac, type: 3}
-  - {fileID: -7498133842518603627, guid: 13ea4276d6437fe408cf1dfed1d5e6ac, type: 3}
-  - {fileID: -922363298434993005, guid: 13ea4276d6437fe408cf1dfed1d5e6ac, type: 3}
-  - {fileID: -7489480074751672642, guid: 13ea4276d6437fe408cf1dfed1d5e6ac, type: 3}
-  - {fileID: 1541152448, guid: 13ea4276d6437fe408cf1dfed1d5e6ac, type: 3}
-  - {fileID: 1443098502, guid: 13ea4276d6437fe408cf1dfed1d5e6ac, type: 3}
+  - {fileID: 9215497060195832391, guid: bfd5806e26e1552448d0f28740731fb9, type: 3}
+  - {fileID: 2397229323152904840, guid: bfd5806e26e1552448d0f28740731fb9, type: 3}
+  - {fileID: -5816693370927719492, guid: bfd5806e26e1552448d0f28740731fb9, type: 3}
+  - {fileID: 5214506512873817652, guid: bfd5806e26e1552448d0f28740731fb9, type: 3}
+  - {fileID: 8151181463101421841, guid: bfd5806e26e1552448d0f28740731fb9, type: 3}
+  - {fileID: 8190537748934254004, guid: bfd5806e26e1552448d0f28740731fb9, type: 3}
+  - {fileID: -796752930247036420, guid: bfd5806e26e1552448d0f28740731fb9, type: 3}
+  - {fileID: -7498133842518603627, guid: bfd5806e26e1552448d0f28740731fb9, type: 3}
+  - {fileID: -922363298434993005, guid: bfd5806e26e1552448d0f28740731fb9, type: 3}
+  - {fileID: -7489480074751672642, guid: bfd5806e26e1552448d0f28740731fb9, type: 3}
   frameRate: 7
   isHovering: 0
   frameIndex: 0
@@ -2753,7 +2751,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 20}
+  m_SizeDelta: {x: 0, y: 32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1583973368
 MonoBehaviour:
@@ -3496,12 +3494,12 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 63d087ac8070916498802ecd9094f6cd, type: 3}
-    m_FontSize: 25
+    m_FontSize: 17
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -4563,11 +4561,11 @@ MonoBehaviour:
   previewImage: {fileID: 0}
   previewRect: {fileID: 0}
   frames:
-  - {fileID: 4076674202998413374, guid: 114f2a6fd0d005d49ae9481cd0312488, type: 3}
-  - {fileID: -3986314339313033231, guid: 114f2a6fd0d005d49ae9481cd0312488, type: 3}
-  - {fileID: -5115721873438543961, guid: 114f2a6fd0d005d49ae9481cd0312488, type: 3}
-  - {fileID: -8167006624727150095, guid: 114f2a6fd0d005d49ae9481cd0312488, type: 3}
-  - {fileID: -6273272559210316762, guid: 114f2a6fd0d005d49ae9481cd0312488, type: 3}
+  - {fileID: 3726783782209083892, guid: 114f2a6fd0d005d49ae9481cd0312488, type: 3}
+  - {fileID: -7164876021346240573, guid: 114f2a6fd0d005d49ae9481cd0312488, type: 3}
+  - {fileID: 3391901549979485626, guid: 114f2a6fd0d005d49ae9481cd0312488, type: 3}
+  - {fileID: -4746992304167054637, guid: 114f2a6fd0d005d49ae9481cd0312488, type: 3}
+  - {fileID: -4198426758034450902, guid: 114f2a6fd0d005d49ae9481cd0312488, type: 3}
   frameRate: 7
   isHovering: 0
   frameIndex: 0

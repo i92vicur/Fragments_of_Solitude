@@ -239,8 +239,8 @@ MonoBehaviour:
   loadGameButton: {fileID: 393292848}
   crystalLeft: {fileID: 0}
   crystalRight: {fileID: 0}
-  crystalLeftSprite: {fileID: 21300000, guid: 34d9f7122b4822541a1d128339fed81b, type: 3}
-  crystalRightSprite: {fileID: 21300000, guid: 34d9f7122b4822541a1d128339fed81b, type: 3}
+  crystalLeftSprite: {fileID: 610679810788409372, guid: 34d9f7122b4822541a1d128339fed81b, type: 3}
+  crystalRightSprite: {fileID: 610679810788409372, guid: 34d9f7122b4822541a1d128339fed81b, type: 3}
   crystalAnimatorController: {fileID: 9100000, guid: 8d013e7dd29985345a26163d7149f127, type: 3}
   crystalHorizontalOffset: 110
   crystalVerticalOffset: 0

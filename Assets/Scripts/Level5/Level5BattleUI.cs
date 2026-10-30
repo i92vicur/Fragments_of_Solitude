@@ -146,6 +146,10 @@ public class Level5BattleUI : MonoBehaviour
         if (battleController == null || !battleController.IsPlayerTurn || battleEndedMessage != null || PauseManager.Instance.IsPaused)
             return;
 
+        // Al clicar, el EventSystem deja el botón como seleccionado y, al volver a ser interactuable,
+        // Selectable aplica su sprite de Selected. Se limpia para que el estado visual no persista entre turnos.
+        GamepadMenuNavigation.ClearSelection(EventSystem.current);
+
         Combatant actor = battleController.CurrentCombatant;
 
         if (actionName == AttackAction)

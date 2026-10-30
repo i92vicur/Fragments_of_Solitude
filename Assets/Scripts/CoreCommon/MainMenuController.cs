@@ -40,7 +40,7 @@ public class MainMenuController : MonoBehaviour
     private const string CompletionColor = "#3CCF4E";
     private const float CompletionLabelOffsetX = 0f;
     private const float CompletionLabelOffsetY = 58f;
-    private const float CompletionLabelWidth = 220f;
+    private const float CompletionLabelWidth = 280f;
     private const float CompletionLabelHeight = 40f;
 
     [SerializeField, Tooltip("SceneLoader in this scene. Auto-found if not assigned.")]
