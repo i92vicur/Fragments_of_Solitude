@@ -11,6 +11,7 @@ Design decisions:
 */
 
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,7 +19,6 @@ using UnityEngine.UI;
 public class Level0DefeatSequence : MonoBehaviour
 {
     [SerializeField] private Level5BattleController battleController;
-    [SerializeField] private float defeatDelay = 1.25f;
     [SerializeField] private float fadeDuration = 0.8f;
     [SerializeField] private string gameOverTitle = "GAME OVER";
     [SerializeField, TextArea] private string gameOverText = "This was never the end. Something has already begun beneath the silence, waiting to be uncovered. The path ahead will not be easy, and not everything lost is truly gone. What seemed like defeat was only the first step of a journey that has yet to reveal itself.";
@@ -29,6 +29,11 @@ public class Level0DefeatSequence : MonoBehaviour
     private Text titleText;
     private Text bodyText;
     private Button startButton;
+
+    private static readonly int DeadStateHash = Animator.StringToHash("Dead");
+
+    // Safety limit so a missing or stalled Dead state can never block the sequence.
+    private const float DeathAnimationTimeout = 3f;
 
     private void Awake()
     {
@@ -97,6 +102,8 @@ public class Level0DefeatSequence : MonoBehaviour
 
     private IEnumerator RunDefeatSequence()
     {
+        yield return WaitForDeathAnimations();
+
         if (fadeCanvasGroup != null)
         {
             fadeCanvasGroup.alpha = 0f;
@@ -149,6 +156,83 @@ public class Level0DefeatSequence : MonoBehaviour
 
             startButton.gameObject.SetActive(true);
         }
+    }
+
+    // Dead is triggered per character by Combatant.OnDied; this only waits for those animations to finish.
+    private IEnumerator WaitForDeathAnimations()
+    {
+        List<Animator> animators = ResolvePlayerAnimators();
+        if (animators.Count == 0)
+        {
+            Debug.LogWarning("Level0DefeatSequence: no valid player Animators found; skipping death animation wait.", this);
+            yield break;
+        }
+
+        float elapsed = 0f;
+        while (true)
+        {
+            bool allFinished = true;
+            foreach (Animator animator in animators)
+            {
+                if (!IsDeathFinished(animator))
+                {
+                    allFinished = false;
+                    break;
+                }
+            }
+
+            if (allFinished)
+                yield break;
+
+            elapsed += Time.unscaledDeltaTime;
+            if (elapsed >= DeathAnimationTimeout)
+            {
+                Debug.LogWarning($"Level0DefeatSequence: death animations did not finish within {DeathAnimationTimeout}s; continuing.", this);
+                yield break;
+            }
+
+            yield return null;
+        }
+    }
+
+    private static List<Animator> ResolvePlayerAnimators()
+    {
+        var animators = new List<Animator>();
+
+        foreach (Combatant combatant in FindObjectsByType<Combatant>(FindObjectsSortMode.None))
+        {
+            if (combatant.IsEnemy)
+                continue;
+
+            Animator animator = combatant.Animator;
+            if (animator == null || animator.runtimeAnimatorController == null)
+            {
+                Debug.LogWarning($"Level0DefeatSequence: '{combatant.CombatantName}' has no Animator with a controller.", combatant);
+                continue;
+            }
+
+            animators.Add(animator);
+        }
+
+        return animators;
+    }
+
+    // A disabled Animator or one that never reached Dead cannot finish, so it must not block the sequence.
+    private static bool IsDeathFinished(Animator animator)
+    {
+        if (!animator.isActiveAndEnabled)
+            return true;
+
+        if (!IsInDeadState(animator))
+            return false;
+
+        return animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f;
+    }
+
+    private static bool IsInDeadState(Animator animator)
+    {
+        AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(0);
+        return info.shortNameHash == DeadStateHash && !animator.IsInTransition(0);
     }
 
     private void EnsureUiExists()

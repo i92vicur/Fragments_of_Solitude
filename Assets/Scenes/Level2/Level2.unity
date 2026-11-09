@@ -4137,7 +4137,6 @@ MonoBehaviour:
   targetLayerMask:
     serializedVersion: 2
     m_Bits: 64
-  requiredTargetTag: Enemy
   minAttackInterval: 0.1
 --- !u!114 &652825028
 MonoBehaviour:
@@ -4194,7 +4193,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activationKey: 117
   radialLayerCount: 3
-  projectilesPerLayer: 080000000c00000010000000
+  projectilesPerLayer: 100000001800000020000000
   projectileSpeed: 14
   delayBetweenLayers: 0.08
   angularOffsetBetweenLayers: 7.5
@@ -9469,7 +9468,7 @@ MonoBehaviour:
   gameplaySceneName: Main
   platformerSceneName: PlatformerLevel3
   level5SceneName: Level5
-  phase2SceneName: Level3_Phase2
+  phase2SceneName: Level2_Phase2
   puzzleMenuSceneName: PuzzleMenu
   slidingPuzzle4x4SceneName: SlidingPuzzle4x4
   longestPathPuzzleSceneName: LongestPathPuzzle
@@ -10456,7 +10455,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneLoader: {fileID: 1827542741}
-  phase2SceneName: Level3_Phase2
+  phase2SceneName: Level2_Phase2
   visual: {fileID: 2143369051}
 --- !u!212 &2143369051
 SpriteRenderer:

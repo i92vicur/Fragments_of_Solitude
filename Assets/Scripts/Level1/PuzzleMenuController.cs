@@ -10,16 +10,36 @@ Design decisions:
 - Uses the Unity lifecycle and lightweight state checks to keep behavior readable and easy to debug.
 */
 
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 [DisallowMultipleComponent]
 public class PuzzleMenuController : MonoBehaviour
 {
+    // Estático para sobrevivir a la carga de un puzzle y volver a este menú; se reinicia al cerrar el juego.
+    private static int lastSelectedIndex;
+
     [SerializeField] private SceneLoader sceneLoader;
 
+    [Header("Button Colors")]
+    [SerializeField] private Color slidingPuzzleButtonColor = new Color(0.12f, 0.12f, 0.12f, 1f);
+    [SerializeField] private Color longestPathButtonColor = new Color(0.12f, 0.12f, 0.12f, 1f);
+    [SerializeField] private Color constraintPuzzleButtonColor = new Color(0.12f, 0.12f, 0.12f, 1f);
+    [SerializeField] private Color backToMainMenuButtonColor = new Color(0.12f, 0.12f, 0.12f, 1f);
+
+    [Header("Button Border")]
+    [SerializeField] private Color buttonBorderColor = Color.white;
+    [SerializeField] private float buttonBorderWidth = 3f;
+
     private const string TitleText = "PUZZLE MENU";
+
+    private readonly List<Button> menuButtons = new List<Button>();
+    private readonly GamepadHoverBridge gamepadHover = new GamepadHoverBridge();
+    private bool initialSelectionDone;
+    private bool navLatched;
 
     private void Awake()
     {
@@ -27,6 +47,47 @@ public class PuzzleMenuController : MonoBehaviour
             sceneLoader = FindAnyObjectByType<SceneLoader>();
 
         BuildMenu();
+
+        GamepadMenuNavigation.EnsureGameInput();
+        GameInput.SetContext(GameInputContext.Menu);
+
+        // El StandaloneInputModule de la escena también leería el stick y dispararía Submit; lo desactivamos como en MainMenuController.
+        EventSystem es = FindAnyObjectByType<EventSystem>();
+        if (es != null)
+            es.sendNavigationEvents = false;
+    }
+
+    private void Update()
+    {
+        EventSystem es = EventSystem.current;
+        if (es == null || menuButtons.Count == 0)
+            return;
+
+        if (!initialSelectionDone)
+        {
+            initialSelectionDone = true;
+            int index = Mathf.Clamp(lastSelectedIndex, 0, menuButtons.Count - 1);
+            es.SetSelectedGameObject(menuButtons[index].gameObject);
+        }
+
+        if (GameInput.Cancel.Pressed)
+        {
+            LoadMainMenuScene();
+            return;
+        }
+
+        Button selected = null;
+        // Sin selección y sin navegación (p. ej. clic en zona vacía) no se reselecciona automáticamente.
+        if (es.currentSelectedGameObject != null || GamepadMenuNavigation.NavigateActive)
+            selected = GamepadMenuNavigation.UpdateSelection(es, menuButtons, ref navLatched);
+
+        if (selected != null)
+            lastSelectedIndex = menuButtons.IndexOf(selected);
+
+        if (selected != null && GameInput.Submit.Pressed)
+            GamepadMenuNavigation.Submit(es, selected);
+
+        gamepadHover.Tick(es, selected);
     }
 
     private void BuildMenu()
@@ -46,6 +107,8 @@ public class PuzzleMenuController : MonoBehaviour
         if (existingRoot != null)
             Destroy(existingRoot.gameObject);
 
+        menuButtons.Clear();
+
         GameObject rootGO = new GameObject("PuzzleMenuRoot", typeof(RectTransform));
         rootGO.transform.SetParent(transform, false);
 
@@ -56,10 +119,10 @@ public class PuzzleMenuController : MonoBehaviour
         rootRect.offsetMax = Vector2.zero;
 
         CreateTitle(rootGO.transform);
-        CreateButton(rootGO.transform, "SlidingPuzzleButton", "Sliding Puzzle 4x4", new Vector2(0f, 60f), LoadSlidingPuzzleScene);
-        CreateButton(rootGO.transform, "LongestPathButton", "Longest Path Puzzle", new Vector2(0f, -10f), LoadLongestPathScene);
-        CreateButton(rootGO.transform, "ConstraintPuzzleButton", "Constraint Puzzle", new Vector2(0f, -80f), LoadConstraintPuzzleScene);
-        CreateButton(rootGO.transform, "BackToMainMenuButton", "Back to Main Menu", new Vector2(0f, -150f), LoadMainMenuScene);
+        CreateButton(rootGO.transform, "SlidingPuzzleButton", "Sliding Puzzle 4x4", new Vector2(0f, 90f), slidingPuzzleButtonColor, LoadSlidingPuzzleScene);
+        CreateButton(rootGO.transform, "LongestPathButton", "Longest Path Puzzle", new Vector2(0f, -10f), longestPathButtonColor, LoadLongestPathScene);
+        CreateButton(rootGO.transform, "ConstraintPuzzleButton", "Constraint Puzzle", new Vector2(0f, -110f), constraintPuzzleButtonColor, LoadConstraintPuzzleScene);
+        CreateButton(rootGO.transform, "BackToMainMenuButton", "Back to Main Menu", new Vector2(0f, -240f), backToMainMenuButtonColor, LoadMainMenuScene);
     }
 
     private void CreateTitle(Transform parent)
@@ -71,19 +134,31 @@ public class PuzzleMenuController : MonoBehaviour
         titleRect.anchorMin = new Vector2(0.5f, 1f);
         titleRect.anchorMax = new Vector2(0.5f, 1f);
         titleRect.pivot = new Vector2(0.5f, 1f);
-        titleRect.anchoredPosition = new Vector2(0f, -30f);
+        titleRect.anchoredPosition = new Vector2(0f, -100f);
         titleRect.sizeDelta = new Vector2(600f, 80f);
 
         Text titleText = titleGO.GetComponent<Text>();
         titleText.font = Resources.Load<Font>("Fonts/PressStart2P-Regular");
-        titleText.fontSize = 34;
+        titleText.fontSize = 37;
         titleText.fontStyle = FontStyle.Bold;
         titleText.alignment = TextAnchor.MiddleCenter;
         titleText.color = Color.white;
         titleText.text = TitleText;
     }
 
-    private void CreateButton(Transform parent, string buttonName, string labelText, Vector2 anchoredPosition, UnityEngine.Events.UnityAction callback)
+    private static ColorBlock CreateButtonColors()
+    {
+        ColorBlock colors = ColorBlock.defaultColorBlock;
+        colors.normalColor = Color.white;
+        colors.highlightedColor = new Color(1.3f, 1.3f, 1.3f, 1f);
+        colors.pressedColor = new Color(0.7f, 0.7f, 0.7f, 1f);
+        colors.selectedColor = colors.normalColor;
+        colors.disabledColor = new Color(0.5f, 0.5f, 0.5f, 0.5f);
+        colors.fadeDuration = 0.1f;
+        return colors;
+    }
+
+    private void CreateButton(Transform parent, string buttonName, string labelText, Vector2 anchoredPosition, Color backgroundColor, UnityEngine.Events.UnityAction callback)
     {
         GameObject buttonGO = new GameObject(buttonName, typeof(RectTransform), typeof(Image), typeof(Button));
         buttonGO.transform.SetParent(parent, false);
@@ -92,15 +167,24 @@ public class PuzzleMenuController : MonoBehaviour
         rect.anchorMin = new Vector2(0.5f, 0.5f);
         rect.anchorMax = new Vector2(0.5f, 0.5f);
         rect.pivot = new Vector2(0.5f, 0.5f);
-        rect.sizeDelta = new Vector2(300f, 50f);
+        rect.sizeDelta = new Vector2(420f, 70f);
         rect.anchoredPosition = anchoredPosition;
 
         Image image = buttonGO.GetComponent<Image>();
-        image.color = new Color(0.12f, 0.12f, 0.12f, 1f);
+        image.sprite = RoundedSpriteFactory.Get();
+        image.type = Image.Type.Sliced;
+        image.color = backgroundColor;
+
+        Outline outline = buttonGO.AddComponent<Outline>();
+        outline.effectColor = buttonBorderColor;
+        outline.effectDistance = new Vector2(buttonBorderWidth, buttonBorderWidth);
 
         Button button = buttonGO.GetComponent<Button>();
         button.targetGraphic = image;
+        button.transition = Selectable.Transition.ColorTint;
+        button.colors = CreateButtonColors();
         button.onClick.AddListener(callback);
+        menuButtons.Add(button);
 
         GameObject labelGO = new GameObject("Label", typeof(RectTransform), typeof(Text));
         labelGO.transform.SetParent(buttonGO.transform, false);
@@ -113,7 +197,7 @@ public class PuzzleMenuController : MonoBehaviour
 
         Text label = labelGO.GetComponent<Text>();
         label.font = Resources.Load<Font>("Fonts/PressStart2P-Regular");
-        label.fontSize = 15;
+        label.fontSize = 17;
         label.fontStyle = FontStyle.Normal;
         label.alignment = TextAnchor.MiddleCenter;
         label.color = Color.white;

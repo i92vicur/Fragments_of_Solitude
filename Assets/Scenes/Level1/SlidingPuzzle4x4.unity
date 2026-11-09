@@ -285,7 +285,7 @@ RectTransform:
   m_GameObject: {fileID: 100000100}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 100001201}
@@ -310,7 +310,6 @@ Canvas:
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
-  m_Iso: 200
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
@@ -318,35 +317,8 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_Anamorphism: 0
-  m_SensorSize: {x: 36, y: 24}
-  m_LensShift: {x: 0, y: 0}
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 1
-  orthographic size: 5
-  m_Depth: -1
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
+  m_SortingOrder: 0
   m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
 --- !u!114 &100000103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -641,6 +613,8 @@ MonoBehaviour:
   tileSize: {x: 140, y: 140}
   tileSpacing: {x: 12, y: 12}
   boardOffset: {x: 0, y: -40}
+  slideDurationSeconds: 0.15
+  shuffleMoveCount: 120
 --- !u!1 &100003000
 GameObject:
   m_ObjectHideFlags: 0
@@ -755,9 +729,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   puzzleBoard: {fileID: 100002002}
   sceneLoader: {fileID: 100005002}
-  movesLabelPrefix: Moves: 
+  movesLabelPrefix: 
   restartButtonLabel: Restart Puzzle
-  nextPuzzleButtonLabel: Next Puzzle →
+  nextPuzzleButtonLabel: "Next Puzzle \u2192"
   completionMessageText: PUZZLE COMPLETE!
 --- !u!1 &100005000
 GameObject:
@@ -805,9 +779,59 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameplaySceneName: Main
   platformerSceneName: PlatformerLevel3
+  level5SceneName: Level5
+  phase2SceneName: Level2_Phase2
+  puzzleMenuSceneName: PuzzleMenu
   slidingPuzzle4x4SceneName: SlidingPuzzle4x4
   longestPathPuzzleSceneName: LongestPathPuzzle
+  constraintPuzzleSceneName: ConstraintPuzzle_New
   mainMenuSceneName: MainMenu
+--- !u!1 &1066077448
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1066077450}
+  - component: {fileID: 1066077449}
+  m_Layer: 0
+  m_Name: LevelMusic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1066077449
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066077448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9a63dff600c8f9458bccc0f72371f32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicClip: {fileID: 8300000, guid: ecbd6c282b4029442bcd33e5e610c170, type: 3}
+  volume: 0.69
+--- !u!4 &1066077450
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066077448}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.0490076, y: 0.54679316, z: -0.004441757}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -818,3 +842,4 @@ SceneRoots:
   - {fileID: 100002001}
   - {fileID: 100004001}
   - {fileID: 100005001}
+  - {fileID: 1066077450}

@@ -119,6 +119,52 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &64550826
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 64550828}
+  - component: {fileID: 64550827}
+  m_Layer: 0
+  m_Name: LevelMusic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &64550827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64550826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9a63dff600c8f9458bccc0f72371f32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicClip: {fileID: 8300000, guid: ecbd6c282b4029442bcd33e5e610c170, type: 3}
+  volume: 0.69
+--- !u!4 &64550828
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64550826}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.0490076, y: 0.54679316, z: -0.004441757}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &100000001
 GameObject:
   m_ObjectHideFlags: 0
@@ -713,7 +759,6 @@ MonoBehaviour:
   nodeSize: 34
   showConnectionLengthLabels: 0
   showIntermediateNodeLabels: 1
-  showResetRouteButton: 1
   boardBackgroundColor: {r: 0.1, g: 0.11, b: 0.13, a: 0.9}
   roadColor: {r: 0.83, g: 0.74, b: 0.55, a: 1}
   usedRoadColor: {r: 0.33, g: 0.79, b: 0.93, a: 1}
@@ -1071,7 +1116,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameplaySceneName: Main
   platformerSceneName: PlatformerLevel3
-  phase2SceneName: Level3_Phase2
+  level5SceneName: Level5
+  phase2SceneName: Level2_Phase2
   puzzleMenuSceneName: PuzzleMenu
   slidingPuzzle4x4SceneName: SlidingPuzzle4x4
   longestPathPuzzleSceneName: LongestPathPuzzle
@@ -1160,3 +1206,4 @@ SceneRoots:
   - {fileID: 100001001}
   - {fileID: 100004001}
   - {fileID: 100005001}
+  - {fileID: 64550828}

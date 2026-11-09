@@ -3290,7 +3290,6 @@ MonoBehaviour:
   targetLayerMask:
     serializedVersion: 2
     m_Bits: 64
-  requiredTargetTag: Enemy
   minAttackInterval: 0.1
 --- !u!114 &434579167
 MonoBehaviour:
@@ -4024,7 +4023,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameplaySceneName: Main
   platformerSceneName: PlatformerLevel3
-  phase2SceneName: Level3_Phase2
+  phase2SceneName: Level2_Phase2
   puzzleMenuSceneName: PuzzleMenu
   slidingPuzzle4x4SceneName: SlidingPuzzle4x4
   longestPathPuzzleSceneName: LongestPathPuzzle

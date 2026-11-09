@@ -22,7 +22,6 @@ public sealed class ConstraintPuzzleCheckHandler : MonoBehaviour
     [SerializeField] private TextMeshProUGUI feedbackText;
     
     private Button checkButton;
-    private bool alreadySolved;
 
     private void Awake()
     {
@@ -52,10 +51,9 @@ public sealed class ConstraintPuzzleCheckHandler : MonoBehaviour
             return;
         }
 
-        if (alreadySolved || integration.IsSolved)
+        if (integration.IsSolved)
         {
             Debug.Log("[ConstraintPuzzleCheckHandler] Puzzle already solved, ignoring repeated Check");
-            alreadySolved = true;
             return;
         }
 
@@ -63,7 +61,6 @@ public sealed class ConstraintPuzzleCheckHandler : MonoBehaviour
 
         if (isValid)
         {
-            alreadySolved = true;
             if (feedbackText != null)
             {
                 feedbackText.text = "Correct! Puzzle completed.";

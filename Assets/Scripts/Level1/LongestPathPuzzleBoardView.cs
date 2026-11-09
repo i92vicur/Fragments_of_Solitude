@@ -12,6 +12,7 @@ Design decisions:
 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [DisallowMultipleComponent]
@@ -27,7 +28,6 @@ public sealed class LongestPathPuzzleBoardView : MonoBehaviour
     [SerializeField] private float nodeSize = 42f;
     [SerializeField] private bool showConnectionLengthLabels = true;
     [SerializeField] private bool showIntermediateNodeLabels = true;
-    [SerializeField] private bool showResetRouteButton = true;
 
     [Header("Colors")]
     [SerializeField] private Color boardBackgroundColor = new Color(0.10f, 0.11f, 0.13f, 0.90f);
@@ -38,6 +38,10 @@ public sealed class LongestPathPuzzleBoardView : MonoBehaviour
     [SerializeField] private Color startColor = new Color(0.27f, 0.72f, 0.40f, 1f);
     [SerializeField] private Color endColor = new Color(0.85f, 0.28f, 0.30f, 1f);
     [SerializeField] private Color labelColor = Color.white;
+
+    [Header("Gamepad")]
+    [SerializeField, Range(1f, 1.3f)] private float selectionZoomScale = 1.12f;
+    [SerializeField, Min(0.01f)] private float selectionZoomDurationSeconds = 0.12f;
 
     private RectTransform boardRoot;
     private RectTransform generatedRoot;
@@ -53,10 +57,31 @@ public sealed class LongestPathPuzzleBoardView : MonoBehaviour
     private readonly Dictionary<string, Image> roadImagesByConnectionId = new Dictionary<string, Image>();
     private readonly Dictionary<string, Image> nodeImagesByNodeId = new Dictionary<string, Image>();
 
+    private const float GamepadMinDirectionAlignment = 0.5f;
+
+    private string gamepadCursorNodeId;
+    private string gamepadKnownCurrentNodeId;
+    private bool gamepadCursorActive;
+    private bool gamepadNavigationLatched;
+    private Vector3 lastMousePosition;
+    private RectTransform zoomedNodeRect;
+    private Vector3 zoomedBaseScale = Vector3.one;
+    private float zoomProgress;
+
     private void Awake()
     {
         boardRoot = GetComponent<RectTransform>();
         EnsureManager();
+
+        GamepadMenuNavigation.EnsureGameInput();
+        GameInput.SetContext(GameInputContext.Menu);
+
+        // Evita que el StandaloneInputModule de la escena dispare Submit/navegación en paralelo al mando propio.
+        EventSystem es = FindAnyObjectByType<EventSystem>();
+        if (es != null)
+            es.sendNavigationEvents = false;
+
+        lastMousePosition = Input.mousePosition;
     }
 
     private void OnEnable()
@@ -65,8 +90,19 @@ public sealed class LongestPathPuzzleBoardView : MonoBehaviour
         SubscribeToManager();
     }
 
+    private void Update()
+    {
+        if (puzzleManager == null)
+            return;
+
+        UpdateGamepadInput();
+        UpdateSelectionZoom();
+    }
+
     private void OnDisable()
     {
+        RestoreZoomedNode();
+
         if (puzzleManager == null)
             return;
 
@@ -88,6 +124,7 @@ public sealed class LongestPathPuzzleBoardView : MonoBehaviour
         if (puzzleManager == null)
             return;
 
+        RestoreZoomedNode();
         roadImagesByConnectionId.Clear();
         nodeImagesByNodeId.Clear();
         EnsureGeneratedRoot();
@@ -108,6 +145,9 @@ public sealed class LongestPathPuzzleBoardView : MonoBehaviour
 
         for (int i = 0; i < nodes.Count; i++)
             CreateNodeView(nodes[i], i);
+
+        gamepadKnownCurrentNodeId = puzzleManager.CurrentNodeId;
+        gamepadCursorNodeId = gamepadKnownCurrentNodeId;
 
         RefreshVisualState();
     }
@@ -527,6 +567,155 @@ public sealed class LongestPathPuzzleBoardView : MonoBehaviour
         puzzleManager.PuzzleReset += HandlePuzzleReset;
         puzzleManager.PuzzleStateChanged += HandlePuzzleStateChanged;
         puzzleManager.RouteCompleted += HandleRouteCompleted;
+    }
+
+    private void UpdateGamepadInput()
+    {
+        if (GameInput.Cancel.Pressed)
+        {
+            RestoreZoomedNode();
+            HandleBackToMenuClicked();
+            return;
+        }
+
+        // Cualquier cambio del nodo actual (mando, ratón o reset) recoloca el cursor sobre él.
+        if (puzzleManager.CurrentNodeId != gamepadKnownCurrentNodeId)
+        {
+            gamepadKnownCurrentNodeId = puzzleManager.CurrentNodeId;
+            gamepadCursorNodeId = gamepadKnownCurrentNodeId;
+        }
+
+        // Ratón o clic ocultan el cursor de mando; el stick o A lo reactivan.
+        if (Input.mousePosition != lastMousePosition || Input.GetMouseButtonDown(0))
+            gamepadCursorActive = false;
+        lastMousePosition = Input.mousePosition;
+
+        UpdateGamepadCursorFromStick();
+
+        if (GameInput.Submit.Pressed)
+        {
+            gamepadCursorActive = true;
+            // Misma ruta que el clic: sobre el nodo actual deshace, sobre otro nodo intenta avanzar.
+            HandleNodeSelected(gamepadCursorNodeId);
+        }
+    }
+
+    private void UpdateGamepadCursorFromStick()
+    {
+        if (!GamepadMenuNavigation.NavigateActive)
+        {
+            gamepadNavigationLatched = false;
+            return;
+        }
+
+        if (gamepadNavigationLatched)
+            return;
+
+        gamepadNavigationLatched = true;
+        gamepadCursorActive = true;
+
+        Vector2 nav = GameInput.Navigate;
+        Vector2 direction = Mathf.Abs(nav.x) > Mathf.Abs(nav.y)
+            ? new Vector2(Mathf.Sign(nav.x), 0f)
+            : new Vector2(0f, Mathf.Sign(nav.y));
+
+        string nextNodeId = FindGamepadNeighbourNodeId(direction);
+        if (!string.IsNullOrEmpty(nextNodeId))
+            gamepadCursorNodeId = nextNodeId;
+    }
+
+    // Candidatos: nodo actual (para deshacer) y destinos legales desde él. Nunca nodos desconectados.
+    private List<string> GetGamepadCandidateNodeIds()
+    {
+        List<string> candidateNodeIds = new List<string> { puzzleManager.CurrentNodeId };
+        if (puzzleManager.IsPuzzleFinished)
+            return candidateNodeIds;
+
+        foreach (PuzzleConnection connection in puzzleManager.GetAvailableConnectionsFromCurrentNode())
+        {
+            string nextNodeId = connection.GetOtherNodeId(puzzleManager.CurrentNodeId);
+            if (!candidateNodeIds.Contains(nextNodeId))
+                candidateNodeIds.Add(nextNodeId);
+        }
+
+        return candidateNodeIds;
+    }
+
+    private string FindGamepadNeighbourNodeId(Vector2 direction)
+    {
+        PuzzleNode cursorNode = puzzleManager.GetNode(gamepadCursorNodeId);
+        if (cursorNode == null)
+            return null;
+
+        string bestNodeId = null;
+        float bestScore = float.MaxValue;
+
+        foreach (string candidateNodeId in GetGamepadCandidateNodeIds())
+        {
+            if (candidateNodeId == cursorNode.NodeId)
+                continue;
+
+            PuzzleNode candidate = puzzleManager.GetNode(candidateNodeId);
+            if (candidate == null)
+                continue;
+
+            Vector2 offset = candidate.WorldPosition - cursorNode.WorldPosition;
+            float distance = offset.magnitude;
+            if (distance <= Mathf.Epsilon)
+                continue;
+
+            float alignment = Vector2.Dot(offset / distance, direction);
+            if (alignment < GamepadMinDirectionAlignment)
+                continue;
+
+            // Penaliza los candidatos desviados del eje para evitar saltos erráticos en diagonal.
+            float score = distance * (1f + 2f * (1f - alignment));
+            if (score < bestScore)
+            {
+                bestScore = score;
+                bestNodeId = candidateNodeId;
+            }
+        }
+
+        return bestNodeId;
+    }
+
+    private void UpdateSelectionZoom()
+    {
+        RectTransform target = gamepadCursorActive ? GetNodeRect(gamepadCursorNodeId) : null;
+        if (target != zoomedNodeRect)
+        {
+            RestoreZoomedNode();
+            zoomedNodeRect = target;
+            if (zoomedNodeRect != null)
+            {
+                zoomedBaseScale = zoomedNodeRect.localScale;
+                zoomProgress = 0f;
+            }
+        }
+
+        if (zoomedNodeRect == null)
+            return;
+
+        zoomProgress = Mathf.MoveTowards(zoomProgress, 1f, Time.deltaTime / Mathf.Max(0.0001f, selectionZoomDurationSeconds));
+        zoomedNodeRect.localScale = Vector3.Lerp(zoomedBaseScale, zoomedBaseScale * selectionZoomScale, zoomProgress);
+    }
+
+    private void RestoreZoomedNode()
+    {
+        if (zoomedNodeRect != null)
+            zoomedNodeRect.localScale = zoomedBaseScale;
+
+        zoomedNodeRect = null;
+        zoomProgress = 0f;
+    }
+
+    private RectTransform GetNodeRect(string nodeId)
+    {
+        if (string.IsNullOrEmpty(nodeId) || !nodeImagesByNodeId.TryGetValue(nodeId, out Image nodeImage) || nodeImage == null)
+            return null;
+
+        return nodeImage.rectTransform;
     }
 
     private void HandleConnectionSelected(string connectionId)

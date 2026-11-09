@@ -14,6 +14,7 @@ public sealed class GameButton : IDisposable
     private int releasedFrame = -1;
     private bool held;
     private float heldSinceTime;
+    private long lastStartedTimestamp; // [LAT] temporal
 
     public GameButton(InputAction action)
     {
@@ -34,6 +35,8 @@ public sealed class GameButton : IDisposable
 
     public bool Held => held;
 
+    public long LastStartedTimestamp => lastStartedTimestamp; // [LAT] temporal
+
     // Tiempo escalado desde que el botón empezó a mantenerse. Vale 0 si no está mantenido.
     public float HeldDuration => held ? Time.time - heldSinceTime : 0f;
 
@@ -53,6 +56,7 @@ public sealed class GameButton : IDisposable
     private void OnStarted(InputAction.CallbackContext context)
     {
         pressedFrame = Time.frameCount;
+        lastStartedTimestamp = System.Diagnostics.Stopwatch.GetTimestamp(); // [LAT] temporal
         held = true;
         heldSinceTime = Time.time;
     }

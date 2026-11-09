@@ -2106,7 +2106,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleController: {fileID: 105621500}
-  defeatDelay: 1.25
   fadeDuration: 0.8
   gameOverTitle: GAME OVER
   gameOverText: This was never the end. Something has already begun beneath the silence,
@@ -3891,7 +3890,7 @@ MonoBehaviour:
   gameplaySceneName: Level3
   platformerSceneName: Level4
   level5SceneName: Level5
-  phase2SceneName: Level3_Phase2
+  phase2SceneName: Level2_Phase2
   puzzleMenuSceneName: PuzzleMenu
   slidingPuzzle4x4SceneName: SlidingPuzzle4x4
   longestPathPuzzleSceneName: LongestPathPuzzle

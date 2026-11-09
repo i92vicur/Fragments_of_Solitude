@@ -213,6 +213,44 @@ public class CoreLogicTests
     }
 
     [Test]
+    public void Chest_TwoImpacts_DoesNotDestroy()
+    {
+        ChestImpactCounter impacts = new ChestImpactCounter(3);
+
+        Assert.That(impacts.RegisterHit(), Is.False);
+        Assert.That(impacts.RegisterHit(), Is.False);
+        Assert.That(impacts.IsOpened, Is.False);
+    }
+
+    [Test]
+    public void Chest_ThreeImpacts_Destroys()
+    {
+        ChestImpactCounter impacts = new ChestImpactCounter(3);
+
+        Assert.That(impacts.RegisterHit(), Is.False);
+        Assert.That(impacts.RegisterHit(), Is.False);
+        Assert.That(impacts.IsOpened, Is.False);
+
+        Assert.That(impacts.RegisterHit(), Is.True);
+        Assert.That(impacts.IsOpened, Is.True);
+    }
+
+    [Test]
+    public void Chest_Destruction_OnlyOccursOnce()
+    {
+        ChestImpactCounter impacts = new ChestImpactCounter(3);
+
+        int destructionCount = 0;
+        for (int i = 0; i < 5; i++)
+        {
+            if (impacts.RegisterHit()) destructionCount++;
+        }
+
+        Assert.That(destructionCount, Is.EqualTo(1));
+        Assert.That(impacts.IsOpened, Is.True);
+    }
+
+    [Test]
     public void PauseManager_OneReason_PausesAndUnpausesCorrectly()
     {
         PauseManager pauseManager = PauseManager.Instance;
@@ -610,6 +648,31 @@ public class CoreLogicTests
         Assert.That(damage, Is.EqualTo(20));
         Assert.That(enemy.CurrentHP, Is.EqualTo(0));
         Assert.That(controller.State, Is.EqualTo(Level5BattleController.BattleState.Victory));
+    }
+
+    [Test]
+    public void Level5BattleUI_Defend_AppliesBonusUntilNextHit()
+    {
+        Combatant warrior = CreateCombatant("Warrior", false, 50, 10, 4);
+        Combatant tank = CreateCombatant("Tank", false, 50, 10, 6);
+        Combatant enemy = CreateCombatant("Enemy", true, 20, 8, 5);
+        Level5BattleController controller = CreateBattleController(warrior, tank, enemy);
+
+        Level5BattleUI ui = controller.gameObject.AddComponent<Level5BattleUI>();
+        SetPrivateField(ui, "battleController", controller);
+
+        MethodInfo chooseAction = typeof(Level5BattleUI).GetMethod("ChooseAction", BindingFlags.Instance | BindingFlags.NonPublic);
+        chooseAction.Invoke(ui, new object[] { "Defend" });
+
+        Assert.That(warrior.EffectiveDefense, Is.EqualTo(14));
+        Assert.That(warrior.Defense, Is.EqualTo(4));
+        Assert.That(controller.CurrentCombatant, Is.EqualTo(tank));
+
+        int damage = controller.PerformAttack(enemy, warrior, out _, out _, canMiss: false);
+
+        Assert.That(damage, Is.EqualTo(1));
+        Assert.That(warrior.EffectiveDefense, Is.EqualTo(4));
+        Assert.That(warrior.Defense, Is.EqualTo(4));
     }
 
     [Test]

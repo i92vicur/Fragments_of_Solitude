@@ -111,6 +111,9 @@ public class Level5BattleController : MonoBehaviour
         if (!target.IsAlive)
             return 0;
 
+        // Visual only, before the miss roll so a missed attack still animates.
+        attacker.PlayAttackAnimation();
+
         if (canMiss && RollMiss())
         {
             missed = true;

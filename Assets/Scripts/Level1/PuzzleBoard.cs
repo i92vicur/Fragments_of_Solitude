@@ -14,6 +14,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [DisallowMultipleComponent]
@@ -34,6 +35,12 @@ public class PuzzleBoard : MonoBehaviour
     [Header("Shuffle")]
     [SerializeField, Min(1)] private int shuffleMoveCount = 120;
 
+    [Header("Gamepad")]
+    [SerializeField] private SceneLoader sceneLoader;
+    [SerializeField, Range(1f, 1.3f)] private float selectionZoomScale = 1.06f;
+    [SerializeField, Min(0.01f)] private float selectionZoomDurationSeconds = 0.12f;
+    [SerializeField] private Color emptyCellHighlightColor = new Color(1f, 1f, 1f, 0.15f);
+
     [Header("Completion")]
 
     private int[] tilesByIndex;
@@ -42,6 +49,15 @@ public class PuzzleBoard : MonoBehaviour
     private bool isMoveInProgress;
     private bool isPuzzleCompleted;
     private readonly Dictionary<int, PuzzleTile> tilesByNumber = new Dictionary<int, PuzzleTile>();
+
+    private Vector2Int gamepadCursorCell;
+    private bool gamepadCursorActive;
+    private bool gamepadNavigationLatched;
+    private Vector3 lastMousePosition;
+    private RectTransform zoomedRect;
+    private Vector3 zoomedBaseScale = Vector3.one;
+    private float zoomProgress;
+    private RectTransform emptyCellHighlight;
 
     public event Action PuzzleCompleted;
 
@@ -56,8 +72,33 @@ public class PuzzleBoard : MonoBehaviour
         StartNewPuzzle();
     }
 
+    private void Awake()
+    {
+        if (sceneLoader == null)
+            sceneLoader = FindAnyObjectByType<SceneLoader>();
+
+        GamepadMenuNavigation.EnsureGameInput();
+        GameInput.SetContext(GameInputContext.Menu);
+
+        // Evita que el StandaloneInputModule de la escena dispare Submit/navegación en paralelo al mando propio.
+        EventSystem es = FindAnyObjectByType<EventSystem>();
+        if (es != null)
+            es.sendNavigationEvents = false;
+
+        lastMousePosition = Input.mousePosition;
+    }
+
+    private void OnDisable()
+    {
+        RestoreZoomedRect();
+    }
+
     private void Update()
     {
+        // Se ejecuta antes del retorno por movimiento en curso para que el cursor responda durante las animaciones.
+        UpdateGamepadInput();
+        UpdateSelectionZoom();
+
         if (isMoveInProgress || isPuzzleCompleted)
             return;
 
@@ -227,6 +268,11 @@ public class PuzzleBoard : MonoBehaviour
 
     private void ClearExistingVisualTiles()
     {
+        // Los objetos se destruyen al final del frame: soltamos las referencias del zoom para no escalar objetos destruidos.
+        zoomedRect = null;
+        zoomProgress = 0f;
+        emptyCellHighlight = null;
+
         for (int i = boardVisualRoot.childCount - 1; i >= 0; i--)
             Destroy(boardVisualRoot.GetChild(i).gameObject);
     }
@@ -476,6 +522,162 @@ public class PuzzleBoard : MonoBehaviour
         }
 
         return false;
+    }
+
+    private void UpdateGamepadInput()
+    {
+        if (GameInput.Cancel.Pressed)
+        {
+            ReturnToPuzzleMenu();
+            return;
+        }
+
+        // Ratón o clic devuelven la selección visual al ratón; el mando la reactiva al usar el stick o A.
+        if (Input.mousePosition != lastMousePosition || Input.GetMouseButtonDown(0))
+            gamepadCursorActive = false;
+        lastMousePosition = Input.mousePosition;
+
+        UpdateGamepadCursorFromStick();
+
+        if (GameInput.Submit.Pressed)
+        {
+            gamepadCursorActive = true;
+            TryMoveTileAtGamepadCursor();
+        }
+    }
+
+    private void UpdateGamepadCursorFromStick()
+    {
+        if (!GamepadMenuNavigation.NavigateActive)
+        {
+            gamepadNavigationLatched = false;
+            return;
+        }
+
+        if (gamepadNavigationLatched)
+            return;
+
+        gamepadNavigationLatched = true;
+        gamepadCursorActive = true;
+
+        Vector2 nav = GameInput.Navigate;
+        Vector2Int step = Mathf.Abs(nav.x) > Mathf.Abs(nav.y)
+            ? new Vector2Int(nav.x > 0f ? 1 : -1, 0)
+            : new Vector2Int(0, nav.y > 0f ? -1 : 1);
+
+        Vector2Int next = gamepadCursorCell + step;
+        if (IsInsideBoard(next))
+            gamepadCursorCell = next;
+    }
+
+    private void TryMoveTileAtGamepadCursor()
+    {
+        // Celda vacía (0) o fuera del tablero: no hay pieza que mover.
+        int tileNumber = GetTileNumberAt(gamepadCursorCell);
+        if (tileNumber <= 0)
+            return;
+
+        // TryMoveTile valida adyacencia, movimiento en curso y puzzle completado.
+        TryMoveTile(tileNumber);
+    }
+
+    private void ReturnToPuzzleMenu()
+    {
+        gamepadCursorActive = false;
+        RestoreZoomedRect();
+
+        if (sceneLoader == null)
+        {
+            Debug.LogError("[PuzzleBoard] SceneLoader is missing; cannot return to the puzzle menu.", this);
+            return;
+        }
+
+        sceneLoader.LoadPuzzleMenu();
+    }
+
+    private void UpdateSelectionZoom()
+    {
+        RectTransform target = gamepadCursorActive ? GetCellVisualRect(gamepadCursorCell) : null;
+        if (target != zoomedRect)
+        {
+            RestoreZoomedRect();
+            zoomedRect = target;
+            if (zoomedRect != null)
+            {
+                zoomedBaseScale = zoomedRect.localScale;
+                zoomProgress = 0f;
+            }
+        }
+
+        if (zoomedRect == null)
+            return;
+
+        zoomProgress = Mathf.MoveTowards(zoomProgress, 1f, Time.deltaTime / Mathf.Max(0.0001f, selectionZoomDurationSeconds));
+        zoomedRect.localScale = Vector3.Lerp(zoomedBaseScale, zoomedBaseScale * selectionZoomScale, zoomProgress);
+    }
+
+    private void RestoreZoomedRect()
+    {
+        if (zoomedRect != null)
+        {
+            zoomedRect.localScale = zoomedBaseScale;
+            if (zoomedRect == emptyCellHighlight)
+                zoomedRect.gameObject.SetActive(false);
+        }
+
+        zoomedRect = null;
+        zoomProgress = 0f;
+    }
+
+    private RectTransform GetCellVisualRect(Vector2Int cell)
+    {
+        int tileNumber = GetTileNumberAt(cell);
+        if (tileNumber > 0)
+        {
+            if (!tilesByNumber.TryGetValue(tileNumber, out PuzzleTile tile) || tile == null)
+                return null;
+
+            return tile.GetComponent<RectTransform>();
+        }
+
+        if (tileNumber != 0)
+            return null;
+
+        RectTransform highlight = GetEmptyCellHighlight();
+        if (highlight != null)
+        {
+            highlight.anchoredPosition = GetAnchoredPositionForCell(cell);
+            highlight.gameObject.SetActive(true);
+        }
+
+        return highlight;
+    }
+
+    private RectTransform GetEmptyCellHighlight()
+    {
+        if (emptyCellHighlight != null)
+            return emptyCellHighlight;
+
+        if (boardVisualRoot == null)
+            return null;
+
+        GameObject highlightObject = new GameObject("EmptyCellHighlight", typeof(RectTransform), typeof(Image));
+        highlightObject.transform.SetParent(boardVisualRoot, false);
+        // Primer hijo: se dibuja detrás de las fichas.
+        highlightObject.transform.SetAsFirstSibling();
+
+        emptyCellHighlight = highlightObject.GetComponent<RectTransform>();
+        emptyCellHighlight.anchorMin = new Vector2(0.5f, 0.5f);
+        emptyCellHighlight.anchorMax = new Vector2(0.5f, 0.5f);
+        emptyCellHighlight.pivot = new Vector2(0.5f, 0.5f);
+        emptyCellHighlight.sizeDelta = tileSize;
+
+        Image image = highlightObject.GetComponent<Image>();
+        image.color = emptyCellHighlightColor;
+        image.raycastTarget = false;
+
+        highlightObject.SetActive(false);
+        return emptyCellHighlight;
     }
 
     private int ToIndex(Vector2Int cell)

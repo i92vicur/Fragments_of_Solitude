@@ -110,8 +110,13 @@ public class Phase2MovementController : MonoBehaviour
             lastHorizontalDirection = horizontalDirection;
 
         bool paused = PauseManager.Instance != null && PauseManager.Instance.IsPaused;
+        bool dashPressedNow = (!paused && Level4GamepadInput.DashPressedThisFrame()) || Input.GetKeyDown(dashKey); // [LAT] temporal
+        bool dashWasQueued = dashQueued; // [LAT] temporal
         if (dashEnabled && dashAvailable && (Input.GetKeyDown(dashKey) || (!paused && Level4GamepadInput.DashPressedThisFrame())))
             dashQueued = true;
+        // [LAT] temporal: solo mide pulsaciones que encolan un dash válido; no cuenta pulsaciones inválidas.
+        if (dashPressedNow && dashQueued && !dashWasQueued)
+            LatencyProbe.Begin("dash_phase2_input_to_displacement");
     }
 
     private void FixedUpdate()
@@ -175,6 +180,7 @@ public class Phase2MovementController : MonoBehaviour
             velocity.y = Mathf.Max(velocity.y, lowestAllowedVelocity);
         }
 
+        bool dashApplied = false; // [LAT] temporal
         if (dashQueued)
         {
             dashQueued = false;
@@ -186,9 +192,12 @@ public class Phase2MovementController : MonoBehaviour
             currentHorizontalVelocity = velocity.x;
             dashAvailable = false;
             dashUsedThisFrame = true;
+            dashApplied = true; // [LAT] temporal
         }
 
         rb.linearVelocity = velocity;
+        if (dashApplied) // [LAT] temporal
+            LatencyProbe.End("dash_phase2_input_to_displacement");
 
         // Reset dash flag
         dashUsedThisFrame = false;

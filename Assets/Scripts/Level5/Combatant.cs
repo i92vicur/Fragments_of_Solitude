@@ -33,9 +33,23 @@ public class Combatant : MonoBehaviour
     [SerializeField, Tooltip("Read-only at runtime. Shown so HP can be inspected during play.")]
     private int currentHP;
 
+    [SerializeField, Tooltip("True only when the Animator has a working Attack state. Keeps Attack off for characters without a clip.")]
+    private bool hasAttackAnimation = false;
+
     // Temporary bonus from DEFEND. Never stacks: a new DEFEND replaces it, and it is consumed by the next hit taken.
     private int temporaryDefenseBonus;
 
+    private Animator animator;
+    private bool deathEmitted;
+
+    private static readonly int AttackTriggerHash = Animator.StringToHash("Attack");
+    private static readonly int AttackStateHash = Animator.StringToHash("Attack");
+    private static readonly int DeadTriggerHash = Animator.StringToHash("Dead");
+
+    /// <summary>Raised exactly once when HP drops from positive to zero (reset by <see cref="ResetToFullHP"/>).</summary>
+    public event System.Action<Combatant> OnDied;
+
+    public Animator Animator => animator;
     public string CombatantName => combatantName;
     public bool IsEnemy => isEnemy;
     public int MaxHP => maxHP;
@@ -50,6 +64,17 @@ public class Combatant : MonoBehaviour
     private void Awake()
     {
         ResetToFullHP();
+
+        // Enemies keep their own animation setup, so only players play the Dead trigger.
+        if (!isEnemy)
+            animator = GetComponent<Animator>();
+
+        OnDied += HandleDied;
+    }
+
+    private void OnDestroy()
+    {
+        OnDied -= HandleDied;
     }
 
     private void OnValidate()
@@ -70,12 +95,46 @@ public class Combatant : MonoBehaviour
 
         int applied = Mathf.Min(amount, currentHP);
         currentHP -= applied;
+
+        if (!deathEmitted && !IsAlive)
+        {
+            deathEmitted = true;
+            OnDied?.Invoke(this);
+        }
+
         return applied;
     }
 
     public void ResetToFullHP()
     {
         currentHP = maxHP;
+        deathEmitted = false;
+    }
+
+    /// <summary>
+    /// Plays the visual Attack animation. Visual only: it does not change damage, misses or turn order.
+    /// No-ops for enemies, dead combatants, characters without an Attack clip, or while Attack is already playing.
+    /// </summary>
+    public void PlayAttackAnimation()
+    {
+        if (!hasAttackAnimation || isEnemy || !IsAlive || animator == null)
+            return;
+
+        AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
+        if (state.shortNameHash == AttackStateHash && !animator.IsInTransition(0))
+            return;
+
+        animator.SetTrigger(AttackTriggerHash);
+    }
+
+    private void HandleDied(Combatant _)
+    {
+        if (animator == null)
+            return;
+
+        // Drop any Attack still queued so it cannot play after death.
+        animator.ResetTrigger(AttackTriggerHash);
+        animator.SetTrigger(DeadTriggerHash);
     }
 
     /// <summary>

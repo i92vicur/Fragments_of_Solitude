@@ -180,6 +180,7 @@ public class MainMenuController : MonoBehaviour
         EnsureQuitButton();
         EnsureCompletionLabels();
         RefreshCompletionIndicators();
+        ApplyRoundedStyle();
 
         if (newGameConfirmationPanel != null)
             newGameConfirmationPanel.SetActive(false);
@@ -194,10 +195,38 @@ public class MainMenuController : MonoBehaviour
         EnsureQuitButton();
         EnsureCompletionLabels();
         RefreshCompletionIndicators();
+        ApplyRoundedStyle();
 
         if (newGameConfirmationPanel != null)
             newGameConfirmationPanel.SetActive(false);
 
+    }
+
+    private void ApplyRoundedStyle()
+    {
+        Transform buttonsPanel = transform.Find(ButtonsPanelPath);
+        if (buttonsPanel == null)
+            return;
+
+        Sprite roundedSprite = RoundedSpriteFactory.Get();
+
+        foreach (Button button in buttonsPanel.GetComponentsInChildren<Button>(true))
+        {
+            if (button.targetGraphic is Image buttonImage)
+            {
+                buttonImage.sprite = roundedSprite;
+                buttonImage.type = Image.Type.Sliced;
+            }
+        }
+
+        foreach (Image image in buttonsPanel.GetComponentsInChildren<Image>(true))
+        {
+            if (image.name.StartsWith("Border_"))
+            {
+                image.sprite = roundedSprite;
+                image.type = Image.Type.Sliced;
+            }
+        }
     }
 
     private void EnsureQuitButton()

@@ -193,7 +193,7 @@ MonoBehaviour:
   maximumHorizontalLaunchStrength: 6
   airControlStrength: 14
   maximumAirHorizontalSpeed: 7
-  maximumChargeDuration: 3
+  maximumChargeDuration: 2.5
   dashKey: 304
   dashHorizontalSpeed: 12
   minimumImpactSpeed: 4

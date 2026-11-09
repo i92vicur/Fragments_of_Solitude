@@ -75,33 +75,74 @@ public sealed class ConstraintPuzzleIntegration : MonoBehaviour
     }
 
     /// <summary>
-    /// Called by SlotDropZone after a successful placement or swap.
-    /// Synchronizes the internal manager state.
+    /// Single entry point for placing a letter in a slot, used by mouse drops (and future gamepad input).
+    /// sourceSlot is the slot the letter came from, or 0 if it came from LettersArea.
+    /// If the target slot is occupied, the occupant goes to sourceSlot (swap) or back to LettersArea (displaced = occupant).
+    /// Updates ConstraintPuzzleStateManager and re-synchronizes ConstraintPuzzleManager from it.
     /// </summary>
-    public void OnLetterPlacedInSlot(char letterChar, int slotNumber)
+    public bool TryAssignLetter(char letter, int targetSlot, int sourceSlot, out char displaced)
+    {
+        displaced = ' ';
+        InitializeReferences();
+
+        if (!hasInitialized || manager.IsSolved)
+            return false;
+
+        if (targetSlot < 1 || targetSlot > ConstraintPuzzleManager.PositionCount)
+            return false;
+
+        if (System.Array.IndexOf(ConstraintPuzzleManager.ItemIds, letter.ToString()) < 0)
+            return false;
+
+        if (sourceSlot == targetSlot)
+            return true;
+
+        displaced = stateManager.GetLetterInSlot(targetSlot);
+        if (displaced == letter)
+            displaced = ' ';
+
+        if (sourceSlot > 0)
+            stateManager.ClearSlot(sourceSlot);
+
+        int staleSlot = stateManager.GetSlotContainingLetter(letter);
+        if (staleSlot > 0)
+            stateManager.ClearSlot(staleSlot);
+
+        if (displaced != ' ' && sourceSlot > 0)
+            stateManager.PlaceLetterInSlot(sourceSlot, displaced);
+
+        stateManager.PlaceLetterInSlot(targetSlot, letter);
+        SyncManagerFromState();
+        return true;
+    }
+
+    /// <summary>
+    /// Frees the slot that holds the letter (used when a letter is returned to LettersArea).
+    /// </summary>
+    public void ReleaseLetter(char letter)
     {
         InitializeReferences();
-        
-        if (!hasInitialized || manager == null)
-        {
-            Debug.LogWarning("[ConstraintPuzzleIntegration] Cannot update: manager not initialized");
+
+        if (!hasInitialized || manager.IsSolved)
             return;
-        }
 
-        if (manager.IsSolved)
-        {
-            Debug.Log("[ConstraintPuzzleIntegration] Puzzle already solved, ignoring placement");
+        int slot = stateManager.GetSlotContainingLetter(letter);
+        if (slot <= 0)
             return;
+
+        stateManager.ClearSlot(slot);
+        SyncManagerFromState();
+    }
+
+    private void SyncManagerFromState()
+    {
+        manager.ResetBoard();
+        for (int slot = 1; slot <= ConstraintPuzzleManager.PositionCount; slot++)
+        {
+            char letter = stateManager.GetLetterInSlot(slot);
+            if (letter != ' ')
+                manager.PlaceItemAtPosition(letter.ToString(), slot);
         }
-
-        // Convert char to string itemId (A → "A")
-        string itemId = letterChar.ToString();
-        
-        // Position is the slot number
-        int positionIndex = slotNumber;
-
-        Debug.Log($"[ConstraintPuzzleIntegration] Placing {itemId} at position {positionIndex}");
-        manager.PlaceItemAtPosition(itemId, positionIndex);
     }
 
     /// <summary>
@@ -163,14 +204,25 @@ public sealed class ConstraintPuzzleIntegration : MonoBehaviour
     public void ResetPuzzle()
     {
         InitializeReferences();
-        
-        if (!hasInitialized || manager == null)
+
+        if (!hasInitialized)
         {
             Debug.LogWarning("[ConstraintPuzzleIntegration] Cannot reset: manager not initialized");
             return;
         }
 
+        for (int slot = 1; slot <= ConstraintPuzzleManager.PositionCount; slot++)
+        {
+            stateManager.ClearSlot(slot);
+        }
+
         manager.ResetBoard();
+
+        foreach (DraggableLetter letter in FindObjectsByType<DraggableLetter>(FindObjectsInactive.Exclude, FindObjectsSortMode.None))
+        {
+            letter.ReturnToHome();
+        }
+
         Debug.Log("[ConstraintPuzzleIntegration] Puzzle reset");
     }
 }

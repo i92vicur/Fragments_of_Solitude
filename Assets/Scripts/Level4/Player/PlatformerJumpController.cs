@@ -34,7 +34,7 @@ public class PlatformerJumpController : MonoBehaviour
     private float maximumAirHorizontalSpeed = 7f;
 
     [SerializeField, Tooltip("Maximum time in seconds required to reach full jump charge.")]
-    private float maximumChargeDuration = 3f;
+    private float maximumChargeDuration = 2.5f;
 
     [Header("Dash")]
     [SerializeField, Tooltip("Key used to trigger the one air dash. Defaults to Left Shift.")]
@@ -88,7 +88,7 @@ public class PlatformerJumpController : MonoBehaviour
         playerState = GetComponent<PlatformerPlayerController>();
 
         if (maximumChargeDuration <= 0f)
-            maximumChargeDuration = 3f;
+            maximumChargeDuration = 2.5f;
 
         if (maximumJumpForce < minimumJumpForce)
             maximumJumpForce = minimumJumpForce;
@@ -117,6 +117,8 @@ public class PlatformerJumpController : MonoBehaviour
         if (IsRestarting)
         {
             spaceHeldLastFrame = Input.GetKey(KeyCode.Space);
+            LatencyProbe.Cancel("jump_release_to_impulse"); // [LAT] temporal: liberación pendiente descartada por reinicio
+            LatencyProbe.Cancel("dash_phase1_input_to_displacement"); // [LAT] temporal
             charging = false;
             chargeReleaseQueued = false;
             dashQueued = false;
@@ -151,10 +153,15 @@ public class PlatformerJumpController : MonoBehaviour
         bool padJumpHeld = padJumpPressed && !padJumpBlockedUntilRelease && (charging || !paused);
         bool spaceHeld = Input.GetKey(KeyCode.Space) || padJumpHeld;
 
+        bool dashPressedNow = Input.GetKeyDown(dashKey) || (!paused && Level4GamepadInput.DashPressedThisFrame()); // [LAT] temporal
+        bool dashWasQueued = dashQueued; // [LAT] temporal
         if (Input.GetKeyDown(dashKey) && CanDash)
             dashQueued = true;
         if (!paused && Level4GamepadInput.DashPressedThisFrame() && CanDash)
             dashQueued = true;
+        // [LAT] temporal: solo mide pulsaciones que encolan un dash válido; no cuenta pulsaciones inválidas.
+        if (dashPressedNow && dashQueued && !dashWasQueued)
+            LatencyProbe.Begin("dash_phase1_input_to_displacement");
 
         int currentHorizontalDirection = ReadHorizontalDirection();
 
@@ -162,7 +169,12 @@ public class PlatformerJumpController : MonoBehaviour
             TryBeginCharge(currentHorizontalDirection);
 
         if (!spaceHeld && spaceHeldLastFrame && charging)
+        {
+            // [LAT] temporal: solo con carga válida; no sustituye una liberación ya encolada.
+            if (!chargeReleaseQueued)
+                LatencyProbe.Begin("jump_release_to_impulse");
             chargeReleaseQueued = true;
+        }
 
         if (charging)
         {
@@ -222,7 +234,10 @@ public class PlatformerJumpController : MonoBehaviour
     private void LaunchJump()
     {
         if (!charging)
+        {
+            LatencyProbe.Cancel("jump_release_to_impulse"); // [LAT] temporal
             return;
+        }
 
         int launchDirection = selectedHorizontalDirection;
         float normalizedCharge = NormalizedJumpCharge;
@@ -233,6 +248,7 @@ public class PlatformerJumpController : MonoBehaviour
         velocity.x = selectedHorizontalDirection * horizontalForce;
         velocity.y = jumpForce;
         rb.linearVelocity = velocity;
+        LatencyProbe.End("jump_release_to_impulse"); // [LAT] temporal
 
         if (launchDirection != 0)
             lastLaunchHorizontalDirection = launchDirection;
@@ -250,15 +266,22 @@ public class PlatformerJumpController : MonoBehaviour
     private void PerformDash()
     {
         if (!CanDash)
+        {
+            LatencyProbe.Cancel("dash_phase1_input_to_displacement"); // [LAT] temporal
             return;
+        }
 
         int dashDirection = GetDashDirection();
         if (dashDirection == 0)
+        {
+            LatencyProbe.Cancel("dash_phase1_input_to_displacement"); // [LAT] temporal
             return;
+        }
 
         Vector2 velocity = rb.linearVelocity;
         velocity.x = dashDirection * dashHorizontalSpeed;
         rb.linearVelocity = velocity;
+        LatencyProbe.End("dash_phase1_input_to_displacement"); // [LAT] temporal
 
         SetDashUsedThisJump(true);
         PlatformerAudioHub.Instance?.PlayDash();
